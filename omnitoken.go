@@ -21,16 +21,3 @@ type ModelEngine interface {
 	Decode(tokens []int) string
 	CountTokens(text string) int
 }
-
-// StreamCounter counts tokens across incremental input chunks.
-type StreamCounter interface {
-	Write(chunk []byte) (int, error)
-	Count() int
-	Reset()
-}
-
-// StreamingModelEngine is implemented by engines that can count streamed input.
-type StreamingModelEngine interface {
-	ModelEngine
-	NewStreamCounter() StreamCounter
-}

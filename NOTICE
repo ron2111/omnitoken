@@ -1,0 +1,8 @@
+OmniToken includes OpenAI-compatible tokenizer vocabulary assets under `internal/openai/data`.
+
+The `.tiktoken` files are derived from public tokenizer assets distributed for OpenAI-compatible tokenization:
+
+- `cl100k_base.tiktoken`
+- `o200k_base.tiktoken`
+
+They are embedded so the package can tokenize locally without runtime downloads.

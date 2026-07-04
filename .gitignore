@@ -7,9 +7,6 @@
 # Coverage
 coverage.out
 
-# Internal planning docs
-/PRD.md
-
 # Local editor and OS files
 .DS_Store
 Thumbs.db

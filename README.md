@@ -69,12 +69,12 @@ go test -run "^$" -bench "Benchmark" -benchmem -count=1
 - [Architecture](./docs/architecture.md)
 - [Benchmarks and correctness](./docs/benchmarks.md)
 
-## Limitations
+## Future Scope
 
-- Chat-message accounting is not a replacement for provider billing APIs.
-- Streaming token counting is not currently exposed through the public API.
-- Binary SentencePiece `.model` parsing is not included.
-- Provider-specific Claude, Gemini, and Llama vocabularies are not bundled.
+- Streaming token counting through the public API.
+- Binary SentencePiece `.model` support in the root package.
+- More provider adapters with verified local vocab sources.
+- Release CI for benchmark regression tracking.
 
 ## License
 
