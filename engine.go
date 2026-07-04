@@ -150,19 +150,6 @@ func (e *Engine) mergeBPEParts(piece []byte, parts []bpePart) []bpePart {
 	return parts
 }
 
-func buildEncoding(name string) (*Engine, error) {
-	switch name {
-	case EncodingCL100KBase:
-		return newEngine(name, cl100kBaseData, segmenterFunc(nextCL100K), cl100kSpecialTokens())
-	case EncodingO200KBase:
-		return newEngine(name, o200kBaseData, segmenterFunc(nextO200K), o200kBaseSpecialTokens())
-	case EncodingO200KHarmony:
-		return newEngine(name, o200kBaseData, segmenterFunc(nextO200K), o200kHarmonySpecialTokens())
-	default:
-		return nil, fmt.Errorf("%w: %s", ErrUnsupportedEncoding, name)
-	}
-}
-
 func newEngine(name string, data []byte, segmenter Segmenter, specials map[string]int) (*Engine, error) {
 	ranks, decoder, err := parseTiktoken(data)
 	if err != nil {

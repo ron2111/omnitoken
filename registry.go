@@ -1,6 +1,7 @@
 package omnitoken
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 	"sync"
@@ -55,6 +56,42 @@ var prefixModelEncodings = []struct {
 
 var engineCache sync.Map
 
+// EncodingFactory constructs a tokenizer engine for an encoding name.
+type EncodingFactory func() (ModelEngine, error)
+
+var (
+	encodingFactoriesMu sync.RWMutex
+	encodingFactories   = map[string]EncodingFactory{
+		EncodingCL100KBase: func() (ModelEngine, error) {
+			return newEngine(EncodingCL100KBase, cl100kBaseData, segmenterFunc(nextCL100K), cl100kSpecialTokens())
+		},
+		EncodingO200KBase: func() (ModelEngine, error) {
+			return newEngine(EncodingO200KBase, o200kBaseData, segmenterFunc(nextO200K), o200kBaseSpecialTokens())
+		},
+		EncodingO200KHarmony: func() (ModelEngine, error) {
+			return newEngine(EncodingO200KHarmony, o200kBaseData, segmenterFunc(nextO200K), o200kHarmonySpecialTokens())
+		},
+	}
+)
+
+// RegisterEncoding adds a custom tokenizer engine factory for a non-built-in encoding.
+func RegisterEncoding(encoding string, factory EncodingFactory) error {
+	if encoding == "" {
+		return errors.New("omnitoken: encoding name is required")
+	}
+	if factory == nil {
+		return errors.New("omnitoken: encoding factory is required")
+	}
+
+	encodingFactoriesMu.Lock()
+	defer encodingFactoriesMu.Unlock()
+	if _, exists := encodingFactories[encoding]; exists {
+		return fmt.Errorf("omnitoken: encoding already registered: %s", encoding)
+	}
+	encodingFactories[encoding] = factory
+	return nil
+}
+
 // ForModel resolves a model name to a tokenizer engine.
 func ForModel(model string) (ModelEngine, error) {
 	encoding, ok := encodingForModel(model)
@@ -64,10 +101,10 @@ func ForModel(model string) (ModelEngine, error) {
 	return ForEncoding(encoding)
 }
 
-// ForEncoding resolves an OpenAI encoding name to a tokenizer engine.
+// ForEncoding resolves an encoding name to a tokenizer engine.
 func ForEncoding(encoding string) (ModelEngine, error) {
 	if cached, ok := engineCache.Load(encoding); ok {
-		return cached.(*Engine), nil
+		return cached.(ModelEngine), nil
 	}
 
 	engine, err := buildEncoding(encoding)
@@ -75,7 +112,17 @@ func ForEncoding(encoding string) (ModelEngine, error) {
 		return nil, err
 	}
 	actual, _ := engineCache.LoadOrStore(encoding, engine)
-	return actual.(*Engine), nil
+	return actual.(ModelEngine), nil
+}
+
+func buildEncoding(name string) (ModelEngine, error) {
+	encodingFactoriesMu.RLock()
+	factory := encodingFactories[name]
+	encodingFactoriesMu.RUnlock()
+	if factory == nil {
+		return nil, fmt.Errorf("%w: %s", ErrUnsupportedEncoding, name)
+	}
+	return factory()
 }
 
 func encodingForModel(model string) (string, bool) {
