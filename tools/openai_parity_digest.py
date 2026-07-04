@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Phase 1 corpus digests with OpenAI's Python tiktoken package.
+"""Generate reference corpus digests with OpenAI's Python tiktoken package.
 
 Install the reference package first:
 
@@ -18,10 +18,10 @@ import struct
 import tiktoken
 
 
-PHASE1_CORPUS_SIZE = 50_000
+REFERENCE_CORPUS_SIZE = 50_000
 
 
-def phase1_corpus_text(i: int) -> str:
+def reference_corpus_text(i: int) -> str:
     words = ["hello", "world", "token", "cache", "scanner", "BPE", "OpenAI", "gpt-4o", "JSON", "markdown", "unicode", "throughput"]
     cjk = ["こんにちは世界", "中文测试", "안녕하세요 세계", "ภาษาไทยทดสอบ", "مرحبا بالعالم"]
     emoji = ["😀", "🚀", "👩‍💻", "🔥", "✨", "🧪", "🌍", "✅"]
@@ -56,7 +56,7 @@ def phase1_corpus_text(i: int) -> str:
     if branch == 11:
         return f"URLs/email: https://example.com/{words[i % len(words)]}/{i}?a=b&c=d user{i}@example.com"
     if branch == 12:
-        return long_phase1_prompt(i, words, emoji)
+        return long_reference_prompt(i, words, emoji)
     if branch == 13:
         return f"Mixed scripts {cjk[(i + 1) % len(cjk)]} {emoji[(i + 2) % len(emoji)]} {words[(i + 3) % len(words)]} caf\u00e9 e\u0301 na\u00efve"
     if branch == 14:
@@ -64,7 +64,7 @@ def phase1_corpus_text(i: int) -> str:
     return f"line one {i}\nline two\r\n\tindented {words[i % len(words)]} {emoji[i % len(emoji)]}"
 
 
-def long_phase1_prompt(i: int, words: list[str], emoji: list[str]) -> str:
+def long_reference_prompt(i: int, words: list[str], emoji: list[str]) -> str:
     text = "System: You are a tokenizer benchmark assistant."
     for j in range(20):
         text += f"\nStep {j:02d}: preserve {words[(i + j) % len(words)]}, count {i * j + j}, emit {emoji[(i + j) % len(emoji)]} safely."
@@ -74,8 +74,8 @@ def long_phase1_prompt(i: int, words: list[str], emoji: list[str]) -> str:
 def corpus_digest(encoding_name: str) -> str:
     encoding = tiktoken.get_encoding(encoding_name)
     digest = hashlib.sha256()
-    for i in range(PHASE1_CORPUS_SIZE):
-        text = phase1_corpus_text(i)
+    for i in range(REFERENCE_CORPUS_SIZE):
+        text = reference_corpus_text(i)
         tokens = encoding.encode_ordinary(text)
         digest.update(struct.pack("<I", i))
         digest.update(encoding_name.encode("utf-8"))

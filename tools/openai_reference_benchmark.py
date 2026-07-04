@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Benchmark OpenAI's Rust-backed Python tiktoken package on the Phase 1 texts.
+"""Benchmark OpenAI's Rust-backed Python tiktoken package on reference texts.
 
 Install the reference package first:
 

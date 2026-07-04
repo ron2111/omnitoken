@@ -1,23 +1,12 @@
 # OmniToken
 
-OmniToken is a pure-Go tokenizer engine for fast token counting, encoding, and decoding of OpenAI-compatible tokenizer families.
+Pure-Go token counting, encoding, and decoding for OpenAI-compatible and custom tokenizer families.
 
-The current implementation focuses on OpenAI Phase 1 support: `cl100k_base`, `o200k_base`, and `o200k_harmony`, using embedded `.tiktoken` vocabulary assets, regex-free scanners, and a pure-Go BPE merge loop.
+[![Go Reference](https://pkg.go.dev/badge/github.com/ron2111/omnitoken.svg)](https://pkg.go.dev/github.com/ron2111/omnitoken)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+![Go Version](https://img.shields.io/badge/go-1.24%2B-00ADD8)
 
-## Features
-
-- Pure Go runtime with no CGO, Rust, Python, or native tokenizer dependency.
-- OpenAI model registry through `ForModel`.
-- Direct encoding registry through `ForEncoding`.
-- Support for `cl100k_base`, `o200k_base`, and `o200k_harmony`.
-- Regex-free tokenizer scanners for the hot path.
-- Token encode, decode, and count APIs.
-- Prompt cache block alignment helper.
-- Custom encoding registration for additional tokenizer engines.
-- Dependency-free WordPiece engine for local vocabularies.
-- Dependency-free SentencePiece-style engine for local metaspace vocabularies.
-- Smoke, edge-case, and 50,000-case parity tests against OpenAI tokenizer outputs.
-- Benchmarks with `CountTokens` reaching `0 allocs/op` across the included benchmark matrix.
+OmniToken ships a fast OpenAI BPE tokenizer, a zero-allocation count hot path, prompt cache helpers, and an extensible registry for WordPiece and SentencePiece-style vocabularies.
 
 ## Install
 
@@ -25,76 +14,67 @@ The current implementation focuses on OpenAI Phase 1 support: `cl100k_base`, `o2
 go get github.com/ron2111/omnitoken
 ```
 
-## Usage
+## Quick Start
 
 ```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/ron2111/omnitoken"
-)
-
-func main() {
-	engine, err := omnitoken.ForModel("gpt-4o")
-	if err != nil {
-		panic(err)
-	}
-
-	tokens := engine.EncodeOrdinary("hello world")
-	count := engine.CountTokens("hello world")
-	text := engine.Decode(tokens)
-
-	fmt.Println(tokens)
-	fmt.Println(count)
-	fmt.Println(text)
-}
-```
-
-## Supported Encodings
-
-| Encoding | Status | Notes |
-| --- | --- | --- |
-| `cl100k_base` | Supported | Used by GPT-4, GPT-3.5, and embedding-era models. |
-| `o200k_base` | Supported | Used by GPT-4o, GPT-4.1, GPT-5-style, and newer OpenAI models. |
-| `o200k_harmony` | Supported | Uses O200K mergeable ranks plus Harmony special-token mappings. |
-| WordPiece | Opt-in | Load with `NewWordPiece` and optionally register with `RegisterEncoding`. |
-| SentencePiece-style | Opt-in | Load with `NewSentencePiece` and optionally register models/prefixes. |
-
-## Cache Alignment
-
-```go
-engine, err := omnitoken.ForEncoding(omnitoken.EncodingO200KBase)
+engine, err := omnitoken.ForModel("gpt-4o")
 if err != nil {
 	panic(err)
 }
 
-aligner := omnitoken.NewCacheAligner(engine)
-report := aligner.AlignPrompt(systemPrompt, 1024)
+tokens := engine.EncodeOrdinary("hello world")
+count := engine.CountTokens("hello world")
+text := engine.Decode(tokens)
 ```
 
-## Verification
+## Support
+
+| Family | Status |
+| --- | --- |
+| OpenAI `cl100k_base` | Supported |
+| OpenAI `o200k_base` | Supported |
+| OpenAI `o200k_harmony` | Supported |
+| WordPiece local vocabularies | Supported |
+| SentencePiece-style local vocabularies | Supported |
+
+## Custom Models
+
+```go
+err := omnitoken.RegisterEncoding("my_wordpiece", func() (omnitoken.ModelEngine, error) {
+	return omnitoken.NewWordPiece(vocabBytes, omnitoken.WordPieceOptions{Lowercase: true})
+})
+if err != nil {
+	panic(err)
+}
+
+err = omnitoken.RegisterModelPrefix("my-model-", "my_wordpiece")
+```
+
+## Benchmarks
+
+Recent local sample: Windows amd64, Intel i7-1250U.
+
+| Operation | Encoding | Input | ns/op | B/op | allocs/op |
+| --- | --- | --- | ---: | ---: | ---: |
+| `CountTokens` | `o200k_base` | JSON | 4,350 | 0 | 0 |
+| `EncodeOrdinary` | `o200k_base` | JSON | 6,723 | 448 | 2 |
 
 ```powershell
 go test ./...
-go vet ./...
 go test -run "^$" -bench "Benchmark" -benchmem -count=1
 ```
 
-Recent local benchmark sample on Windows amd64, Intel i7-1250U:
+## More
 
-```text
-BenchmarkCountTokens/o200k_base/json-12          6426 ns/op     0 B/op     0 allocs/op
-BenchmarkEncodeOrdinary/o200k_base/json-12       6723 ns/op   448 B/op     2 allocs/op
-```
+- [Architecture](./docs/architecture.md)
+- [Benchmarks and correctness](./docs/benchmarks.md)
 
-## Current Limitations
+## Limitations
 
-- Streaming token counting is not implemented yet.
-- Claude, Gemini, binary SentencePiece `.model`, and Llama adapters are not implemented yet.
-- CI benchmark regression tracking is not configured yet.
-- Race testing requires a local CGO toolchain on Windows.
+- Chat-message accounting is not a replacement for provider billing APIs.
+- Streaming token counting is not currently exposed through the public API.
+- Binary SentencePiece `.model` parsing is not included.
+- Provider-specific Claude, Gemini, and Llama vocabularies are not bundled.
 
 ## License
 

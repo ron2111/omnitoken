@@ -8,9 +8,9 @@ import (
 	"testing"
 )
 
-const phase1CorpusSize = 50000
+const referenceCorpusSize = 50000
 
-var phase1CorpusDigest = map[string]string{
+var referenceCorpusDigest = map[string]string{
 	EncodingCL100KBase: "bd667b8ad7459eb9cdc28ca4dae8a03cc7d334e99a40f1558948ec9c2fbea181",
 	EncodingO200KBase:  "875400dbed51cb7c9a06f61308a1491f0adc062e25ed2a2397c397b0157d255a",
 }
@@ -23,8 +23,8 @@ func TestOpenAIParityCorpusDigest(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			got := digestPhase1Corpus(t, engine, encoding)
-			want := phase1CorpusDigest[encoding]
+			got := digestReferenceCorpus(t, engine, encoding)
+			want := referenceCorpusDigest[encoding]
 			if want == "" {
 				t.Fatalf("missing %s corpus digest; run tools/openai_parity_digest.py with OpenAI tiktoken", encoding)
 			}
@@ -45,8 +45,8 @@ func TestO200KHarmonyCorpusMatchesO200KBase(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	for i := 0; i < phase1CorpusSize; i++ {
-		text := phase1CorpusText(i)
+	for i := 0; i < referenceCorpusSize; i++ {
+		text := referenceCorpusText(i)
 		baseTokens := base.EncodeOrdinary(text)
 		harmonyTokens := harmony.EncodeOrdinary(text)
 		if fmt.Sprint(harmonyTokens) != fmt.Sprint(baseTokens) {
@@ -55,13 +55,13 @@ func TestO200KHarmonyCorpusMatchesO200KBase(t *testing.T) {
 	}
 }
 
-func digestPhase1Corpus(t *testing.T, engine ModelEngine, encoding string) string {
+func digestReferenceCorpus(t *testing.T, engine ModelEngine, encoding string) string {
 	t.Helper()
 
 	hash := sha256.New()
 	var buf [8]byte
-	for i := 0; i < phase1CorpusSize; i++ {
-		text := phase1CorpusText(i)
+	for i := 0; i < referenceCorpusSize; i++ {
+		text := referenceCorpusText(i)
 		tokens := engine.EncodeOrdinary(text)
 		if count := engine.CountTokens(text); count != len(tokens) {
 			t.Fatalf("%s count mismatch at corpus index %d: CountTokens=%d EncodeOrdinary len=%d text=%q", encoding, i, count, len(tokens), text)
@@ -86,7 +86,7 @@ func digestPhase1Corpus(t *testing.T, engine ModelEngine, encoding string) strin
 	return hex.EncodeToString(hash.Sum(nil))
 }
 
-func phase1CorpusText(i int) string {
+func referenceCorpusText(i int) string {
 	words := [...]string{"hello", "world", "token", "cache", "scanner", "BPE", "OpenAI", "gpt-4o", "JSON", "markdown", "unicode", "throughput"}
 	cjk := [...]string{"こんにちは世界", "中文测试", "안녕하세요 세계", "ภาษาไทยทดสอบ", "مرحبا بالعالم"}
 	emoji := [...]string{"😀", "🚀", "👩‍💻", "🔥", "✨", "🧪", "🌍", "✅"}
@@ -120,7 +120,7 @@ func phase1CorpusText(i int) string {
 	case 11:
 		return fmt.Sprintf("URLs/email: https://example.com/%s/%d?a=b&c=d user%d@example.com", words[i%len(words)], i, i)
 	case 12:
-		return longPhase1Prompt(i, words[:], emoji[:])
+		return longReferencePrompt(i, words[:], emoji[:])
 	case 13:
 		return fmt.Sprintf("Mixed scripts %s %s %s caf\u00e9 e\u0301 na\u00efve", cjk[(i+1)%len(cjk)], emoji[(i+2)%len(emoji)], words[(i+3)%len(words)])
 	case 14:
@@ -130,7 +130,7 @@ func phase1CorpusText(i int) string {
 	}
 }
 
-func longPhase1Prompt(i int, words []string, emoji []string) string {
+func longReferencePrompt(i int, words []string, emoji []string) string {
 	text := "System: You are a tokenizer benchmark assistant."
 	for j := 0; j < 20; j++ {
 		text += fmt.Sprintf("\nStep %02d: preserve %s, count %d, emit %s safely.", j, words[(i+j)%len(words)], i*j+j, emoji[(i+j)%len(emoji)])
