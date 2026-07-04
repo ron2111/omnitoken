@@ -88,6 +88,27 @@ func TestRegisterModelWithSentencePiece(t *testing.T) {
 	}
 }
 
+func TestResolveProviderModel(t *testing.T) {
+	encoding := fmt.Sprintf("test_provider_registry_%d", atomic.AddUint64(&sentencePieceTestCounter, 1))
+	model := encoding + "_model"
+	if err := RegisterEncoding(encoding, func() (ModelEngine, error) {
+		return NewSentencePiece([]byte(testSentencePieceVocab), SentencePieceOptions{Name: encoding, AddDummyPrefix: true})
+	}); err != nil {
+		t.Fatal(err)
+	}
+	if err := RegisterProviderModel(ProviderGoogle, model, encoding); err != nil {
+		t.Fatal(err)
+	}
+
+	info, err := ResolveModel(model)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if info.Provider != ProviderGoogle || info.Encoding != encoding || info.Model != model {
+		t.Fatalf("ResolveModel = %+v", info)
+	}
+}
+
 func TestRegisterModelPrefixWithSentencePiece(t *testing.T) {
 	encoding := fmt.Sprintf("test_sentencepiece_prefix_%d", atomic.AddUint64(&sentencePieceTestCounter, 1))
 	prefix := encoding + "-"
@@ -96,8 +117,16 @@ func TestRegisterModelPrefixWithSentencePiece(t *testing.T) {
 	}); err != nil {
 		t.Fatal(err)
 	}
-	if err := RegisterModelPrefix(prefix, encoding); err != nil {
+	if err := RegisterProviderModelPrefix(ProviderMeta, prefix, encoding); err != nil {
 		t.Fatal(err)
+	}
+
+	info, err := ResolveModel(prefix + "small")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if info.Provider != ProviderMeta || info.Encoding != encoding {
+		t.Fatalf("ResolveModel prefix = %+v", info)
 	}
 
 	engine, err := ForModel(prefix + "small")
@@ -116,6 +145,9 @@ func TestRegisterModelRejectsInvalidInput(t *testing.T) {
 	if err := RegisterModel("missing-encoding-model", "missing_encoding"); err == nil {
 		t.Fatal("RegisterModel accepted missing encoding")
 	}
+	if err := RegisterProviderModel("", "empty-provider-model", EncodingO200KBase); err == nil {
+		t.Fatal("RegisterProviderModel accepted empty provider")
+	}
 	if err := RegisterModel("gpt-4o", EncodingO200KBase); err == nil {
 		t.Fatal("RegisterModel allowed built-in model override")
 	}
@@ -124,5 +156,8 @@ func TestRegisterModelRejectsInvalidInput(t *testing.T) {
 	}
 	if err := RegisterModelPrefix("gpt-4o-", EncodingO200KBase); err == nil {
 		t.Fatal("RegisterModelPrefix allowed built-in prefix override")
+	}
+	if err := RegisterProviderModelPrefix("", "empty-provider-prefix-", EncodingO200KBase); err == nil {
+		t.Fatal("RegisterProviderModelPrefix accepted empty provider")
 	}
 }

@@ -13,47 +13,71 @@ const (
 	EncodingO200KHarmony = "o200k_harmony"
 )
 
+// Provider identifies the ecosystem a model mapping belongs to.
+type Provider string
+
+const (
+	ProviderOpenAI    Provider = "openai"
+	ProviderAnthropic Provider = "anthropic"
+	ProviderGoogle    Provider = "google"
+	ProviderMeta      Provider = "meta"
+	ProviderCustom    Provider = "custom"
+)
+
+// ModelInfo describes how a model name resolves inside the registry.
+type ModelInfo struct {
+	Model    string
+	Provider Provider
+	Encoding string
+}
+
+type modelEncoding struct {
+	provider Provider
+	encoding string
+}
+
 var (
 	modelEncodingsMu    sync.RWMutex
-	exactModelEncodings = map[string]string{
-		"o1":                     EncodingO200KBase,
-		"o3":                     EncodingO200KBase,
-		"o4-mini":                EncodingO200KBase,
-		"gpt-5":                  EncodingO200KBase,
-		"gpt-4.1":                EncodingO200KBase,
-		"gpt-4o":                 EncodingO200KBase,
-		"gpt-4":                  EncodingCL100KBase,
-		"gpt-3.5":                EncodingCL100KBase,
-		"gpt-3.5-turbo":          EncodingCL100KBase,
-		"gpt-35-turbo":           EncodingCL100KBase,
-		"davinci-002":            EncodingCL100KBase,
-		"babbage-002":            EncodingCL100KBase,
-		"text-embedding-ada-002": EncodingCL100KBase,
-		"text-embedding-3-small": EncodingCL100KBase,
-		"text-embedding-3-large": EncodingCL100KBase,
+	exactModelEncodings = map[string]modelEncoding{
+		"o1":                     {ProviderOpenAI, EncodingO200KBase},
+		"o3":                     {ProviderOpenAI, EncodingO200KBase},
+		"o4-mini":                {ProviderOpenAI, EncodingO200KBase},
+		"gpt-5":                  {ProviderOpenAI, EncodingO200KBase},
+		"gpt-4.1":                {ProviderOpenAI, EncodingO200KBase},
+		"gpt-4o":                 {ProviderOpenAI, EncodingO200KBase},
+		"gpt-4":                  {ProviderOpenAI, EncodingCL100KBase},
+		"gpt-3.5":                {ProviderOpenAI, EncodingCL100KBase},
+		"gpt-3.5-turbo":          {ProviderOpenAI, EncodingCL100KBase},
+		"gpt-35-turbo":           {ProviderOpenAI, EncodingCL100KBase},
+		"davinci-002":            {ProviderOpenAI, EncodingCL100KBase},
+		"babbage-002":            {ProviderOpenAI, EncodingCL100KBase},
+		"text-embedding-ada-002": {ProviderOpenAI, EncodingCL100KBase},
+		"text-embedding-3-small": {ProviderOpenAI, EncodingCL100KBase},
+		"text-embedding-3-large": {ProviderOpenAI, EncodingCL100KBase},
 	}
 
 	prefixModelEncodings = []struct {
 		prefix   string
+		provider Provider
 		encoding string
 	}{
-		{"o1-", EncodingO200KBase},
-		{"o3-", EncodingO200KBase},
-		{"o4-mini-", EncodingO200KBase},
-		{"gpt-5-", EncodingO200KBase},
-		{"gpt-4.5-", EncodingO200KBase},
-		{"gpt-4.1-", EncodingO200KBase},
-		{"chatgpt-4o-", EncodingO200KBase},
-		{"gpt-4o-", EncodingO200KBase},
-		{"gpt-4-", EncodingCL100KBase},
-		{"gpt-3.5-turbo-", EncodingCL100KBase},
-		{"gpt-35-turbo-", EncodingCL100KBase},
-		{"gpt-oss-", EncodingO200KHarmony},
-		{"ft:gpt-4o", EncodingO200KBase},
-		{"ft:gpt-4", EncodingCL100KBase},
-		{"ft:gpt-3.5-turbo", EncodingCL100KBase},
-		{"ft:davinci-002", EncodingCL100KBase},
-		{"ft:babbage-002", EncodingCL100KBase},
+		{"o1-", ProviderOpenAI, EncodingO200KBase},
+		{"o3-", ProviderOpenAI, EncodingO200KBase},
+		{"o4-mini-", ProviderOpenAI, EncodingO200KBase},
+		{"gpt-5-", ProviderOpenAI, EncodingO200KBase},
+		{"gpt-4.5-", ProviderOpenAI, EncodingO200KBase},
+		{"gpt-4.1-", ProviderOpenAI, EncodingO200KBase},
+		{"chatgpt-4o-", ProviderOpenAI, EncodingO200KBase},
+		{"gpt-4o-", ProviderOpenAI, EncodingO200KBase},
+		{"gpt-4-", ProviderOpenAI, EncodingCL100KBase},
+		{"gpt-3.5-turbo-", ProviderOpenAI, EncodingCL100KBase},
+		{"gpt-35-turbo-", ProviderOpenAI, EncodingCL100KBase},
+		{"gpt-oss-", ProviderOpenAI, EncodingO200KHarmony},
+		{"ft:gpt-4o", ProviderOpenAI, EncodingO200KBase},
+		{"ft:gpt-4", ProviderOpenAI, EncodingCL100KBase},
+		{"ft:gpt-3.5-turbo", ProviderOpenAI, EncodingCL100KBase},
+		{"ft:davinci-002", ProviderOpenAI, EncodingCL100KBase},
+		{"ft:babbage-002", ProviderOpenAI, EncodingCL100KBase},
 	}
 )
 
@@ -97,8 +121,16 @@ func RegisterEncoding(encoding string, factory EncodingFactory) error {
 
 // RegisterModel maps an exact model name to a registered encoding.
 func RegisterModel(model string, encoding string) error {
+	return RegisterProviderModel(ProviderCustom, model, encoding)
+}
+
+// RegisterProviderModel maps an exact provider model name to a registered encoding.
+func RegisterProviderModel(provider Provider, model string, encoding string) error {
 	if model == "" {
 		return errors.New("omnitoken: model name is required")
+	}
+	if provider == "" {
+		return errors.New("omnitoken: provider is required")
 	}
 	if err := requireRegisteredEncoding(encoding); err != nil {
 		return err
@@ -109,14 +141,22 @@ func RegisterModel(model string, encoding string) error {
 	if _, exists := exactModelEncodings[model]; exists {
 		return fmt.Errorf("omnitoken: model already registered: %s", model)
 	}
-	exactModelEncodings[model] = encoding
+	exactModelEncodings[model] = modelEncoding{provider: provider, encoding: encoding}
 	return nil
 }
 
 // RegisterModelPrefix maps a model-name prefix to a registered encoding.
 func RegisterModelPrefix(prefix string, encoding string) error {
+	return RegisterProviderModelPrefix(ProviderCustom, prefix, encoding)
+}
+
+// RegisterProviderModelPrefix maps a provider model-name prefix to a registered encoding.
+func RegisterProviderModelPrefix(provider Provider, prefix string, encoding string) error {
 	if prefix == "" {
 		return errors.New("omnitoken: model prefix is required")
+	}
+	if provider == "" {
+		return errors.New("omnitoken: provider is required")
 	}
 	if err := requireRegisteredEncoding(encoding); err != nil {
 		return err
@@ -131,18 +171,28 @@ func RegisterModelPrefix(prefix string, encoding string) error {
 	}
 	prefixModelEncodings = append(prefixModelEncodings, struct {
 		prefix   string
+		provider Provider
 		encoding string
-	}{prefix: prefix, encoding: encoding})
+	}{prefix: prefix, provider: provider, encoding: encoding})
 	return nil
 }
 
 // ForModel resolves a model name to a tokenizer engine.
 func ForModel(model string) (ModelEngine, error) {
-	encoding, ok := encodingForModel(model)
-	if !ok {
-		return nil, fmt.Errorf("%w: %s", ErrUnsupportedModel, model)
+	info, err := ResolveModel(model)
+	if err != nil {
+		return nil, err
 	}
-	return ForEncoding(encoding)
+	return ForEncoding(info.Encoding)
+}
+
+// ResolveModel returns provider and encoding metadata for a model name.
+func ResolveModel(model string) (ModelInfo, error) {
+	mapping, ok := encodingForModel(model)
+	if !ok {
+		return ModelInfo{}, fmt.Errorf("%w: %s", ErrUnsupportedModel, model)
+	}
+	return ModelInfo{Model: model, Provider: mapping.provider, Encoding: mapping.encoding}, nil
 }
 
 // ForEncoding resolves an encoding name to a tokenizer engine.
@@ -182,16 +232,16 @@ func requireRegisteredEncoding(encoding string) error {
 	return nil
 }
 
-func encodingForModel(model string) (string, bool) {
+func encodingForModel(model string) (modelEncoding, bool) {
 	modelEncodingsMu.RLock()
 	defer modelEncodingsMu.RUnlock()
-	if encoding, ok := exactModelEncodings[model]; ok {
-		return encoding, true
+	if mapping, ok := exactModelEncodings[model]; ok {
+		return mapping, true
 	}
 	for _, entry := range prefixModelEncodings {
 		if strings.HasPrefix(model, entry.prefix) {
-			return entry.encoding, true
+			return modelEncoding{provider: entry.provider, encoding: entry.encoding}, true
 		}
 	}
-	return "", false
+	return modelEncoding{}, false
 }
