@@ -1,0 +1,346 @@
+package omnitoken
+
+import (
+	"unicode"
+	"unicode/utf8"
+	"unsafe"
+)
+
+func unsafeStringBytes(s string) []byte {
+	if len(s) == 0 {
+		return nil
+	}
+	return unsafe.Slice(unsafe.StringData(s), len(s))
+}
+
+func nextCL100K(src []byte, start int) int {
+	if end, ok := contractionEnd(src, start, false); ok {
+		return end
+	}
+
+	r, size := decodeRune(src, start)
+	if isOptionalWordPrefix(r) {
+		next := start + size
+		if next < len(src) {
+			nr, _ := decodeRune(src, next)
+			if isLetter(nr) {
+				return consumeLetters(src, next)
+			}
+		}
+	}
+	if isLetter(r) {
+		return consumeLetters(src, start)
+	}
+	if isNumber(r) {
+		return consumeNumbers(src, start, 3)
+	}
+
+	if r == ' ' {
+		next := start + size
+		if next < len(src) {
+			nr, _ := decodeRune(src, next)
+			if isPunctuationForToken(nr) {
+				return consumePunctuationAndNewlines(src, next)
+			}
+		}
+	}
+	if isPunctuationForToken(r) {
+		return consumePunctuationAndNewlines(src, start)
+	}
+
+	if isWhitespace(r) {
+		return consumeCL100KWhitespace(src, start)
+	}
+	return start + size
+}
+
+func nextO200K(src []byte, start int) int {
+	if end, ok := contractionEnd(src, start, true); ok {
+		return end
+	}
+
+	r, size := decodeRune(src, start)
+	wordStart := start
+	if isOptionalWordPrefix(r) {
+		next := start + size
+		if next < len(src) {
+			nr, _ := decodeRune(src, next)
+			if isO200KWordChar(nr) {
+				wordStart = next
+			}
+		}
+	}
+	if wordStart != start || isO200KWordChar(r) {
+		if end, ok := consumeO200KWord(src, wordStart); ok {
+			return consumeOptionalContraction(src, end, true)
+		}
+	}
+	if isNumber(r) {
+		return consumeNumbers(src, start, 3)
+	}
+
+	if r == ' ' {
+		next := start + size
+		if next < len(src) {
+			nr, _ := decodeRune(src, next)
+			if isPunctuationForToken(nr) {
+				return consumeO200KPunctuationTail(src, consumePunctuationRun(src, next))
+			}
+		}
+	}
+	if isPunctuationForToken(r) {
+		return consumeO200KPunctuationTail(src, consumePunctuationRun(src, start))
+	}
+
+	if isWhitespace(r) {
+		return consumeO200KWhitespace(src, start)
+	}
+	return start + size
+}
+
+func contractionEnd(src []byte, start int, includeD bool) (int, bool) {
+	if start >= len(src) || src[start] != '\'' {
+		return 0, false
+	}
+	for _, suffix := range contractionSuffixes(includeD) {
+		if hasFoldedASCIIPrefix(src[start+1:], suffix) {
+			return start + 1 + len(suffix), true
+		}
+	}
+	return 0, false
+}
+
+func consumeOptionalContraction(src []byte, start int, includeD bool) int {
+	if end, ok := contractionEnd(src, start, includeD); ok {
+		return end
+	}
+	return start
+}
+
+func contractionSuffixes(includeD bool) []string {
+	if includeD {
+		return []string{"ll", "ve", "re", "s", "t", "m", "d"}
+	}
+	return []string{"ll", "ve", "re", "s", "d", "m", "t"}
+}
+
+func hasFoldedASCIIPrefix(src []byte, suffix string) bool {
+	if len(src) < len(suffix) {
+		return false
+	}
+	for i := 0; i < len(suffix); i++ {
+		b := src[i]
+		if 'A' <= b && b <= 'Z' {
+			b += 'a' - 'A'
+		}
+		if b != suffix[i] {
+			return false
+		}
+	}
+	return true
+}
+
+func consumeLetters(src []byte, start int) int {
+	for i := start; i < len(src); {
+		r, size := decodeRune(src, i)
+		if !isLetter(r) {
+			return i
+		}
+		i += size
+	}
+	return len(src)
+}
+
+func consumeNumbers(src []byte, start int, maxRunes int) int {
+	count := 0
+	for i := start; i < len(src) && count < maxRunes; {
+		r, size := decodeRune(src, i)
+		if !isNumber(r) {
+			return i
+		}
+		i += size
+		count++
+	}
+	if count == 0 {
+		_, size := decodeRune(src, start)
+		return start + size
+	}
+	i := start
+	for ; i < len(src) && count > 0; count-- {
+		_, size := decodeRune(src, i)
+		i += size
+	}
+	return i
+}
+
+func consumePunctuationRun(src []byte, start int) int {
+	for i := start; i < len(src); {
+		r, size := decodeRune(src, i)
+		if !isPunctuationForToken(r) {
+			return i
+		}
+		i += size
+	}
+	return len(src)
+}
+
+func consumePunctuationAndNewlines(src []byte, start int) int {
+	i := consumePunctuationRun(src, start)
+	for i < len(src) {
+		r, size := decodeRune(src, i)
+		if r != '\r' && r != '\n' {
+			break
+		}
+		i += size
+	}
+	return i
+}
+
+func consumeO200KPunctuationTail(src []byte, start int) int {
+	for i := start; i < len(src); {
+		r, size := decodeRune(src, i)
+		if r != '\r' && r != '\n' && r != '/' {
+			return i
+		}
+		i += size
+	}
+	return len(src)
+}
+
+func consumeCL100KWhitespace(src []byte, start int) int {
+	runEnd, lastStart, hasNewline, lastNewlineEnd := whitespaceRunInfo(src, start)
+	if runEnd == len(src) {
+		return runEnd
+	}
+	if hasNewline {
+		return lastNewlineEnd
+	}
+	if lastStart > start {
+		return lastStart
+	}
+	_, size := decodeRune(src, start)
+	return start + size
+}
+
+func consumeO200KWhitespace(src []byte, start int) int {
+	runEnd, lastStart, hasNewline, lastNewlineEnd := whitespaceRunInfo(src, start)
+	if hasNewline {
+		return lastNewlineEnd
+	}
+	if runEnd == len(src) {
+		return runEnd
+	}
+	if lastStart > start {
+		return lastStart
+	}
+	return runEnd
+}
+
+func whitespaceRunInfo(src []byte, start int) (runEnd int, lastStart int, hasNewline bool, lastNewlineEnd int) {
+	lastStart = start
+	for i := start; i < len(src); {
+		r, size := decodeRune(src, i)
+		if !isWhitespace(r) {
+			return i, lastStart, hasNewline, lastNewlineEnd
+		}
+		lastStart = i
+		i += size
+		if r == '\r' || r == '\n' {
+			hasNewline = true
+			lastNewlineEnd = i
+		}
+	}
+	return len(src), lastStart, hasNewline, lastNewlineEnd
+}
+
+func consumeO200KWord(src []byte, start int) (int, bool) {
+	if start >= len(src) {
+		return start, false
+	}
+
+	i := start
+	for i < len(src) {
+		r, size := decodeRune(src, i)
+		if !isO200KUpperGroup(r) {
+			break
+		}
+		if isO200KLowerGroup(r) {
+			break
+		}
+		i += size
+	}
+
+	lowerStart := i
+	for i < len(src) {
+		r, size := decodeRune(src, i)
+		if !isO200KLowerGroup(r) {
+			break
+		}
+		i += size
+	}
+	if i > lowerStart {
+		return i, true
+	}
+
+	i = start
+	for i < len(src) {
+		r, size := decodeRune(src, i)
+		if !isO200KUpperGroup(r) {
+			break
+		}
+		i += size
+	}
+	if i == start {
+		return start, false
+	}
+	for i < len(src) {
+		r, size := decodeRune(src, i)
+		if !isO200KLowerGroup(r) {
+			break
+		}
+		i += size
+	}
+	return i, true
+}
+
+func nextRuneIndex(src []byte, start int) int {
+	_, size := decodeRune(src, start)
+	return start + size
+}
+
+func decodeRune(src []byte, start int) (rune, int) {
+	if start >= len(src) {
+		return utf8.RuneError, 0
+	}
+	r, size := utf8.DecodeRune(src[start:])
+	if r == utf8.RuneError && size == 0 {
+		return rune(src[start]), 1
+	}
+	return r, size
+}
+
+func isOptionalWordPrefix(r rune) bool {
+	return r != '\r' && r != '\n' && !isLetter(r) && !isNumber(r)
+}
+
+func isPunctuationForToken(r rune) bool {
+	return !isWhitespace(r) && !isLetter(r) && !isNumber(r)
+}
+
+func isLetter(r rune) bool { return unicode.IsLetter(r) }
+
+func isNumber(r rune) bool { return unicode.IsNumber(r) }
+
+func isWhitespace(r rune) bool { return unicode.IsSpace(r) }
+
+func isO200KWordChar(r rune) bool {
+	return unicode.IsLetter(r) || unicode.IsMark(r)
+}
+
+func isO200KUpperGroup(r rune) bool {
+	return unicode.Is(unicode.Lu, r) || unicode.Is(unicode.Lt, r) || unicode.Is(unicode.Lm, r) || unicode.Is(unicode.Lo, r) || unicode.IsMark(r)
+}
+
+func isO200KLowerGroup(r rune) bool {
+	return unicode.Is(unicode.Ll, r) || unicode.Is(unicode.Lm, r) || unicode.Is(unicode.Lo, r) || unicode.IsMark(r)
+}

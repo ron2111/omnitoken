@@ -1,0 +1,8 @@
+.gitattributes text eol=lf
+*.go text eol=lf
+*.md text eol=lf
+*.mod text eol=lf
+*.sum text eol=lf
+*.py text eol=lf
+*.tiktoken text eol=lf
+LICENSE text eol=lf

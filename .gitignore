@@ -1,0 +1,17 @@
+# Go build artifacts
+/bin/
+/dist/
+*.test
+*.out
+
+# Coverage
+coverage.out
+
+# Internal planning docs
+/PRD.md
+
+# Local editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
