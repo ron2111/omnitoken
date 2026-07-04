@@ -13,8 +13,8 @@ The current implementation focuses on OpenAI Phase 1 support: `cl100k_base`, `o2
 - Regex-free tokenizer scanners for the hot path.
 - Token encode, decode, and count APIs.
 - Prompt cache block alignment helper.
-- Smoke parity tests against known OpenAI tokenizer outputs.
-- Benchmarks with `CountTokens` targeting `0 allocs/op` on count hot paths.
+- Smoke, edge-case, and 50,000-case parity tests against OpenAI tokenizer outputs.
+- Benchmarks with `CountTokens` reaching `0 allocs/op` across the included benchmark matrix.
 
 ## Install
 
@@ -77,9 +77,15 @@ go vet ./...
 go test -run "^$" -bench "Benchmark" -benchmem -count=1
 ```
 
+Recent local benchmark sample on Windows amd64, Intel i7-1250U:
+
+```text
+BenchmarkCountTokens/o200k_base/json-12          6426 ns/op     0 B/op     0 allocs/op
+BenchmarkEncodeOrdinary/o200k_base/json-12       6723 ns/op   448 B/op     2 allocs/op
+```
+
 ## Current Limitations
 
-- Full 50,000-string differential parity corpus validation is not included yet.
 - Streaming token counting is not implemented yet.
 - Claude, Gemini, SentencePiece, WordPiece, and Llama adapters are not implemented yet.
 - CI benchmark regression tracking is not configured yet.
