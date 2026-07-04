@@ -15,6 +15,7 @@ The current implementation focuses on OpenAI Phase 1 support: `cl100k_base`, `o2
 - Prompt cache block alignment helper.
 - Custom encoding registration for additional tokenizer engines.
 - Dependency-free WordPiece engine for local vocabularies.
+- Dependency-free SentencePiece-style engine for local metaspace vocabularies.
 - Smoke, edge-case, and 50,000-case parity tests against OpenAI tokenizer outputs.
 - Benchmarks with `CountTokens` reaching `0 allocs/op` across the included benchmark matrix.
 
@@ -59,6 +60,7 @@ func main() {
 | `o200k_base` | Supported | Used by GPT-4o, GPT-4.1, GPT-5-style, and newer OpenAI models. |
 | `o200k_harmony` | Supported | Uses O200K mergeable ranks plus Harmony special-token mappings. |
 | WordPiece | Opt-in | Load with `NewWordPiece` and optionally register with `RegisterEncoding`. |
+| SentencePiece-style | Opt-in | Load with `NewSentencePiece` and optionally register models/prefixes. |
 
 ## Cache Alignment
 
@@ -90,7 +92,7 @@ BenchmarkEncodeOrdinary/o200k_base/json-12       6723 ns/op   448 B/op     2 all
 ## Current Limitations
 
 - Streaming token counting is not implemented yet.
-- Claude, Gemini, SentencePiece, and Llama adapters are not implemented yet.
+- Claude, Gemini, binary SentencePiece `.model`, and Llama adapters are not implemented yet.
 - CI benchmark regression tracking is not configured yet.
 - Race testing requires a local CGO toolchain on Windows.
 

@@ -13,46 +13,49 @@ const (
 	EncodingO200KHarmony = "o200k_harmony"
 )
 
-var exactModelEncodings = map[string]string{
-	"o1":                     EncodingO200KBase,
-	"o3":                     EncodingO200KBase,
-	"o4-mini":                EncodingO200KBase,
-	"gpt-5":                  EncodingO200KBase,
-	"gpt-4.1":                EncodingO200KBase,
-	"gpt-4o":                 EncodingO200KBase,
-	"gpt-4":                  EncodingCL100KBase,
-	"gpt-3.5":                EncodingCL100KBase,
-	"gpt-3.5-turbo":          EncodingCL100KBase,
-	"gpt-35-turbo":           EncodingCL100KBase,
-	"davinci-002":            EncodingCL100KBase,
-	"babbage-002":            EncodingCL100KBase,
-	"text-embedding-ada-002": EncodingCL100KBase,
-	"text-embedding-3-small": EncodingCL100KBase,
-	"text-embedding-3-large": EncodingCL100KBase,
-}
+var (
+	modelEncodingsMu    sync.RWMutex
+	exactModelEncodings = map[string]string{
+		"o1":                     EncodingO200KBase,
+		"o3":                     EncodingO200KBase,
+		"o4-mini":                EncodingO200KBase,
+		"gpt-5":                  EncodingO200KBase,
+		"gpt-4.1":                EncodingO200KBase,
+		"gpt-4o":                 EncodingO200KBase,
+		"gpt-4":                  EncodingCL100KBase,
+		"gpt-3.5":                EncodingCL100KBase,
+		"gpt-3.5-turbo":          EncodingCL100KBase,
+		"gpt-35-turbo":           EncodingCL100KBase,
+		"davinci-002":            EncodingCL100KBase,
+		"babbage-002":            EncodingCL100KBase,
+		"text-embedding-ada-002": EncodingCL100KBase,
+		"text-embedding-3-small": EncodingCL100KBase,
+		"text-embedding-3-large": EncodingCL100KBase,
+	}
 
-var prefixModelEncodings = []struct {
-	prefix   string
-	encoding string
-}{
-	{"o1-", EncodingO200KBase},
-	{"o3-", EncodingO200KBase},
-	{"o4-mini-", EncodingO200KBase},
-	{"gpt-5-", EncodingO200KBase},
-	{"gpt-4.5-", EncodingO200KBase},
-	{"gpt-4.1-", EncodingO200KBase},
-	{"chatgpt-4o-", EncodingO200KBase},
-	{"gpt-4o-", EncodingO200KBase},
-	{"gpt-4-", EncodingCL100KBase},
-	{"gpt-3.5-turbo-", EncodingCL100KBase},
-	{"gpt-35-turbo-", EncodingCL100KBase},
-	{"gpt-oss-", EncodingO200KHarmony},
-	{"ft:gpt-4o", EncodingO200KBase},
-	{"ft:gpt-4", EncodingCL100KBase},
-	{"ft:gpt-3.5-turbo", EncodingCL100KBase},
-	{"ft:davinci-002", EncodingCL100KBase},
-	{"ft:babbage-002", EncodingCL100KBase},
-}
+	prefixModelEncodings = []struct {
+		prefix   string
+		encoding string
+	}{
+		{"o1-", EncodingO200KBase},
+		{"o3-", EncodingO200KBase},
+		{"o4-mini-", EncodingO200KBase},
+		{"gpt-5-", EncodingO200KBase},
+		{"gpt-4.5-", EncodingO200KBase},
+		{"gpt-4.1-", EncodingO200KBase},
+		{"chatgpt-4o-", EncodingO200KBase},
+		{"gpt-4o-", EncodingO200KBase},
+		{"gpt-4-", EncodingCL100KBase},
+		{"gpt-3.5-turbo-", EncodingCL100KBase},
+		{"gpt-35-turbo-", EncodingCL100KBase},
+		{"gpt-oss-", EncodingO200KHarmony},
+		{"ft:gpt-4o", EncodingO200KBase},
+		{"ft:gpt-4", EncodingCL100KBase},
+		{"ft:gpt-3.5-turbo", EncodingCL100KBase},
+		{"ft:davinci-002", EncodingCL100KBase},
+		{"ft:babbage-002", EncodingCL100KBase},
+	}
+)
 
 var engineCache sync.Map
 
@@ -92,6 +95,47 @@ func RegisterEncoding(encoding string, factory EncodingFactory) error {
 	return nil
 }
 
+// RegisterModel maps an exact model name to a registered encoding.
+func RegisterModel(model string, encoding string) error {
+	if model == "" {
+		return errors.New("omnitoken: model name is required")
+	}
+	if err := requireRegisteredEncoding(encoding); err != nil {
+		return err
+	}
+
+	modelEncodingsMu.Lock()
+	defer modelEncodingsMu.Unlock()
+	if _, exists := exactModelEncodings[model]; exists {
+		return fmt.Errorf("omnitoken: model already registered: %s", model)
+	}
+	exactModelEncodings[model] = encoding
+	return nil
+}
+
+// RegisterModelPrefix maps a model-name prefix to a registered encoding.
+func RegisterModelPrefix(prefix string, encoding string) error {
+	if prefix == "" {
+		return errors.New("omnitoken: model prefix is required")
+	}
+	if err := requireRegisteredEncoding(encoding); err != nil {
+		return err
+	}
+
+	modelEncodingsMu.Lock()
+	defer modelEncodingsMu.Unlock()
+	for _, entry := range prefixModelEncodings {
+		if entry.prefix == prefix {
+			return fmt.Errorf("omnitoken: model prefix already registered: %s", prefix)
+		}
+	}
+	prefixModelEncodings = append(prefixModelEncodings, struct {
+		prefix   string
+		encoding string
+	}{prefix: prefix, encoding: encoding})
+	return nil
+}
+
 // ForModel resolves a model name to a tokenizer engine.
 func ForModel(model string) (ModelEngine, error) {
 	encoding, ok := encodingForModel(model)
@@ -125,7 +169,22 @@ func buildEncoding(name string) (ModelEngine, error) {
 	return factory()
 }
 
+func requireRegisteredEncoding(encoding string) error {
+	if encoding == "" {
+		return errors.New("omnitoken: encoding name is required")
+	}
+	encodingFactoriesMu.RLock()
+	_, ok := encodingFactories[encoding]
+	encodingFactoriesMu.RUnlock()
+	if !ok {
+		return fmt.Errorf("%w: %s", ErrUnsupportedEncoding, encoding)
+	}
+	return nil
+}
+
 func encodingForModel(model string) (string, bool) {
+	modelEncodingsMu.RLock()
+	defer modelEncodingsMu.RUnlock()
 	if encoding, ok := exactModelEncodings[model]; ok {
 		return encoding, true
 	}
