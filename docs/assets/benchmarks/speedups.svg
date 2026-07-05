@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360">
+<rect width="100%" height="100%" fill="#0b1020"/>
+<text x="30" y="38" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" fill="white" font-weight="800">OmniToken benchmark speedups</text>
+<text x="30" y="62" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" fill="#a7b0c0">Geomean across matching OpenAI BPE corpus cases. Higher is better.</text>
+<text x="30" y="105" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" fill="#e5e7eb">vs tiktoken-go / Count</text>
+<rect x="210" y="86" width="620.0" height="26" fill="#22c55e" rx="6"/>
+<text x="840.0" y="105" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">8.24x</text>
+<text x="892" y="105" text-anchor="end" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#94a3b8">n=16</text>
+<text x="30" y="151" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" fill="#e5e7eb">vs tiktoken-go / Encode</text>
+<rect x="210" y="132" width="548.1" height="26" fill="#22c55e" rx="6"/>
+<text x="768.1" y="151" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">7.28x</text>
+<text x="892" y="151" text-anchor="end" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#94a3b8">n=16</text>
+<text x="30" y="197" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" fill="#e5e7eb">vs tiktoken-go / Decode</text>
+<rect x="210" y="178" width="79.2" height="26" fill="#22c55e" rx="6"/>
+<text x="299.2" y="197" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">1.05x</text>
+<text x="892" y="197" text-anchor="end" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#94a3b8">n=16</text>
+<text x="30" y="243" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" fill="#e5e7eb">vs OpenAI Rust / Count</text>
+<rect x="210" y="224" width="148.7" height="26" fill="#38bdf8" rx="6"/>
+<text x="368.7" y="243" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">1.98x</text>
+<text x="892" y="243" text-anchor="end" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#94a3b8">n=16</text>
+<text x="30" y="289" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" fill="#e5e7eb">vs OpenAI Rust / Encode</text>
+<rect x="210" y="270" width="130.4" height="26" fill="#38bdf8" rx="6"/>
+<text x="350.4" y="289" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">1.73x</text>
+<text x="892" y="289" text-anchor="end" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#94a3b8">n=16</text>
+<text x="30" y="335" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#64748b">Run benchmarks locally with benchmarks/scripts/run.ps1 for machine-specific results.</text>
+</svg>

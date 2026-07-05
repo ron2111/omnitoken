@@ -80,6 +80,8 @@ err = omnitoken.RegisterModelPrefix("my-model-", "my_wordpiece")
 
 Measured on Windows 11 amd64, Intel i7-1250U, Go 1.24.2. Full checkpointed benchmark reports can be regenerated with [`benchmarks/`](./benchmarks/README.md).
 
+![OmniToken benchmark speedups](./docs/assets/benchmarks/speedups.svg)
+
 | Operation | Encoding | Input | ns/op | B/op | allocs/op |
 | --- | --- | --- | ---: | ---: | ---: |
 | `CountTokens` | `cl100k_base` | JSON | ~1,600 | 0 | 0 |
