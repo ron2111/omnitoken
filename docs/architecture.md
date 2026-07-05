@@ -1,6 +1,6 @@
 # Architecture
 
-OmniToken separates model lookup, text segmentation, and vocabulary lookup so different tokenizer families can share one public API.
+OmniToken separates model lookup, text segmentation, and vocabulary lookup so different tokenizer families can share one public API. The root module stays dependency-light, while heavier provider integrations live in optional adapter modules.
 
 ```mermaid
 flowchart TD
@@ -9,6 +9,8 @@ flowchart TD
     C --> D[OpenAI BPE]
     C --> E[WordPiece]
     C --> F[SentencePiece-Style]
+    B --> I[Optional Adapter Modules]
+    I --> J[Gemini / Llama 3 / Mistral / Hugging Face / Anthropic]
     C --> G[Encode / Decode / CountTokens]
     G --> H[CacheAligner]
 ```
@@ -28,5 +30,7 @@ flowchart TD
 | OpenAI BPE | Embedded `.tiktoken` assets | Regex-free scanner and pure-Go BPE merge loop. |
 | WordPiece | Newline vocabulary | Greedy longest-match tokenization with configurable continuation prefix. |
 | SentencePiece-style | Newline metaspace vocabulary | Greedy longest-match tokenization with configurable metaspace marker. |
+
+Optional adapters cover provider-specific or heavier formats without adding dependencies to the root module.
 
 The main module does not pull in external runtime dependencies.
