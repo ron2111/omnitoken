@@ -25,6 +25,7 @@ Run Rust comparison too:
 ## Output
 
 ```text
+benchmarks/results/metadata.json
 benchmarks/results/go.raw.txt
 benchmarks/results/go.jsonl
 benchmarks/results/rust.csv
@@ -32,6 +33,8 @@ benchmarks/results/combined.csv
 benchmarks/reports/summary.md
 benchmarks/reports/*.svg
 ```
+
+`summary.md` includes machine metadata such as OS, Go version, CPU, memory, Docker version, git commit, and a one-sample CPU-load snapshot. Treat local reports as machine-specific unless rerun with higher `-Count` and `-Benchtime` values on an isolated machine.
 
 ## Caveats
 

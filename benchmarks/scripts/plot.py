@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import os
 from collections import defaultdict
 
@@ -45,11 +46,34 @@ def svg_bar(rows: list[dict[str, str]], operation: str, metric: str, out_path: s
         f.write("\n".join(parts))
 
 
-def summary(rows: list[dict[str, str]], out_path: str) -> None:
+def summary(rows: list[dict[str, str]], out_path: str, metadata_path: str | None = None) -> None:
     by_op: dict[str, list[dict[str, str]]] = defaultdict(list)
     for row in rows:
         by_op[row["operation"]].append(row)
     lines = ["# Benchmark Summary", "", "Generated from `benchmarks/results/combined.csv`.", ""]
+    if metadata_path and os.path.exists(metadata_path):
+        with open(metadata_path, "r", encoding="utf-8-sig") as f:
+            meta = json.load(f)
+        lines.extend([
+            "## Run Metadata",
+            "",
+            "| Field | Value |",
+            "| --- | --- |",
+            f"| Timestamp UTC | `{meta.get('timestamp_utc', '')}` |",
+            f"| Git commit | `{meta.get('git_commit', '')}` |",
+            f"| Go | `{meta.get('go_version', '')}` |",
+            f"| OS | `{meta.get('os', {}).get('caption', '')} {meta.get('os', {}).get('version', '')}` |",
+            f"| CPU | `{meta.get('cpu', {}).get('name', '')}` |",
+            f"| CPU cores / logical | `{meta.get('cpu', {}).get('cores', '')} / {meta.get('cpu', {}).get('logical_processors', '')}` |",
+            f"| CPU load sample | `{meta.get('cpu', {}).get('load_percent_sample', '')}` |",
+            f"| Total memory bytes | `{meta.get('memory', {}).get('total_physical_bytes', '')}` |",
+            f"| Free memory KB | `{meta.get('memory', {}).get('free_physical_kb', '')}` |",
+            f"| Docker | `{meta.get('docker_version', '')}` |",
+            f"| Benchmark settings | `count={meta.get('benchmark', {}).get('count', '')}, benchtime={meta.get('benchmark', {}).get('benchtime', '')}, rust={meta.get('benchmark', {}).get('rust', '')}` |",
+            "",
+            f"> {meta.get('benchmark', {}).get('note', '')}",
+            "",
+        ])
     for op, op_rows in sorted(by_op.items()):
         lines.extend([f"## {op}", "", "| Runner | Encoding | Case | ns/op | MB/s | B/op | allocs/op |", "| --- | --- | --- | ---: | ---: | ---: | ---: |"])
         for r in sorted(op_rows, key=lambda x: (x["encoding"], x["case"], x["runner"])):
@@ -62,11 +86,12 @@ def summary(rows: list[dict[str, str]], out_path: str) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", required=True)
+    parser.add_argument("--metadata", default="")
     parser.add_argument("--out-dir", required=True)
     args = parser.parse_args()
     os.makedirs(args.out_dir, exist_ok=True)
     rows = read_rows(args.input)
-    summary(rows, os.path.join(args.out_dir, "summary.md"))
+    summary(rows, os.path.join(args.out_dir, "summary.md"), args.metadata or None)
     for op in sorted({r["operation"] for r in rows}):
         svg_bar(rows, op, "ns_per_op", os.path.join(args.out_dir, f"{op}_ns_per_op.svg"))
         svg_bar(rows, op, "mb_per_s", os.path.join(args.out_dir, f"{op}_mb_per_s.svg"))
