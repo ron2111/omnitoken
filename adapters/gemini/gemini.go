@@ -76,10 +76,10 @@ func Register() error { return RegisterWithOptions(DefaultOptions()) }
 func RegisterWithOptions(opts Options) error {
 	registration.Lock()
 	defer registration.Unlock()
-	registration.options = opts
 	if registration.registered {
 		return nil
 	}
+	registration.options = cloneOptions(opts)
 
 	if err := omnitoken.RegisterEncoding(EncodingGemma2, func() (omnitoken.ModelEngine, error) {
 		return newEngine(EncodingGemma2, currentOptions(), modelSource(EncodingGemma2))
@@ -104,6 +104,19 @@ func RegisterWithOptions(opts Options) error {
 	}
 	registration.registered = true
 	return nil
+}
+
+func cloneOptions(opts Options) Options {
+	opts.Gemma2.Data = cloneBytes(opts.Gemma2.Data)
+	opts.Gemma3.Data = cloneBytes(opts.Gemma3.Data)
+	return opts
+}
+
+func cloneBytes(data []byte) []byte {
+	if len(data) == 0 {
+		return nil
+	}
+	return append([]byte(nil), data...)
 }
 
 // SupportedModels returns exact Gemini model mappings supported by the adapter.
@@ -194,7 +207,7 @@ func cachedModelBytes(opts Options, source ModelSource) ([]byte, error) {
 	if err := os.MkdirAll(filepath.Dir(cachePath), 0o755); err != nil {
 		return nil, err
 	}
-	tmpPath := cachePath + ".tmp"
+	tmpPath := uniqueTempPath(cachePath)
 	if err := os.WriteFile(tmpPath, data, 0o644); err != nil {
 		return nil, err
 	}
@@ -203,6 +216,10 @@ func cachedModelBytes(opts Options, source ModelSource) ([]byte, error) {
 		return nil, err
 	}
 	return data, nil
+}
+
+func uniqueTempPath(path string) string {
+	return fmt.Sprintf("%s.%d.%d.tmp", path, os.Getpid(), time.Now().UnixNano())
 }
 
 func downloadModel(opts Options, url string) ([]byte, error) {

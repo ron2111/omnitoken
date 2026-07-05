@@ -7,5 +7,6 @@ COPY . .
 ENV GOWORK=/src/go.work
 ENV BENCH_COUNT=1
 ENV BENCH_TIME=100ms
+ENV BENCH_TIMEOUT=60m
 
-CMD cd tools/benchmark_harness && go test -run '^$' -bench 'BenchmarkTokenizer' -benchmem -count=${BENCH_COUNT} -benchtime=${BENCH_TIME}
+CMD cd tools/benchmark_harness && go test -run '^$' -bench 'BenchmarkTokenizer' -benchmem -count=${BENCH_COUNT} -benchtime=${BENCH_TIME} -timeout=${BENCH_TIMEOUT}

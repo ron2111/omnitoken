@@ -1,6 +1,8 @@
 param(
   [int]$Count = 3,
-  [string]$Benchtime = "1s"
+  [string]$Benchtime = "1s",
+  [string]$Timeout = "60m",
+  [string]$OutputPrefix = "go"
 )
 
 $ErrorActionPreference = "Stop"
@@ -11,9 +13,9 @@ New-Item -ItemType Directory -Force -Path $Results | Out-Null
 Push-Location (Join-Path $Root "tools\benchmark_harness")
 try {
   $env:GOWORK = Join-Path $Root "go.work"
-  $raw = Join-Path $Results "go.raw.txt"
+  $raw = Join-Path $Results "$OutputPrefix.raw.txt"
   $lines = New-Object System.Collections.Generic.List[string]
-  go test -run "^$" -bench "BenchmarkTokenizer" -benchmem "-count=$Count" "-benchtime=$Benchtime" 2>&1 | ForEach-Object {
+  go test -run "^$" -bench "BenchmarkTokenizer" -benchmem "-count=$Count" "-benchtime=$Benchtime" "-timeout=$Timeout" 2>&1 | ForEach-Object {
     $line = $_.ToString()
     $lines.Add($line)
     $line
@@ -25,5 +27,5 @@ finally {
   Pop-Location
 }
 
-python (Join-Path $Root "benchmarks\scripts\parse_go.py") --input (Join-Path $Results "go.raw.txt") --output (Join-Path $Results "go.jsonl")
+python (Join-Path $Root "benchmarks\scripts\parse_go.py") --input (Join-Path $Results "$OutputPrefix.raw.txt") --output (Join-Path $Results "$OutputPrefix.jsonl")
 if ($LASTEXITCODE -ne 0) { throw "go benchmark parse failed" }

@@ -218,7 +218,7 @@ func cachedModelBytes(opts Options, source ModelSource) ([]byte, error) {
 	if err := os.MkdirAll(filepath.Dir(cachePath), 0o755); err != nil {
 		return nil, err
 	}
-	tmpPath := cachePath + ".tmp"
+	tmpPath := uniqueTempPath(cachePath)
 	if err := os.WriteFile(tmpPath, data, 0o644); err != nil {
 		return nil, err
 	}
@@ -227,6 +227,10 @@ func cachedModelBytes(opts Options, source ModelSource) ([]byte, error) {
 		return nil, err
 	}
 	return data, nil
+}
+
+func uniqueTempPath(path string) string {
+	return fmt.Sprintf("%s.%d.%d.tmp", path, os.Getpid(), time.Now().UnixNano())
 }
 
 func downloadModel(opts Options, url string) ([]byte, error) {

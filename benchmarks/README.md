@@ -28,10 +28,26 @@ Run Go and Rust both in Docker for a closer Linux-container comparison:
 .\benchmarks\scripts\run.ps1 -Count 3 -Benchtime 1s -DockerGo -Rust
 ```
 
+Resume after a failed/interrupted run:
+
+```powershell
+.\benchmarks\scripts\run.ps1 -Count 3 -Benchtime 1s -DockerGo -Rust -Resume
+```
+
+Run one stage only:
+
+```powershell
+.\benchmarks\scripts\run.ps1 -Stage native-go -Count 3 -Benchtime 1s
+.\benchmarks\scripts\run.ps1 -Stage docker-go -DockerGo -Count 3 -Benchtime 1s
+.\benchmarks\scripts\run.ps1 -Stage rust -Rust
+```
+
 ## Output
 
 ```text
 benchmarks/results/metadata.json
+benchmarks/results/checkpoints/
+benchmarks/results/logs/
 benchmarks/results/go.raw.txt
 benchmarks/results/go.jsonl
 benchmarks/results/go-docker.raw.txt
