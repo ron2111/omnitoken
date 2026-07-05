@@ -1,4 +1,3 @@
-// Package omnitoken provides high-performance tokenization primitives for LLM applications.
 package omnitoken
 
 import "errors"
