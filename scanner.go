@@ -102,7 +102,11 @@ func contractionEnd(src []byte, start int, includeD bool) (int, bool) {
 	if start >= len(src) || src[start] != '\'' {
 		return 0, false
 	}
-	for _, suffix := range contractionSuffixes(includeD) {
+	suffixes := contractionSuffixesNoD[:]
+	if includeD {
+		suffixes = contractionSuffixesWithD[:]
+	}
+	for _, suffix := range suffixes {
 		if hasFoldedASCIIPrefix(src[start+1:], suffix) {
 			return start + 1 + len(suffix), true
 		}
@@ -117,12 +121,8 @@ func consumeOptionalContraction(src []byte, start int, includeD bool) int {
 	return start
 }
 
-func contractionSuffixes(includeD bool) []string {
-	if includeD {
-		return []string{"ll", "ve", "re", "s", "t", "m", "d"}
-	}
-	return []string{"ll", "ve", "re", "s", "d", "m", "t"}
-}
+var contractionSuffixesWithD = [...]string{"ll", "ve", "re", "s", "t", "m", "d"}
+var contractionSuffixesNoD = [...]string{"ll", "ve", "re", "s", "d", "m", "t"}
 
 func hasFoldedASCIIPrefix(src []byte, suffix string) bool {
 	if len(src) < len(suffix) {
@@ -160,17 +160,15 @@ func consumeNumbers(src []byte, start int, maxRunes int) int {
 		}
 		i += size
 		count++
+		if count == maxRunes {
+			return i
+		}
 	}
 	if count == 0 {
 		_, size := decodeRune(src, start)
 		return start + size
 	}
-	i := start
-	for ; i < len(src) && count > 0; count-- {
-		_, size := decodeRune(src, i)
-		i += size
-	}
-	return i
+	return len(src)
 }
 
 func consumePunctuationRun(src []byte, start int) int {
@@ -311,6 +309,9 @@ func nextRuneIndex(src []byte, start int) int {
 func decodeRune(src []byte, start int) (rune, int) {
 	if start >= len(src) {
 		return utf8.RuneError, 0
+	}
+	if src[start] < utf8.RuneSelf {
+		return rune(src[start]), 1
 	}
 	r, size := utf8.DecodeRune(src[start:])
 	if r == utf8.RuneError && size == 0 {

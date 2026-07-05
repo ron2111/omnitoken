@@ -98,7 +98,8 @@ type bpePart struct {
 }
 
 func (e *Engine) bytePairEncode(dst []int, piece []byte) []int {
-	parts := initialBPEParts(piece, nil)
+	var stack [256]bpePart
+	parts := initialBPEParts(piece, stack[:])
 	parts = e.mergeBPEParts(piece, parts)
 	for _, part := range parts {
 		if rank, ok := e.ranks[string(piece[part.start:part.end])]; ok {
