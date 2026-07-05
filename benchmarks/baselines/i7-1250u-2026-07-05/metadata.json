@@ -1,0 +1,34 @@
+﻿{
+    "timestamp_utc":  "2026-07-05T16:55:01.6726121Z",
+    "git_commit":  "3fb53b2d4c8e475dd6bd7ed247454d7d3ff59f7b",
+    "git_status":  [
+
+                   ],
+    "go_version":  "go version go1.24.2 windows/amd64",
+    "goos":  "windows",
+    "goarch":  "amd64",
+    "docker_version":  "Docker version 26.1.4, build 5650f9b",
+    "os":  {
+               "caption":  "Microsoft Windows 11 Home Single Language",
+               "version":  "10.0.26200"
+           },
+    "cpu":  {
+                "name":  "12th Gen Intel(R) Core(TM) i7-1250U",
+                "cores":  10,
+                "logical_processors":  12,
+                "max_clock_mhz":  1100,
+                "load_percent_sample":  23.543912817794133
+            },
+    "memory":  {
+                   "total_physical_bytes":  16858472448,
+                   "free_physical_kb":  4257476
+               },
+    "benchmark":  {
+                      "count":  10,
+                      "benchtime":  "3s",
+                      "timeout":  "90m",
+                      "docker_go":  true,
+                      "rust":  true,
+                      "note":  "Checkpointed benchmark run. Background processes and thermal state may affect results."
+                  }
+}

@@ -28,24 +28,24 @@ OmniToken is built for Go services that need fast local token accounting for pro
 
 ## Benchmarks
 
-Measured on Windows 11 amd64, Intel i7-1250U, Go 1.24.2. Full checkpointed benchmark reports can be regenerated with [`benchmarks/`](./benchmarks/README.md).
+Measured on Windows 11 amd64, Intel i7-1250U, Go 1.24.2. See the [full benchmark report](./benchmarks/baselines/i7-1250u-2026-07-05/summary.md) or regenerate it with [`benchmarks/`](./benchmarks/README.md).
 
 ![OmniToken benchmark speedups](./docs/assets/benchmarks/speedups.svg)
 
 | Comparison | Geomean result |
 | --- | ---: |
-| OmniToken `CountTokens` vs `tiktoken-go` | 8.97x faster |
-| OmniToken `EncodeOrdinary` vs `tiktoken-go` | 8.24x faster |
-| OmniToken `Decode` vs `tiktoken-go` | 1.10x faster |
-| OmniToken `CountTokens` vs OpenAI Rust `tiktoken` | 1.98x faster |
-| OmniToken `EncodeOrdinary` vs OpenAI Rust `tiktoken` | 1.73x faster |
+| OmniToken `CountTokens` vs `tiktoken-go` | 15.84x faster |
+| OmniToken `EncodeOrdinary` vs `tiktoken-go` | 13.09x faster |
+| OmniToken `Decode` vs `tiktoken-go` | 2.29x faster |
+| OmniToken `CountTokens` vs OpenAI Rust `tiktoken` | 0.96x, near parity |
+| OmniToken `EncodeOrdinary` vs OpenAI Rust `tiktoken` | 0.75x, competitive pure Go |
 
 | Operation | Encoding | Input | ns/op | B/op | allocs/op |
 | --- | --- | --- | ---: | ---: | ---: |
-| `CountTokens` | `cl100k_base` | JSON | ~1,600 | 0 | 0 |
-| `EncodeOrdinary` | `cl100k_base` | JSON | ~1,900 | 288 | 1 |
-| `CountTokens` | `o200k_base` | JSON | ~1,900 | 0 | 0 |
-| `EncodeOrdinary` | `o200k_base` | JSON | ~2,100 | 288 | 1 |
+| `CountTokens` | `cl100k_base` | JSON | 1,517 | 0 | 0 |
+| `EncodeOrdinary` | `cl100k_base` | JSON | 1,661 | 288 | 1 |
+| `CountTokens` | `o200k_base` | JSON | 2,152 | 0 | 0 |
+| `EncodeOrdinary` | `o200k_base` | JSON | 1,835 | 288 | 1 |
 
 ## Install
 

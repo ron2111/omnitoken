@@ -18,25 +18,26 @@ Measured after scanner/decode optimizations on Windows 11 amd64, Intel i7-1250U,
 
 | Operation | Encoding | Input | Typical ns/op | B/op | allocs/op |
 | --- | --- | --- | ---: | ---: | ---: |
-| `CountTokens` | `cl100k_base` | JSON | ~1,600 | 0 | 0 |
-| `EncodeOrdinary` | `cl100k_base` | JSON | ~1,900 | 288 | 1 |
-| `CountTokens` | `o200k_base` | JSON | ~1,900 | 0 | 0 |
-| `EncodeOrdinary` | `o200k_base` | JSON | ~2,100 | 288 | 1 |
+| `CountTokens` | `cl100k_base` | JSON | 1,517 | 0 | 0 |
+| `EncodeOrdinary` | `cl100k_base` | JSON | 1,661 | 288 | 1 |
+| `Decode` | `cl100k_base` | JSON | 204 | 288 | 2 |
+| `CountTokens` | `o200k_base` | JSON | 2,152 | 0 | 0 |
+| `EncodeOrdinary` | `o200k_base` | JSON | 1,835 | 288 | 1 |
+| `Decode` | `o200k_base` | JSON | 192 | 288 | 2 |
 
 Latest completed comparison report:
 
 | Comparison | Geomean speedup |
 | --- | ---: |
-| Native OmniToken `CountTokens` vs `tiktoken-go` count-by-encode | 8.24x |
-| Native OmniToken `EncodeOrdinary` vs `tiktoken-go` encode | 7.28x |
-| Native OmniToken `Decode` vs `tiktoken-go` decode | 1.05x |
-| Docker OmniToken `CountTokens` vs Docker `tiktoken-go` count-by-encode | 8.97x |
-| Docker OmniToken `EncodeOrdinary` vs Docker `tiktoken-go` encode | 8.24x |
-| Docker OmniToken `Decode` vs Docker `tiktoken-go` decode | 1.10x |
-| Docker OmniToken `EncodeOrdinary` vs Docker OpenAI Rust `tiktoken` encode | 1.73x |
-| Docker OmniToken `CountTokens` vs Docker OpenAI Rust `tiktoken` count-by-encode | 1.98x |
+| OmniToken `CountTokens` vs `tiktoken-go` count-by-encode | 15.84x |
+| OmniToken `EncodeOrdinary` vs `tiktoken-go` encode | 13.09x |
+| OmniToken `Decode` vs `tiktoken-go` decode | 2.29x |
+| OmniToken `CountTokens` vs OpenAI Rust `tiktoken` count-by-encode | 0.96x |
+| OmniToken `EncodeOrdinary` vs OpenAI Rust `tiktoken` encode | 0.75x |
 
 These numbers are workload- and machine-specific. The checkpointed benchmark harness records machine metadata and should be rerun on target hardware for formal claims.
+
+Curated baseline report: [`benchmarks/baselines/i7-1250u-2026-07-05/summary.md`](../benchmarks/baselines/i7-1250u-2026-07-05/summary.md).
 
 ## Benchmark Commands
 

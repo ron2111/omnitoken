@@ -1,0 +1,1061 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="25344" height="420" viewBox="0 0 25344 420">
+<rect width="100%" height="100%" fill="white"/>
+<text x="60" y="30" font-family="sans-serif" font-size="20" font-weight="700">decode ns_per_op</text>
+<line x1="60" y1="360" x2="25284" y2="360" stroke="#111827"/>
+<rect x="70.7" y="359.2" width="50.2" height="0.8" fill="#2563eb"/>
+<text x="95.8" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">195</text>
+<text x="95.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 95.8,374)">omnitoken / cl100k_base / sh</text>
+<rect x="142.4" y="359.6" width="50.2" height="0.4" fill="#dc2626"/>
+<text x="167.5" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">106</text>
+<text x="167.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 167.5,374)">omnitoken / cl100k_base / sh</text>
+<rect x="214.1" y="359.6" width="50.2" height="0.4" fill="#16a34a"/>
+<text x="239.1" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">107</text>
+<text x="239.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 239.1,374)">omnitoken / cl100k_base / sh</text>
+<rect x="285.7" y="359.3" width="50.2" height="0.7" fill="#9333ea"/>
+<text x="310.8" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">192</text>
+<text x="310.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 310.8,374)">omnitoken / cl100k_base / sh</text>
+<rect x="357.4" y="359.5" width="50.2" height="0.5" fill="#ea580c"/>
+<text x="382.5" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">134</text>
+<text x="382.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 382.5,374)">omnitoken / cl100k_base / sh</text>
+<rect x="429.0" y="359.5" width="50.2" height="0.5" fill="#0891b2"/>
+<text x="454.1" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">130</text>
+<text x="454.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 454.1,374)">omnitoken / cl100k_base / sh</text>
+<rect x="500.7" y="359.6" width="50.2" height="0.4" fill="#2563eb"/>
+<text x="525.8" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">108</text>
+<text x="525.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 525.8,374)">omnitoken / cl100k_base / sh</text>
+<rect x="572.4" y="359.6" width="50.2" height="0.4" fill="#dc2626"/>
+<text x="597.4" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">98</text>
+<text x="597.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 597.4,374)">omnitoken / cl100k_base / sh</text>
+<rect x="644.0" y="359.3" width="50.2" height="0.7" fill="#16a34a"/>
+<text x="669.1" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">175</text>
+<text x="669.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 669.1,374)">omnitoken / cl100k_base / sh</text>
+<rect x="715.7" y="359.6" width="50.2" height="0.4" fill="#9333ea"/>
+<text x="740.8" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">95</text>
+<text x="740.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 740.8,374)">omnitoken / cl100k_base / sh</text>
+<rect x="787.3" y="359.6" width="50.2" height="0.4" fill="#ea580c"/>
+<text x="812.4" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">112</text>
+<text x="812.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 812.4,374)">tiktoken_go / cl100k_base / </text>
+<rect x="859.0" y="359.6" width="50.2" height="0.4" fill="#0891b2"/>
+<text x="884.1" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">97</text>
+<text x="884.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 884.1,374)">tiktoken_go / cl100k_base / </text>
+<rect x="930.7" y="359.6" width="50.2" height="0.4" fill="#2563eb"/>
+<text x="955.7" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">104</text>
+<text x="955.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 955.7,374)">tiktoken_go / cl100k_base / </text>
+<rect x="1002.3" y="359.6" width="50.2" height="0.4" fill="#dc2626"/>
+<text x="1027.4" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">97</text>
+<text x="1027.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1027.4,374)">tiktoken_go / cl100k_base / </text>
+<rect x="1074.0" y="359.6" width="50.2" height="0.4" fill="#16a34a"/>
+<text x="1099.1" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">98</text>
+<text x="1099.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1099.1,374)">tiktoken_go / cl100k_base / </text>
+<rect x="1145.6" y="359.6" width="50.2" height="0.4" fill="#9333ea"/>
+<text x="1170.7" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">102</text>
+<text x="1170.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1170.7,374)">tiktoken_go / cl100k_base / </text>
+<rect x="1217.3" y="359.6" width="50.2" height="0.4" fill="#ea580c"/>
+<text x="1242.4" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">104</text>
+<text x="1242.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1242.4,374)">tiktoken_go / cl100k_base / </text>
+<rect x="1289.0" y="359.6" width="50.2" height="0.4" fill="#0891b2"/>
+<text x="1314.0" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">103</text>
+<text x="1314.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1314.0,374)">tiktoken_go / cl100k_base / </text>
+<rect x="1360.6" y="359.6" width="50.2" height="0.4" fill="#2563eb"/>
+<text x="1385.7" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">102</text>
+<text x="1385.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1385.7,374)">tiktoken_go / cl100k_base / </text>
+<rect x="1432.3" y="359.6" width="50.2" height="0.4" fill="#dc2626"/>
+<text x="1457.4" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">94</text>
+<text x="1457.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1457.4,374)">tiktoken_go / cl100k_base / </text>
+<rect x="1503.9" y="359.2" width="50.2" height="0.8" fill="#16a34a"/>
+<text x="1529.0" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">203</text>
+<text x="1529.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1529.0,374)">omnitoken / cl100k_base / js</text>
+<rect x="1575.6" y="359.2" width="50.2" height="0.8" fill="#9333ea"/>
+<text x="1600.7" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">204</text>
+<text x="1600.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1600.7,374)">omnitoken / cl100k_base / js</text>
+<rect x="1647.2" y="359.2" width="50.2" height="0.8" fill="#ea580c"/>
+<text x="1672.3" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">209</text>
+<text x="1672.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1672.3,374)">omnitoken / cl100k_base / js</text>
+<rect x="1718.9" y="359.2" width="50.2" height="0.8" fill="#0891b2"/>
+<text x="1744.0" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">213</text>
+<text x="1744.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1744.0,374)">omnitoken / cl100k_base / js</text>
+<rect x="1790.6" y="359.2" width="50.2" height="0.8" fill="#2563eb"/>
+<text x="1815.6" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">204</text>
+<text x="1815.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1815.6,374)">omnitoken / cl100k_base / js</text>
+<rect x="1862.2" y="359.2" width="50.2" height="0.8" fill="#dc2626"/>
+<text x="1887.3" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">212</text>
+<text x="1887.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1887.3,374)">omnitoken / cl100k_base / js</text>
+<rect x="1933.9" y="359.2" width="50.2" height="0.8" fill="#16a34a"/>
+<text x="1959.0" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">204</text>
+<text x="1959.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 1959.0,374)">omnitoken / cl100k_base / js</text>
+<rect x="2005.5" y="359.2" width="50.2" height="0.8" fill="#9333ea"/>
+<text x="2030.6" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">214</text>
+<text x="2030.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2030.6,374)">omnitoken / cl100k_base / js</text>
+<rect x="2077.2" y="359.2" width="50.2" height="0.8" fill="#ea580c"/>
+<text x="2102.3" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">203</text>
+<text x="2102.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2102.3,374)">omnitoken / cl100k_base / js</text>
+<rect x="2148.9" y="359.2" width="50.2" height="0.8" fill="#0891b2"/>
+<text x="2173.9" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">204</text>
+<text x="2173.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2173.9,374)">omnitoken / cl100k_base / js</text>
+<rect x="2220.5" y="358.0" width="50.2" height="2.0" fill="#2563eb"/>
+<text x="2245.6" y="354.0" text-anchor="middle" font-family="sans-serif" font-size="10">516</text>
+<text x="2245.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2245.6,374)">tiktoken_go / cl100k_base / </text>
+<rect x="2292.2" y="358.1" width="50.2" height="1.9" fill="#dc2626"/>
+<text x="2317.3" y="354.1" text-anchor="middle" font-family="sans-serif" font-size="10">500</text>
+<text x="2317.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2317.3,374)">tiktoken_go / cl100k_base / </text>
+<rect x="2363.8" y="358.0" width="50.2" height="2.0" fill="#16a34a"/>
+<text x="2388.9" y="354.0" text-anchor="middle" font-family="sans-serif" font-size="10">516</text>
+<text x="2388.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2388.9,374)">tiktoken_go / cl100k_base / </text>
+<rect x="2435.5" y="358.1" width="50.2" height="1.9" fill="#9333ea"/>
+<text x="2460.6" y="354.1" text-anchor="middle" font-family="sans-serif" font-size="10">499</text>
+<text x="2460.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2460.6,374)">tiktoken_go / cl100k_base / </text>
+<rect x="2507.2" y="358.1" width="50.2" height="1.9" fill="#ea580c"/>
+<text x="2532.2" y="354.1" text-anchor="middle" font-family="sans-serif" font-size="10">502</text>
+<text x="2532.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2532.2,374)">tiktoken_go / cl100k_base / </text>
+<rect x="2578.8" y="358.0" width="50.2" height="2.0" fill="#0891b2"/>
+<text x="2603.9" y="354.0" text-anchor="middle" font-family="sans-serif" font-size="10">509</text>
+<text x="2603.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2603.9,374)">tiktoken_go / cl100k_base / </text>
+<rect x="2650.5" y="358.0" width="50.2" height="2.0" fill="#2563eb"/>
+<text x="2675.6" y="354.0" text-anchor="middle" font-family="sans-serif" font-size="10">520</text>
+<text x="2675.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2675.6,374)">tiktoken_go / cl100k_base / </text>
+<rect x="2722.1" y="358.1" width="50.2" height="1.9" fill="#dc2626"/>
+<text x="2747.2" y="354.1" text-anchor="middle" font-family="sans-serif" font-size="10">494</text>
+<text x="2747.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2747.2,374)">tiktoken_go / cl100k_base / </text>
+<rect x="2793.8" y="358.1" width="50.2" height="1.9" fill="#16a34a"/>
+<text x="2818.9" y="354.1" text-anchor="middle" font-family="sans-serif" font-size="10">498</text>
+<text x="2818.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2818.9,374)">tiktoken_go / cl100k_base / </text>
+<rect x="2865.5" y="358.1" width="50.2" height="1.9" fill="#9333ea"/>
+<text x="2890.5" y="354.1" text-anchor="middle" font-family="sans-serif" font-size="10">501</text>
+<text x="2890.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2890.5,374)">tiktoken_go / cl100k_base / </text>
+<rect x="2937.1" y="359.4" width="50.2" height="0.6" fill="#ea580c"/>
+<text x="2962.2" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">160</text>
+<text x="2962.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 2962.2,374)">omnitoken / cl100k_base / un</text>
+<rect x="3008.8" y="359.4" width="50.2" height="0.6" fill="#0891b2"/>
+<text x="3033.9" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">160</text>
+<text x="3033.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3033.9,374)">omnitoken / cl100k_base / un</text>
+<rect x="3080.4" y="359.4" width="50.2" height="0.6" fill="#2563eb"/>
+<text x="3105.5" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">160</text>
+<text x="3105.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3105.5,374)">omnitoken / cl100k_base / un</text>
+<rect x="3152.1" y="359.4" width="50.2" height="0.6" fill="#dc2626"/>
+<text x="3177.2" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">162</text>
+<text x="3177.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3177.2,374)">omnitoken / cl100k_base / un</text>
+<rect x="3223.7" y="359.4" width="50.2" height="0.6" fill="#16a34a"/>
+<text x="3248.8" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">160</text>
+<text x="3248.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3248.8,374)">omnitoken / cl100k_base / un</text>
+<rect x="3295.4" y="359.4" width="50.2" height="0.6" fill="#9333ea"/>
+<text x="3320.5" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">162</text>
+<text x="3320.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3320.5,374)">omnitoken / cl100k_base / un</text>
+<rect x="3367.1" y="359.3" width="50.2" height="0.7" fill="#ea580c"/>
+<text x="3392.1" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">168</text>
+<text x="3392.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3392.1,374)">omnitoken / cl100k_base / un</text>
+<rect x="3438.7" y="359.4" width="50.2" height="0.6" fill="#0891b2"/>
+<text x="3463.8" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">160</text>
+<text x="3463.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3463.8,374)">omnitoken / cl100k_base / un</text>
+<rect x="3510.4" y="359.4" width="50.2" height="0.6" fill="#2563eb"/>
+<text x="3535.5" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">161</text>
+<text x="3535.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3535.5,374)">omnitoken / cl100k_base / un</text>
+<rect x="3582.0" y="359.4" width="50.2" height="0.6" fill="#dc2626"/>
+<text x="3607.1" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">166</text>
+<text x="3607.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3607.1,374)">omnitoken / cl100k_base / un</text>
+<rect x="3653.7" y="358.6" width="50.2" height="1.4" fill="#16a34a"/>
+<text x="3678.8" y="354.6" text-anchor="middle" font-family="sans-serif" font-size="10">374</text>
+<text x="3678.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3678.8,374)">tiktoken_go / cl100k_base / </text>
+<rect x="3725.4" y="358.5" width="50.2" height="1.5" fill="#9333ea"/>
+<text x="3750.4" y="354.5" text-anchor="middle" font-family="sans-serif" font-size="10">376</text>
+<text x="3750.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3750.4,374)">tiktoken_go / cl100k_base / </text>
+<rect x="3797.0" y="358.6" width="50.2" height="1.4" fill="#ea580c"/>
+<text x="3822.1" y="354.6" text-anchor="middle" font-family="sans-serif" font-size="10">375</text>
+<text x="3822.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3822.1,374)">tiktoken_go / cl100k_base / </text>
+<rect x="3868.7" y="358.5" width="50.2" height="1.5" fill="#0891b2"/>
+<text x="3893.8" y="354.5" text-anchor="middle" font-family="sans-serif" font-size="10">394</text>
+<text x="3893.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3893.8,374)">tiktoken_go / cl100k_base / </text>
+<rect x="3940.3" y="358.5" width="50.2" height="1.5" fill="#2563eb"/>
+<text x="3965.4" y="354.5" text-anchor="middle" font-family="sans-serif" font-size="10">377</text>
+<text x="3965.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 3965.4,374)">tiktoken_go / cl100k_base / </text>
+<rect x="4012.0" y="358.5" width="50.2" height="1.5" fill="#dc2626"/>
+<text x="4037.1" y="354.5" text-anchor="middle" font-family="sans-serif" font-size="10">381</text>
+<text x="4037.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4037.1,374)">tiktoken_go / cl100k_base / </text>
+<rect x="4083.7" y="358.5" width="50.2" height="1.5" fill="#16a34a"/>
+<text x="4108.7" y="354.5" text-anchor="middle" font-family="sans-serif" font-size="10">387</text>
+<text x="4108.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4108.7,374)">tiktoken_go / cl100k_base / </text>
+<rect x="4155.3" y="358.5" width="50.2" height="1.5" fill="#9333ea"/>
+<text x="4180.4" y="354.5" text-anchor="middle" font-family="sans-serif" font-size="10">400</text>
+<text x="4180.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4180.4,374)">tiktoken_go / cl100k_base / </text>
+<rect x="4227.0" y="358.4" width="50.2" height="1.6" fill="#ea580c"/>
+<text x="4252.1" y="354.4" text-anchor="middle" font-family="sans-serif" font-size="10">412</text>
+<text x="4252.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4252.1,374)">tiktoken_go / cl100k_base / </text>
+<rect x="4298.6" y="358.4" width="50.2" height="1.6" fill="#0891b2"/>
+<text x="4323.7" y="354.4" text-anchor="middle" font-family="sans-serif" font-size="10">408</text>
+<text x="4323.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4323.7,374)">tiktoken_go / cl100k_base / </text>
+<rect x="4370.3" y="359.3" width="50.2" height="0.7" fill="#2563eb"/>
+<text x="4395.4" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">174</text>
+<text x="4395.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4395.4,374)">omnitoken / cl100k_base / co</text>
+<rect x="4442.0" y="359.4" width="50.2" height="0.6" fill="#dc2626"/>
+<text x="4467.0" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">161</text>
+<text x="4467.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4467.0,374)">omnitoken / cl100k_base / co</text>
+<rect x="4513.6" y="359.4" width="50.2" height="0.6" fill="#16a34a"/>
+<text x="4538.7" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">155</text>
+<text x="4538.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4538.7,374)">omnitoken / cl100k_base / co</text>
+<rect x="4585.3" y="359.4" width="50.2" height="0.6" fill="#9333ea"/>
+<text x="4610.4" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">153</text>
+<text x="4610.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4610.4,374)">omnitoken / cl100k_base / co</text>
+<rect x="4656.9" y="359.4" width="50.2" height="0.6" fill="#ea580c"/>
+<text x="4682.0" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">155</text>
+<text x="4682.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4682.0,374)">omnitoken / cl100k_base / co</text>
+<rect x="4728.6" y="359.3" width="50.2" height="0.7" fill="#0891b2"/>
+<text x="4753.7" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">180</text>
+<text x="4753.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4753.7,374)">omnitoken / cl100k_base / co</text>
+<rect x="4800.2" y="359.2" width="50.2" height="0.8" fill="#2563eb"/>
+<text x="4825.3" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">198</text>
+<text x="4825.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4825.3,374)">omnitoken / cl100k_base / co</text>
+<rect x="4871.9" y="359.2" width="50.2" height="0.8" fill="#dc2626"/>
+<text x="4897.0" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">207</text>
+<text x="4897.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4897.0,374)">omnitoken / cl100k_base / co</text>
+<rect x="4943.6" y="359.4" width="50.2" height="0.6" fill="#16a34a"/>
+<text x="4968.6" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">163</text>
+<text x="4968.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 4968.6,374)">omnitoken / cl100k_base / co</text>
+<rect x="5015.2" y="359.4" width="50.2" height="0.6" fill="#9333ea"/>
+<text x="5040.3" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">164</text>
+<text x="5040.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5040.3,374)">omnitoken / cl100k_base / co</text>
+<rect x="5086.9" y="357.3" width="50.2" height="2.7" fill="#ea580c"/>
+<text x="5112.0" y="353.3" text-anchor="middle" font-family="sans-serif" font-size="10">712</text>
+<text x="5112.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5112.0,374)">tiktoken_go / cl100k_base / </text>
+<rect x="5158.5" y="357.3" width="50.2" height="2.7" fill="#0891b2"/>
+<text x="5183.6" y="353.3" text-anchor="middle" font-family="sans-serif" font-size="10">708</text>
+<text x="5183.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5183.6,374)">tiktoken_go / cl100k_base / </text>
+<rect x="5230.2" y="356.8" width="50.2" height="3.2" fill="#2563eb"/>
+<text x="5255.3" y="352.8" text-anchor="middle" font-family="sans-serif" font-size="10">828</text>
+<text x="5255.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5255.3,374)">tiktoken_go / cl100k_base / </text>
+<rect x="5301.9" y="357.3" width="50.2" height="2.7" fill="#dc2626"/>
+<text x="5326.9" y="353.3" text-anchor="middle" font-family="sans-serif" font-size="10">693</text>
+<text x="5326.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5326.9,374)">tiktoken_go / cl100k_base / </text>
+<rect x="5373.5" y="356.9" width="50.2" height="3.1" fill="#16a34a"/>
+<text x="5398.6" y="352.9" text-anchor="middle" font-family="sans-serif" font-size="10">790</text>
+<text x="5398.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5398.6,374)">tiktoken_go / cl100k_base / </text>
+<rect x="5445.2" y="357.3" width="50.2" height="2.7" fill="#9333ea"/>
+<text x="5470.3" y="353.3" text-anchor="middle" font-family="sans-serif" font-size="10">692</text>
+<text x="5470.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5470.3,374)">tiktoken_go / cl100k_base / </text>
+<rect x="5516.8" y="357.3" width="50.2" height="2.7" fill="#ea580c"/>
+<text x="5541.9" y="353.3" text-anchor="middle" font-family="sans-serif" font-size="10">692</text>
+<text x="5541.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5541.9,374)">tiktoken_go / cl100k_base / </text>
+<rect x="5588.5" y="356.5" width="50.2" height="3.5" fill="#0891b2"/>
+<text x="5613.6" y="352.5" text-anchor="middle" font-family="sans-serif" font-size="10">902</text>
+<text x="5613.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5613.6,374)">tiktoken_go / cl100k_base / </text>
+<rect x="5660.2" y="356.8" width="50.2" height="3.2" fill="#2563eb"/>
+<text x="5685.2" y="352.8" text-anchor="middle" font-family="sans-serif" font-size="10">825</text>
+<text x="5685.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5685.2,374)">tiktoken_go / cl100k_base / </text>
+<rect x="5731.8" y="357.2" width="50.2" height="2.8" fill="#dc2626"/>
+<text x="5756.9" y="353.2" text-anchor="middle" font-family="sans-serif" font-size="10">718</text>
+<text x="5756.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5756.9,374)">tiktoken_go / cl100k_base / </text>
+<rect x="5803.5" y="359.3" width="50.2" height="0.7" fill="#16a34a"/>
+<text x="5828.6" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">178</text>
+<text x="5828.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5828.6,374)">omnitoken / cl100k_base / ma</text>
+<rect x="5875.1" y="359.3" width="50.2" height="0.7" fill="#9333ea"/>
+<text x="5900.2" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">175</text>
+<text x="5900.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5900.2,374)">omnitoken / cl100k_base / ma</text>
+<rect x="5946.8" y="359.4" width="50.2" height="0.6" fill="#ea580c"/>
+<text x="5971.9" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">145</text>
+<text x="5971.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 5971.9,374)">omnitoken / cl100k_base / ma</text>
+<rect x="6018.5" y="359.3" width="50.2" height="0.7" fill="#0891b2"/>
+<text x="6043.5" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">170</text>
+<text x="6043.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6043.5,374)">omnitoken / cl100k_base / ma</text>
+<rect x="6090.1" y="359.4" width="50.2" height="0.6" fill="#2563eb"/>
+<text x="6115.2" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">154</text>
+<text x="6115.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6115.2,374)">omnitoken / cl100k_base / ma</text>
+<rect x="6161.8" y="359.4" width="50.2" height="0.6" fill="#dc2626"/>
+<text x="6186.9" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">160</text>
+<text x="6186.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6186.9,374)">omnitoken / cl100k_base / ma</text>
+<rect x="6233.4" y="359.5" width="50.2" height="0.5" fill="#16a34a"/>
+<text x="6258.5" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">132</text>
+<text x="6258.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6258.5,374)">omnitoken / cl100k_base / ma</text>
+<rect x="6305.1" y="359.4" width="50.2" height="0.6" fill="#9333ea"/>
+<text x="6330.2" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">146</text>
+<text x="6330.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6330.2,374)">omnitoken / cl100k_base / ma</text>
+<rect x="6376.7" y="359.3" width="50.2" height="0.7" fill="#ea580c"/>
+<text x="6401.8" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">169</text>
+<text x="6401.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6401.8,374)">omnitoken / cl100k_base / ma</text>
+<rect x="6448.4" y="359.5" width="50.2" height="0.5" fill="#0891b2"/>
+<text x="6473.5" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">140</text>
+<text x="6473.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6473.5,374)">omnitoken / cl100k_base / ma</text>
+<rect x="6520.1" y="359.0" width="50.2" height="1.0" fill="#2563eb"/>
+<text x="6545.1" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">271</text>
+<text x="6545.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6545.1,374)">tiktoken_go / cl100k_base / </text>
+<rect x="6591.7" y="359.0" width="50.2" height="1.0" fill="#dc2626"/>
+<text x="6616.8" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">264</text>
+<text x="6616.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6616.8,374)">tiktoken_go / cl100k_base / </text>
+<rect x="6663.4" y="359.0" width="50.2" height="1.0" fill="#16a34a"/>
+<text x="6688.5" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">259</text>
+<text x="6688.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6688.5,374)">tiktoken_go / cl100k_base / </text>
+<rect x="6735.0" y="358.9" width="50.2" height="1.1" fill="#9333ea"/>
+<text x="6760.1" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">274</text>
+<text x="6760.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6760.1,374)">tiktoken_go / cl100k_base / </text>
+<rect x="6806.7" y="359.0" width="50.2" height="1.0" fill="#ea580c"/>
+<text x="6831.8" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">270</text>
+<text x="6831.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6831.8,374)">tiktoken_go / cl100k_base / </text>
+<rect x="6878.4" y="359.0" width="50.2" height="1.0" fill="#0891b2"/>
+<text x="6903.4" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">268</text>
+<text x="6903.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6903.4,374)">tiktoken_go / cl100k_base / </text>
+<rect x="6950.0" y="359.0" width="50.2" height="1.0" fill="#2563eb"/>
+<text x="6975.1" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">269</text>
+<text x="6975.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 6975.1,374)">tiktoken_go / cl100k_base / </text>
+<rect x="7021.7" y="359.0" width="50.2" height="1.0" fill="#dc2626"/>
+<text x="7046.8" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">272</text>
+<text x="7046.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7046.8,374)">tiktoken_go / cl100k_base / </text>
+<rect x="7093.3" y="358.9" width="50.2" height="1.1" fill="#16a34a"/>
+<text x="7118.4" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">279</text>
+<text x="7118.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7118.4,374)">tiktoken_go / cl100k_base / </text>
+<rect x="7165.0" y="359.0" width="50.2" height="1.0" fill="#9333ea"/>
+<text x="7190.1" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">269</text>
+<text x="7190.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7190.1,374)">tiktoken_go / cl100k_base / </text>
+<rect x="7236.7" y="359.5" width="50.2" height="0.5" fill="#ea580c"/>
+<text x="7261.7" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">134</text>
+<text x="7261.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7261.7,374)">omnitoken / cl100k_base / wh</text>
+<rect x="7308.3" y="359.6" width="50.2" height="0.4" fill="#0891b2"/>
+<text x="7333.4" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">112</text>
+<text x="7333.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7333.4,374)">omnitoken / cl100k_base / wh</text>
+<rect x="7380.0" y="359.6" width="50.2" height="0.4" fill="#2563eb"/>
+<text x="7405.1" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">114</text>
+<text x="7405.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7405.1,374)">omnitoken / cl100k_base / wh</text>
+<rect x="7451.6" y="359.6" width="50.2" height="0.4" fill="#dc2626"/>
+<text x="7476.7" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">106</text>
+<text x="7476.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7476.7,374)">omnitoken / cl100k_base / wh</text>
+<rect x="7523.3" y="359.6" width="50.2" height="0.4" fill="#16a34a"/>
+<text x="7548.4" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">98</text>
+<text x="7548.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7548.4,374)">omnitoken / cl100k_base / wh</text>
+<rect x="7595.0" y="359.5" width="50.2" height="0.5" fill="#9333ea"/>
+<text x="7620.0" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">128</text>
+<text x="7620.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7620.0,374)">omnitoken / cl100k_base / wh</text>
+<rect x="7666.6" y="359.5" width="50.2" height="0.5" fill="#ea580c"/>
+<text x="7691.7" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">130</text>
+<text x="7691.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7691.7,374)">omnitoken / cl100k_base / wh</text>
+<rect x="7738.3" y="359.3" width="50.2" height="0.7" fill="#0891b2"/>
+<text x="7763.4" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">170</text>
+<text x="7763.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7763.4,374)">omnitoken / cl100k_base / wh</text>
+<rect x="7809.9" y="359.5" width="50.2" height="0.5" fill="#2563eb"/>
+<text x="7835.0" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">118</text>
+<text x="7835.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7835.0,374)">omnitoken / cl100k_base / wh</text>
+<rect x="7881.6" y="359.5" width="50.2" height="0.5" fill="#dc2626"/>
+<text x="7906.7" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">125</text>
+<text x="7906.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7906.7,374)">omnitoken / cl100k_base / wh</text>
+<rect x="7953.2" y="358.5" width="50.2" height="1.5" fill="#16a34a"/>
+<text x="7978.3" y="354.5" text-anchor="middle" font-family="sans-serif" font-size="10">400</text>
+<text x="7978.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 7978.3,374)">tiktoken_go / cl100k_base / </text>
+<rect x="8024.9" y="359.0" width="50.2" height="1.0" fill="#9333ea"/>
+<text x="8050.0" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">271</text>
+<text x="8050.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8050.0,374)">tiktoken_go / cl100k_base / </text>
+<rect x="8096.6" y="358.9" width="50.2" height="1.1" fill="#ea580c"/>
+<text x="8121.6" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">291</text>
+<text x="8121.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8121.6,374)">tiktoken_go / cl100k_base / </text>
+<rect x="8168.2" y="359.0" width="50.2" height="1.0" fill="#0891b2"/>
+<text x="8193.3" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">270</text>
+<text x="8193.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8193.3,374)">tiktoken_go / cl100k_base / </text>
+<rect x="8239.9" y="358.9" width="50.2" height="1.1" fill="#2563eb"/>
+<text x="8265.0" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">274</text>
+<text x="8265.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8265.0,374)">tiktoken_go / cl100k_base / </text>
+<rect x="8311.5" y="359.0" width="50.2" height="1.0" fill="#dc2626"/>
+<text x="8336.6" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">266</text>
+<text x="8336.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8336.6,374)">tiktoken_go / cl100k_base / </text>
+<rect x="8383.2" y="359.0" width="50.2" height="1.0" fill="#16a34a"/>
+<text x="8408.3" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">271</text>
+<text x="8408.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8408.3,374)">tiktoken_go / cl100k_base / </text>
+<rect x="8454.9" y="358.8" width="50.2" height="1.2" fill="#9333ea"/>
+<text x="8479.9" y="354.8" text-anchor="middle" font-family="sans-serif" font-size="10">309</text>
+<text x="8479.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8479.9,374)">tiktoken_go / cl100k_base / </text>
+<rect x="8526.5" y="358.9" width="50.2" height="1.1" fill="#ea580c"/>
+<text x="8551.6" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">297</text>
+<text x="8551.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8551.6,374)">tiktoken_go / cl100k_base / </text>
+<rect x="8598.2" y="358.7" width="50.2" height="1.3" fill="#0891b2"/>
+<text x="8623.3" y="354.7" text-anchor="middle" font-family="sans-serif" font-size="10">340</text>
+<text x="8623.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8623.3,374)">tiktoken_go / cl100k_base / </text>
+<rect x="8669.8" y="359.5" width="50.2" height="0.5" fill="#2563eb"/>
+<text x="8694.9" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">133</text>
+<text x="8694.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8694.9,374)">omnitoken / cl100k_base / sp</text>
+<rect x="8741.5" y="359.4" width="50.2" height="0.6" fill="#dc2626"/>
+<text x="8766.6" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">144</text>
+<text x="8766.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8766.6,374)">omnitoken / cl100k_base / sp</text>
+<rect x="8813.2" y="359.5" width="50.2" height="0.5" fill="#16a34a"/>
+<text x="8838.2" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">131</text>
+<text x="8838.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8838.2,374)">omnitoken / cl100k_base / sp</text>
+<rect x="8884.8" y="359.5" width="50.2" height="0.5" fill="#9333ea"/>
+<text x="8909.9" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">134</text>
+<text x="8909.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8909.9,374)">omnitoken / cl100k_base / sp</text>
+<rect x="8956.5" y="359.5" width="50.2" height="0.5" fill="#ea580c"/>
+<text x="8981.6" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">130</text>
+<text x="8981.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 8981.6,374)">omnitoken / cl100k_base / sp</text>
+<rect x="9028.1" y="359.5" width="50.2" height="0.5" fill="#0891b2"/>
+<text x="9053.2" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">133</text>
+<text x="9053.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9053.2,374)">omnitoken / cl100k_base / sp</text>
+<rect x="9099.8" y="359.5" width="50.2" height="0.5" fill="#2563eb"/>
+<text x="9124.9" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">134</text>
+<text x="9124.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9124.9,374)">omnitoken / cl100k_base / sp</text>
+<rect x="9171.5" y="359.5" width="50.2" height="0.5" fill="#dc2626"/>
+<text x="9196.5" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">139</text>
+<text x="9196.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9196.5,374)">omnitoken / cl100k_base / sp</text>
+<rect x="9243.1" y="359.5" width="50.2" height="0.5" fill="#16a34a"/>
+<text x="9268.2" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">133</text>
+<text x="9268.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9268.2,374)">omnitoken / cl100k_base / sp</text>
+<rect x="9314.8" y="359.5" width="50.2" height="0.5" fill="#9333ea"/>
+<text x="9339.9" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">131</text>
+<text x="9339.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9339.9,374)">omnitoken / cl100k_base / sp</text>
+<rect x="9386.4" y="358.4" width="50.2" height="1.6" fill="#ea580c"/>
+<text x="9411.5" y="354.4" text-anchor="middle" font-family="sans-serif" font-size="10">416</text>
+<text x="9411.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9411.5,374)">tiktoken_go / cl100k_base / </text>
+<rect x="9458.1" y="358.6" width="50.2" height="1.4" fill="#0891b2"/>
+<text x="9483.2" y="354.6" text-anchor="middle" font-family="sans-serif" font-size="10">357</text>
+<text x="9483.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9483.2,374)">tiktoken_go / cl100k_base / </text>
+<rect x="9529.7" y="358.3" width="50.2" height="1.7" fill="#2563eb"/>
+<text x="9554.8" y="354.3" text-anchor="middle" font-family="sans-serif" font-size="10">442</text>
+<text x="9554.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9554.8,374)">tiktoken_go / cl100k_base / </text>
+<rect x="9601.4" y="358.6" width="50.2" height="1.4" fill="#dc2626"/>
+<text x="9626.5" y="354.6" text-anchor="middle" font-family="sans-serif" font-size="10">352</text>
+<text x="9626.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9626.5,374)">tiktoken_go / cl100k_base / </text>
+<rect x="9673.1" y="358.1" width="50.2" height="1.9" fill="#16a34a"/>
+<text x="9698.1" y="354.1" text-anchor="middle" font-family="sans-serif" font-size="10">487</text>
+<text x="9698.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9698.1,374)">tiktoken_go / cl100k_base / </text>
+<rect x="9744.7" y="358.3" width="50.2" height="1.7" fill="#9333ea"/>
+<text x="9769.8" y="354.3" text-anchor="middle" font-family="sans-serif" font-size="10">436</text>
+<text x="9769.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9769.8,374)">tiktoken_go / cl100k_base / </text>
+<rect x="9816.4" y="358.7" width="50.2" height="1.3" fill="#ea580c"/>
+<text x="9841.5" y="354.7" text-anchor="middle" font-family="sans-serif" font-size="10">336</text>
+<text x="9841.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9841.5,374)">tiktoken_go / cl100k_base / </text>
+<rect x="9888.0" y="358.4" width="50.2" height="1.6" fill="#0891b2"/>
+<text x="9913.1" y="354.4" text-anchor="middle" font-family="sans-serif" font-size="10">406</text>
+<text x="9913.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9913.1,374)">tiktoken_go / cl100k_base / </text>
+<rect x="9959.7" y="358.7" width="50.2" height="1.3" fill="#2563eb"/>
+<text x="9984.8" y="354.7" text-anchor="middle" font-family="sans-serif" font-size="10">340</text>
+<text x="9984.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 9984.8,374)">tiktoken_go / cl100k_base / </text>
+<rect x="10031.4" y="358.3" width="50.2" height="1.7" fill="#dc2626"/>
+<text x="10056.4" y="354.3" text-anchor="middle" font-family="sans-serif" font-size="10">432</text>
+<text x="10056.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10056.4,374)">tiktoken_go / cl100k_base / </text>
+<rect x="10103.0" y="333.0" width="50.2" height="27.0" fill="#16a34a"/>
+<text x="10128.1" y="329.0" text-anchor="middle" font-family="sans-serif" font-size="10">6990</text>
+<text x="10128.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10128.1,374)">omnitoken / cl100k_base / lo</text>
+<rect x="10174.7" y="330.2" width="50.2" height="29.8" fill="#9333ea"/>
+<text x="10199.8" y="326.2" text-anchor="middle" font-family="sans-serif" font-size="10">7708</text>
+<text x="10199.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10199.8,374)">omnitoken / cl100k_base / lo</text>
+<rect x="10246.3" y="331.4" width="50.2" height="28.6" fill="#ea580c"/>
+<text x="10271.4" y="327.4" text-anchor="middle" font-family="sans-serif" font-size="10">7418</text>
+<text x="10271.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10271.4,374)">omnitoken / cl100k_base / lo</text>
+<rect x="10318.0" y="332.4" width="50.2" height="27.6" fill="#0891b2"/>
+<text x="10343.1" y="328.4" text-anchor="middle" font-family="sans-serif" font-size="10">7143</text>
+<text x="10343.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10343.1,374)">omnitoken / cl100k_base / lo</text>
+<rect x="10389.7" y="332.9" width="50.2" height="27.1" fill="#2563eb"/>
+<text x="10414.7" y="328.9" text-anchor="middle" font-family="sans-serif" font-size="10">7014</text>
+<text x="10414.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10414.7,374)">omnitoken / cl100k_base / lo</text>
+<rect x="10461.3" y="333.0" width="50.2" height="27.0" fill="#dc2626"/>
+<text x="10486.4" y="329.0" text-anchor="middle" font-family="sans-serif" font-size="10">7005</text>
+<text x="10486.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10486.4,374)">omnitoken / cl100k_base / lo</text>
+<rect x="10533.0" y="332.9" width="50.2" height="27.1" fill="#16a34a"/>
+<text x="10558.1" y="328.9" text-anchor="middle" font-family="sans-serif" font-size="10">7025</text>
+<text x="10558.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10558.1,374)">omnitoken / cl100k_base / lo</text>
+<rect x="10604.6" y="331.7" width="50.2" height="28.3" fill="#9333ea"/>
+<text x="10629.7" y="327.7" text-anchor="middle" font-family="sans-serif" font-size="10">7343</text>
+<text x="10629.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10629.7,374)">omnitoken / cl100k_base / lo</text>
+<rect x="10676.3" y="313.0" width="50.2" height="47.0" fill="#ea580c"/>
+<text x="10701.4" y="309.0" text-anchor="middle" font-family="sans-serif" font-size="10">12175</text>
+<text x="10701.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10701.4,374)">omnitoken / cl100k_base / lo</text>
+<rect x="10748.0" y="317.9" width="50.2" height="42.1" fill="#0891b2"/>
+<text x="10773.0" y="313.9" text-anchor="middle" font-family="sans-serif" font-size="10">10904</text>
+<text x="10773.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10773.0,374)">omnitoken / cl100k_base / lo</text>
+<rect x="10819.6" y="253.9" width="50.2" height="106.1" fill="#2563eb"/>
+<text x="10844.7" y="249.9" text-anchor="middle" font-family="sans-serif" font-size="10">27490</text>
+<text x="10844.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10844.7,374)">tiktoken_go / cl100k_base / </text>
+<rect x="10891.3" y="256.7" width="50.2" height="103.3" fill="#dc2626"/>
+<text x="10916.4" y="252.7" text-anchor="middle" font-family="sans-serif" font-size="10">26755</text>
+<text x="10916.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10916.4,374)">tiktoken_go / cl100k_base / </text>
+<rect x="10962.9" y="256.2" width="50.2" height="103.8" fill="#16a34a"/>
+<text x="10988.0" y="252.2" text-anchor="middle" font-family="sans-serif" font-size="10">26887</text>
+<text x="10988.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 10988.0,374)">tiktoken_go / cl100k_base / </text>
+<rect x="11034.6" y="256.4" width="50.2" height="103.6" fill="#9333ea"/>
+<text x="11059.7" y="252.4" text-anchor="middle" font-family="sans-serif" font-size="10">26850</text>
+<text x="11059.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11059.7,374)">tiktoken_go / cl100k_base / </text>
+<rect x="11106.2" y="255.1" width="50.2" height="104.9" fill="#ea580c"/>
+<text x="11131.3" y="251.1" text-anchor="middle" font-family="sans-serif" font-size="10">27178</text>
+<text x="11131.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11131.3,374)">tiktoken_go / cl100k_base / </text>
+<rect x="11177.9" y="257.0" width="50.2" height="103.0" fill="#0891b2"/>
+<text x="11203.0" y="253.0" text-anchor="middle" font-family="sans-serif" font-size="10">26671</text>
+<text x="11203.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11203.0,374)">tiktoken_go / cl100k_base / </text>
+<rect x="11249.6" y="257.2" width="50.2" height="102.8" fill="#2563eb"/>
+<text x="11274.6" y="253.2" text-anchor="middle" font-family="sans-serif" font-size="10">26617</text>
+<text x="11274.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11274.6,374)">tiktoken_go / cl100k_base / </text>
+<rect x="11321.2" y="227.9" width="50.2" height="132.1" fill="#dc2626"/>
+<text x="11346.3" y="223.9" text-anchor="middle" font-family="sans-serif" font-size="10">34220</text>
+<text x="11346.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11346.3,374)">tiktoken_go / cl100k_base / </text>
+<rect x="11392.9" y="249.7" width="50.2" height="110.3" fill="#16a34a"/>
+<text x="11418.0" y="245.7" text-anchor="middle" font-family="sans-serif" font-size="10">28571</text>
+<text x="11418.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11418.0,374)">tiktoken_go / cl100k_base / </text>
+<rect x="11464.5" y="256.1" width="50.2" height="103.9" fill="#9333ea"/>
+<text x="11489.6" y="252.1" text-anchor="middle" font-family="sans-serif" font-size="10">26918</text>
+<text x="11489.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11489.6,374)">tiktoken_go / cl100k_base / </text>
+<rect x="11536.2" y="359.7" width="50.2" height="0.3" fill="#ea580c"/>
+<text x="11561.3" y="355.7" text-anchor="middle" font-family="sans-serif" font-size="10">88</text>
+<text x="11561.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11561.3,374)">omnitoken / o200k_base / sho</text>
+<rect x="11607.9" y="359.7" width="50.2" height="0.3" fill="#0891b2"/>
+<text x="11632.9" y="355.7" text-anchor="middle" font-family="sans-serif" font-size="10">88</text>
+<text x="11632.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11632.9,374)">omnitoken / o200k_base / sho</text>
+<rect x="11679.5" y="359.6" width="50.2" height="0.4" fill="#2563eb"/>
+<text x="11704.6" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">93</text>
+<text x="11704.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11704.6,374)">omnitoken / o200k_base / sho</text>
+<rect x="11751.2" y="359.6" width="50.2" height="0.4" fill="#dc2626"/>
+<text x="11776.3" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">96</text>
+<text x="11776.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11776.3,374)">omnitoken / o200k_base / sho</text>
+<rect x="11822.8" y="359.7" width="50.2" height="0.3" fill="#16a34a"/>
+<text x="11847.9" y="355.7" text-anchor="middle" font-family="sans-serif" font-size="10">87</text>
+<text x="11847.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11847.9,374)">omnitoken / o200k_base / sho</text>
+<rect x="11894.5" y="359.7" width="50.2" height="0.3" fill="#9333ea"/>
+<text x="11919.6" y="355.7" text-anchor="middle" font-family="sans-serif" font-size="10">86</text>
+<text x="11919.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11919.6,374)">omnitoken / o200k_base / sho</text>
+<rect x="11966.2" y="359.7" width="50.2" height="0.3" fill="#ea580c"/>
+<text x="11991.2" y="355.7" text-anchor="middle" font-family="sans-serif" font-size="10">88</text>
+<text x="11991.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 11991.2,374)">omnitoken / o200k_base / sho</text>
+<rect x="12037.8" y="359.7" width="50.2" height="0.3" fill="#0891b2"/>
+<text x="12062.9" y="355.7" text-anchor="middle" font-family="sans-serif" font-size="10">74</text>
+<text x="12062.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12062.9,374)">omnitoken / o200k_base / sho</text>
+<rect x="12109.5" y="359.7" width="50.2" height="0.3" fill="#2563eb"/>
+<text x="12134.6" y="355.7" text-anchor="middle" font-family="sans-serif" font-size="10">65</text>
+<text x="12134.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12134.6,374)">omnitoken / o200k_base / sho</text>
+<rect x="12181.1" y="359.7" width="50.2" height="0.3" fill="#dc2626"/>
+<text x="12206.2" y="355.7" text-anchor="middle" font-family="sans-serif" font-size="10">65</text>
+<text x="12206.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12206.2,374)">omnitoken / o200k_base / sho</text>
+<rect x="12252.8" y="359.4" width="50.2" height="0.6" fill="#16a34a"/>
+<text x="12277.9" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">144</text>
+<text x="12277.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12277.9,374)">tiktoken_go / o200k_base / s</text>
+<rect x="12324.5" y="359.5" width="50.2" height="0.5" fill="#9333ea"/>
+<text x="12349.5" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">134</text>
+<text x="12349.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12349.5,374)">tiktoken_go / o200k_base / s</text>
+<rect x="12396.1" y="359.4" width="50.2" height="0.6" fill="#ea580c"/>
+<text x="12421.2" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">153</text>
+<text x="12421.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12421.2,374)">tiktoken_go / o200k_base / s</text>
+<rect x="12467.8" y="359.5" width="50.2" height="0.5" fill="#0891b2"/>
+<text x="12492.9" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">128</text>
+<text x="12492.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12492.9,374)">tiktoken_go / o200k_base / s</text>
+<rect x="12539.4" y="359.4" width="50.2" height="0.6" fill="#2563eb"/>
+<text x="12564.5" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">167</text>
+<text x="12564.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12564.5,374)">tiktoken_go / o200k_base / s</text>
+<rect x="12611.1" y="359.4" width="50.2" height="0.6" fill="#dc2626"/>
+<text x="12636.2" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">157</text>
+<text x="12636.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12636.2,374)">tiktoken_go / o200k_base / s</text>
+<rect x="12682.7" y="359.5" width="50.2" height="0.5" fill="#16a34a"/>
+<text x="12707.8" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">126</text>
+<text x="12707.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12707.8,374)">tiktoken_go / o200k_base / s</text>
+<rect x="12754.4" y="359.5" width="50.2" height="0.5" fill="#9333ea"/>
+<text x="12779.5" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">125</text>
+<text x="12779.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12779.5,374)">tiktoken_go / o200k_base / s</text>
+<rect x="12826.1" y="359.5" width="50.2" height="0.5" fill="#ea580c"/>
+<text x="12851.1" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">121</text>
+<text x="12851.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12851.1,374)">tiktoken_go / o200k_base / s</text>
+<rect x="12897.7" y="359.3" width="50.2" height="0.7" fill="#0891b2"/>
+<text x="12922.8" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">190</text>
+<text x="12922.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12922.8,374)">tiktoken_go / o200k_base / s</text>
+<rect x="12969.4" y="359.3" width="50.2" height="0.7" fill="#2563eb"/>
+<text x="12994.5" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">193</text>
+<text x="12994.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 12994.5,374)">omnitoken / o200k_base / jso</text>
+<rect x="13041.0" y="359.3" width="50.2" height="0.7" fill="#dc2626"/>
+<text x="13066.1" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">193</text>
+<text x="13066.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13066.1,374)">omnitoken / o200k_base / jso</text>
+<rect x="13112.7" y="359.3" width="50.2" height="0.7" fill="#16a34a"/>
+<text x="13137.8" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">190</text>
+<text x="13137.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13137.8,374)">omnitoken / o200k_base / jso</text>
+<rect x="13184.4" y="359.3" width="50.2" height="0.7" fill="#9333ea"/>
+<text x="13209.4" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">188</text>
+<text x="13209.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13209.4,374)">omnitoken / o200k_base / jso</text>
+<rect x="13256.0" y="359.2" width="50.2" height="0.8" fill="#ea580c"/>
+<text x="13281.1" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">199</text>
+<text x="13281.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13281.1,374)">omnitoken / o200k_base / jso</text>
+<rect x="13327.7" y="359.2" width="50.2" height="0.8" fill="#0891b2"/>
+<text x="13352.8" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">220</text>
+<text x="13352.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13352.8,374)">omnitoken / o200k_base / jso</text>
+<rect x="13399.3" y="359.3" width="50.2" height="0.7" fill="#2563eb"/>
+<text x="13424.4" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">185</text>
+<text x="13424.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13424.4,374)">omnitoken / o200k_base / jso</text>
+<rect x="13471.0" y="359.3" width="50.2" height="0.7" fill="#dc2626"/>
+<text x="13496.1" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">188</text>
+<text x="13496.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13496.1,374)">omnitoken / o200k_base / jso</text>
+<rect x="13542.7" y="359.3" width="50.2" height="0.7" fill="#16a34a"/>
+<text x="13567.7" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">188</text>
+<text x="13567.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13567.7,374)">omnitoken / o200k_base / jso</text>
+<rect x="13614.3" y="359.2" width="50.2" height="0.8" fill="#9333ea"/>
+<text x="13639.4" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">198</text>
+<text x="13639.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13639.4,374)">omnitoken / o200k_base / jso</text>
+<rect x="13686.0" y="358.3" width="50.2" height="1.7" fill="#ea580c"/>
+<text x="13711.1" y="354.3" text-anchor="middle" font-family="sans-serif" font-size="10">445</text>
+<text x="13711.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13711.1,374)">tiktoken_go / o200k_base / j</text>
+<rect x="13757.6" y="358.3" width="50.2" height="1.7" fill="#0891b2"/>
+<text x="13782.7" y="354.3" text-anchor="middle" font-family="sans-serif" font-size="10">450</text>
+<text x="13782.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13782.7,374)">tiktoken_go / o200k_base / j</text>
+<rect x="13829.3" y="358.3" width="50.2" height="1.7" fill="#2563eb"/>
+<text x="13854.4" y="354.3" text-anchor="middle" font-family="sans-serif" font-size="10">448</text>
+<text x="13854.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13854.4,374)">tiktoken_go / o200k_base / j</text>
+<rect x="13901.0" y="358.3" width="50.2" height="1.7" fill="#dc2626"/>
+<text x="13926.0" y="354.3" text-anchor="middle" font-family="sans-serif" font-size="10">444</text>
+<text x="13926.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13926.0,374)">tiktoken_go / o200k_base / j</text>
+<rect x="13972.6" y="358.2" width="50.2" height="1.8" fill="#16a34a"/>
+<text x="13997.7" y="354.2" text-anchor="middle" font-family="sans-serif" font-size="10">465</text>
+<text x="13997.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 13997.7,374)">tiktoken_go / o200k_base / j</text>
+<rect x="14044.3" y="358.3" width="50.2" height="1.7" fill="#9333ea"/>
+<text x="14069.4" y="354.3" text-anchor="middle" font-family="sans-serif" font-size="10">446</text>
+<text x="14069.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14069.4,374)">tiktoken_go / o200k_base / j</text>
+<rect x="14115.9" y="358.3" width="50.2" height="1.7" fill="#ea580c"/>
+<text x="14141.0" y="354.3" text-anchor="middle" font-family="sans-serif" font-size="10">450</text>
+<text x="14141.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14141.0,374)">tiktoken_go / o200k_base / j</text>
+<rect x="14187.6" y="358.3" width="50.2" height="1.7" fill="#0891b2"/>
+<text x="14212.7" y="354.3" text-anchor="middle" font-family="sans-serif" font-size="10">448</text>
+<text x="14212.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14212.7,374)">tiktoken_go / o200k_base / j</text>
+<rect x="14259.2" y="358.2" width="50.2" height="1.8" fill="#2563eb"/>
+<text x="14284.3" y="354.2" text-anchor="middle" font-family="sans-serif" font-size="10">471</text>
+<text x="14284.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14284.3,374)">tiktoken_go / o200k_base / j</text>
+<rect x="14330.9" y="358.2" width="50.2" height="1.8" fill="#dc2626"/>
+<text x="14356.0" y="354.2" text-anchor="middle" font-family="sans-serif" font-size="10">455</text>
+<text x="14356.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14356.0,374)">tiktoken_go / o200k_base / j</text>
+<rect x="14402.6" y="359.4" width="50.2" height="0.6" fill="#16a34a"/>
+<text x="14427.6" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">159</text>
+<text x="14427.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14427.6,374)">omnitoken / o200k_base / uni</text>
+<rect x="14474.2" y="359.4" width="50.2" height="0.6" fill="#9333ea"/>
+<text x="14499.3" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">163</text>
+<text x="14499.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14499.3,374)">omnitoken / o200k_base / uni</text>
+<rect x="14545.9" y="359.4" width="50.2" height="0.6" fill="#ea580c"/>
+<text x="14571.0" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">158</text>
+<text x="14571.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14571.0,374)">omnitoken / o200k_base / uni</text>
+<rect x="14617.5" y="359.4" width="50.2" height="0.6" fill="#0891b2"/>
+<text x="14642.6" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">157</text>
+<text x="14642.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14642.6,374)">omnitoken / o200k_base / uni</text>
+<rect x="14689.2" y="359.3" width="50.2" height="0.7" fill="#2563eb"/>
+<text x="14714.3" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">174</text>
+<text x="14714.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14714.3,374)">omnitoken / o200k_base / uni</text>
+<rect x="14760.9" y="359.4" width="50.2" height="0.6" fill="#dc2626"/>
+<text x="14785.9" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">158</text>
+<text x="14785.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14785.9,374)">omnitoken / o200k_base / uni</text>
+<rect x="14832.5" y="359.4" width="50.2" height="0.6" fill="#16a34a"/>
+<text x="14857.6" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">163</text>
+<text x="14857.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14857.6,374)">omnitoken / o200k_base / uni</text>
+<rect x="14904.2" y="359.4" width="50.2" height="0.6" fill="#9333ea"/>
+<text x="14929.3" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">166</text>
+<text x="14929.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 14929.3,374)">omnitoken / o200k_base / uni</text>
+<rect x="14975.8" y="359.4" width="50.2" height="0.6" fill="#ea580c"/>
+<text x="15000.9" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">167</text>
+<text x="15000.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15000.9,374)">omnitoken / o200k_base / uni</text>
+<rect x="15047.5" y="359.4" width="50.2" height="0.6" fill="#0891b2"/>
+<text x="15072.6" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">160</text>
+<text x="15072.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15072.6,374)">omnitoken / o200k_base / uni</text>
+<rect x="15119.2" y="358.9" width="50.2" height="1.1" fill="#2563eb"/>
+<text x="15144.2" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">286</text>
+<text x="15144.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15144.2,374)">tiktoken_go / o200k_base / u</text>
+<rect x="15190.8" y="358.9" width="50.2" height="1.1" fill="#dc2626"/>
+<text x="15215.9" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">292</text>
+<text x="15215.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15215.9,374)">tiktoken_go / o200k_base / u</text>
+<rect x="15262.5" y="358.9" width="50.2" height="1.1" fill="#16a34a"/>
+<text x="15287.6" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">291</text>
+<text x="15287.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15287.6,374)">tiktoken_go / o200k_base / u</text>
+<rect x="15334.1" y="358.9" width="50.2" height="1.1" fill="#9333ea"/>
+<text x="15359.2" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">287</text>
+<text x="15359.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15359.2,374)">tiktoken_go / o200k_base / u</text>
+<rect x="15405.8" y="358.9" width="50.2" height="1.1" fill="#ea580c"/>
+<text x="15430.9" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">291</text>
+<text x="15430.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15430.9,374)">tiktoken_go / o200k_base / u</text>
+<rect x="15477.5" y="358.8" width="50.2" height="1.2" fill="#0891b2"/>
+<text x="15502.5" y="354.8" text-anchor="middle" font-family="sans-serif" font-size="10">319</text>
+<text x="15502.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15502.5,374)">tiktoken_go / o200k_base / u</text>
+<rect x="15549.1" y="358.9" width="50.2" height="1.1" fill="#2563eb"/>
+<text x="15574.2" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">296</text>
+<text x="15574.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15574.2,374)">tiktoken_go / o200k_base / u</text>
+<rect x="15620.8" y="358.9" width="50.2" height="1.1" fill="#dc2626"/>
+<text x="15645.9" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">287</text>
+<text x="15645.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15645.9,374)">tiktoken_go / o200k_base / u</text>
+<rect x="15692.4" y="358.9" width="50.2" height="1.1" fill="#16a34a"/>
+<text x="15717.5" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">283</text>
+<text x="15717.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15717.5,374)">tiktoken_go / o200k_base / u</text>
+<rect x="15764.1" y="358.9" width="50.2" height="1.1" fill="#9333ea"/>
+<text x="15789.2" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">293</text>
+<text x="15789.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15789.2,374)">tiktoken_go / o200k_base / u</text>
+<rect x="15835.7" y="359.4" width="50.2" height="0.6" fill="#ea580c"/>
+<text x="15860.8" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">144</text>
+<text x="15860.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15860.8,374)">omnitoken / o200k_base / cod</text>
+<rect x="15907.4" y="359.4" width="50.2" height="0.6" fill="#0891b2"/>
+<text x="15932.5" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">143</text>
+<text x="15932.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 15932.5,374)">omnitoken / o200k_base / cod</text>
+<rect x="15979.1" y="359.4" width="50.2" height="0.6" fill="#2563eb"/>
+<text x="16004.1" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">147</text>
+<text x="16004.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16004.1,374)">omnitoken / o200k_base / cod</text>
+<rect x="16050.7" y="359.4" width="50.2" height="0.6" fill="#dc2626"/>
+<text x="16075.8" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">143</text>
+<text x="16075.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16075.8,374)">omnitoken / o200k_base / cod</text>
+<rect x="16122.4" y="359.4" width="50.2" height="0.6" fill="#16a34a"/>
+<text x="16147.5" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">143</text>
+<text x="16147.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16147.5,374)">omnitoken / o200k_base / cod</text>
+<rect x="16194.0" y="359.4" width="50.2" height="0.6" fill="#9333ea"/>
+<text x="16219.1" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">146</text>
+<text x="16219.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16219.1,374)">omnitoken / o200k_base / cod</text>
+<rect x="16265.7" y="359.4" width="50.2" height="0.6" fill="#ea580c"/>
+<text x="16290.8" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">144</text>
+<text x="16290.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16290.8,374)">omnitoken / o200k_base / cod</text>
+<rect x="16337.4" y="359.4" width="50.2" height="0.6" fill="#0891b2"/>
+<text x="16362.4" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">162</text>
+<text x="16362.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16362.4,374)">omnitoken / o200k_base / cod</text>
+<rect x="16409.0" y="359.4" width="50.2" height="0.6" fill="#2563eb"/>
+<text x="16434.1" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">147</text>
+<text x="16434.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16434.1,374)">omnitoken / o200k_base / cod</text>
+<rect x="16480.7" y="359.4" width="50.2" height="0.6" fill="#dc2626"/>
+<text x="16505.8" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">147</text>
+<text x="16505.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16505.8,374)">omnitoken / o200k_base / cod</text>
+<rect x="16552.3" y="358.2" width="50.2" height="1.8" fill="#16a34a"/>
+<text x="16577.4" y="354.2" text-anchor="middle" font-family="sans-serif" font-size="10">455</text>
+<text x="16577.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16577.4,374)">tiktoken_go / o200k_base / c</text>
+<rect x="16624.0" y="358.5" width="50.2" height="1.5" fill="#9333ea"/>
+<text x="16649.1" y="354.5" text-anchor="middle" font-family="sans-serif" font-size="10">394</text>
+<text x="16649.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16649.1,374)">tiktoken_go / o200k_base / c</text>
+<rect x="16695.7" y="358.6" width="50.2" height="1.4" fill="#ea580c"/>
+<text x="16720.7" y="354.6" text-anchor="middle" font-family="sans-serif" font-size="10">355</text>
+<text x="16720.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16720.7,374)">tiktoken_go / o200k_base / c</text>
+<rect x="16767.3" y="358.6" width="50.2" height="1.4" fill="#0891b2"/>
+<text x="16792.4" y="354.6" text-anchor="middle" font-family="sans-serif" font-size="10">353</text>
+<text x="16792.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16792.4,374)">tiktoken_go / o200k_base / c</text>
+<rect x="16839.0" y="358.6" width="50.2" height="1.4" fill="#2563eb"/>
+<text x="16864.1" y="354.6" text-anchor="middle" font-family="sans-serif" font-size="10">363</text>
+<text x="16864.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16864.1,374)">tiktoken_go / o200k_base / c</text>
+<rect x="16910.6" y="358.5" width="50.2" height="1.5" fill="#dc2626"/>
+<text x="16935.7" y="354.5" text-anchor="middle" font-family="sans-serif" font-size="10">380</text>
+<text x="16935.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 16935.7,374)">tiktoken_go / o200k_base / c</text>
+<rect x="16982.3" y="358.0" width="50.2" height="2.0" fill="#16a34a"/>
+<text x="17007.4" y="354.0" text-anchor="middle" font-family="sans-serif" font-size="10">508</text>
+<text x="17007.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17007.4,374)">tiktoken_go / o200k_base / c</text>
+<rect x="17054.0" y="358.6" width="50.2" height="1.4" fill="#9333ea"/>
+<text x="17079.0" y="354.6" text-anchor="middle" font-family="sans-serif" font-size="10">365</text>
+<text x="17079.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17079.0,374)">tiktoken_go / o200k_base / c</text>
+<rect x="17125.6" y="358.6" width="50.2" height="1.4" fill="#ea580c"/>
+<text x="17150.7" y="354.6" text-anchor="middle" font-family="sans-serif" font-size="10">357</text>
+<text x="17150.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17150.7,374)">tiktoken_go / o200k_base / c</text>
+<rect x="17197.3" y="358.5" width="50.2" height="1.5" fill="#0891b2"/>
+<text x="17222.4" y="354.5" text-anchor="middle" font-family="sans-serif" font-size="10">379</text>
+<text x="17222.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17222.4,374)">tiktoken_go / o200k_base / c</text>
+<rect x="17268.9" y="359.5" width="50.2" height="0.5" fill="#2563eb"/>
+<text x="17294.0" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">130</text>
+<text x="17294.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17294.0,374)">omnitoken / o200k_base / mar</text>
+<rect x="17340.6" y="359.5" width="50.2" height="0.5" fill="#dc2626"/>
+<text x="17365.7" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">133</text>
+<text x="17365.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17365.7,374)">omnitoken / o200k_base / mar</text>
+<rect x="17412.2" y="359.5" width="50.2" height="0.5" fill="#16a34a"/>
+<text x="17437.3" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">140</text>
+<text x="17437.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17437.3,374)">omnitoken / o200k_base / mar</text>
+<rect x="17483.9" y="359.5" width="50.2" height="0.5" fill="#9333ea"/>
+<text x="17509.0" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">136</text>
+<text x="17509.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17509.0,374)">omnitoken / o200k_base / mar</text>
+<rect x="17555.6" y="359.5" width="50.2" height="0.5" fill="#ea580c"/>
+<text x="17580.6" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">133</text>
+<text x="17580.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17580.6,374)">omnitoken / o200k_base / mar</text>
+<rect x="17627.2" y="359.5" width="50.2" height="0.5" fill="#0891b2"/>
+<text x="17652.3" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">134</text>
+<text x="17652.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17652.3,374)">omnitoken / o200k_base / mar</text>
+<rect x="17698.9" y="359.5" width="50.2" height="0.5" fill="#2563eb"/>
+<text x="17724.0" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">140</text>
+<text x="17724.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17724.0,374)">omnitoken / o200k_base / mar</text>
+<rect x="17770.5" y="359.4" width="50.2" height="0.6" fill="#dc2626"/>
+<text x="17795.6" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">147</text>
+<text x="17795.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17795.6,374)">omnitoken / o200k_base / mar</text>
+<rect x="17842.2" y="359.3" width="50.2" height="0.7" fill="#16a34a"/>
+<text x="17867.3" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">192</text>
+<text x="17867.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17867.3,374)">omnitoken / o200k_base / mar</text>
+<rect x="17913.9" y="359.5" width="50.2" height="0.5" fill="#9333ea"/>
+<text x="17938.9" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">131</text>
+<text x="17938.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 17938.9,374)">omnitoken / o200k_base / mar</text>
+<rect x="17985.5" y="359.0" width="50.2" height="1.0" fill="#ea580c"/>
+<text x="18010.6" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">263</text>
+<text x="18010.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18010.6,374)">tiktoken_go / o200k_base / m</text>
+<rect x="18057.2" y="358.9" width="50.2" height="1.1" fill="#0891b2"/>
+<text x="18082.3" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">278</text>
+<text x="18082.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18082.3,374)">tiktoken_go / o200k_base / m</text>
+<rect x="18128.8" y="358.9" width="50.2" height="1.1" fill="#2563eb"/>
+<text x="18153.9" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">274</text>
+<text x="18153.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18153.9,374)">tiktoken_go / o200k_base / m</text>
+<rect x="18200.5" y="358.9" width="50.2" height="1.1" fill="#dc2626"/>
+<text x="18225.6" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">277</text>
+<text x="18225.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18225.6,374)">tiktoken_go / o200k_base / m</text>
+<rect x="18272.2" y="358.9" width="50.2" height="1.1" fill="#16a34a"/>
+<text x="18297.2" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">280</text>
+<text x="18297.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18297.2,374)">tiktoken_go / o200k_base / m</text>
+<rect x="18343.8" y="358.9" width="50.2" height="1.1" fill="#9333ea"/>
+<text x="18368.9" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">277</text>
+<text x="18368.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18368.9,374)">tiktoken_go / o200k_base / m</text>
+<rect x="18415.5" y="359.0" width="50.2" height="1.0" fill="#ea580c"/>
+<text x="18440.6" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">271</text>
+<text x="18440.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18440.6,374)">tiktoken_go / o200k_base / m</text>
+<rect x="18487.1" y="358.9" width="50.2" height="1.1" fill="#0891b2"/>
+<text x="18512.2" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">280</text>
+<text x="18512.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18512.2,374)">tiktoken_go / o200k_base / m</text>
+<rect x="18558.8" y="358.9" width="50.2" height="1.1" fill="#2563eb"/>
+<text x="18583.9" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">280</text>
+<text x="18583.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18583.9,374)">tiktoken_go / o200k_base / m</text>
+<rect x="18630.5" y="358.9" width="50.2" height="1.1" fill="#dc2626"/>
+<text x="18655.5" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">286</text>
+<text x="18655.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18655.5,374)">tiktoken_go / o200k_base / m</text>
+<rect x="18702.1" y="359.6" width="50.2" height="0.4" fill="#16a34a"/>
+<text x="18727.2" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">91</text>
+<text x="18727.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18727.2,374)">omnitoken / o200k_base / whi</text>
+<rect x="18773.8" y="359.5" width="50.2" height="0.5" fill="#9333ea"/>
+<text x="18798.9" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">131</text>
+<text x="18798.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18798.9,374)">omnitoken / o200k_base / whi</text>
+<rect x="18845.4" y="359.7" width="50.2" height="0.3" fill="#ea580c"/>
+<text x="18870.5" y="355.7" text-anchor="middle" font-family="sans-serif" font-size="10">90</text>
+<text x="18870.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18870.5,374)">omnitoken / o200k_base / whi</text>
+<rect x="18917.1" y="359.6" width="50.2" height="0.4" fill="#0891b2"/>
+<text x="18942.2" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">96</text>
+<text x="18942.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 18942.2,374)">omnitoken / o200k_base / whi</text>
+<rect x="18988.7" y="359.6" width="50.2" height="0.4" fill="#2563eb"/>
+<text x="19013.8" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">93</text>
+<text x="19013.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19013.8,374)">omnitoken / o200k_base / whi</text>
+<rect x="19060.4" y="359.6" width="50.2" height="0.4" fill="#dc2626"/>
+<text x="19085.5" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">95</text>
+<text x="19085.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19085.5,374)">omnitoken / o200k_base / whi</text>
+<rect x="19132.1" y="359.6" width="50.2" height="0.4" fill="#16a34a"/>
+<text x="19157.1" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">101</text>
+<text x="19157.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19157.1,374)">omnitoken / o200k_base / whi</text>
+<rect x="19203.7" y="359.5" width="50.2" height="0.5" fill="#9333ea"/>
+<text x="19228.8" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">122</text>
+<text x="19228.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19228.8,374)">omnitoken / o200k_base / whi</text>
+<rect x="19275.4" y="359.6" width="50.2" height="0.4" fill="#ea580c"/>
+<text x="19300.5" y="355.6" text-anchor="middle" font-family="sans-serif" font-size="10">92</text>
+<text x="19300.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19300.5,374)">omnitoken / o200k_base / whi</text>
+<rect x="19347.0" y="359.5" width="50.2" height="0.5" fill="#0891b2"/>
+<text x="19372.1" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">133</text>
+<text x="19372.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19372.1,374)">omnitoken / o200k_base / whi</text>
+<rect x="19418.7" y="359.3" width="50.2" height="0.7" fill="#2563eb"/>
+<text x="19443.8" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">185</text>
+<text x="19443.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19443.8,374)">tiktoken_go / o200k_base / w</text>
+<rect x="19490.4" y="359.2" width="50.2" height="0.8" fill="#dc2626"/>
+<text x="19515.4" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">199</text>
+<text x="19515.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19515.4,374)">tiktoken_go / o200k_base / w</text>
+<rect x="19562.0" y="359.3" width="50.2" height="0.7" fill="#16a34a"/>
+<text x="19587.1" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">189</text>
+<text x="19587.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19587.1,374)">tiktoken_go / o200k_base / w</text>
+<rect x="19633.7" y="359.3" width="50.2" height="0.7" fill="#9333ea"/>
+<text x="19658.8" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">182</text>
+<text x="19658.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19658.8,374)">tiktoken_go / o200k_base / w</text>
+<rect x="19705.3" y="359.3" width="50.2" height="0.7" fill="#ea580c"/>
+<text x="19730.4" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">193</text>
+<text x="19730.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19730.4,374)">tiktoken_go / o200k_base / w</text>
+<rect x="19777.0" y="359.2" width="50.2" height="0.8" fill="#0891b2"/>
+<text x="19802.1" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">210</text>
+<text x="19802.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19802.1,374)">tiktoken_go / o200k_base / w</text>
+<rect x="19848.7" y="359.3" width="50.2" height="0.7" fill="#2563eb"/>
+<text x="19873.7" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">191</text>
+<text x="19873.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19873.7,374)">tiktoken_go / o200k_base / w</text>
+<rect x="19920.3" y="359.3" width="50.2" height="0.7" fill="#dc2626"/>
+<text x="19945.4" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">188</text>
+<text x="19945.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 19945.4,374)">tiktoken_go / o200k_base / w</text>
+<rect x="19992.0" y="359.3" width="50.2" height="0.7" fill="#16a34a"/>
+<text x="20017.1" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">181</text>
+<text x="20017.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20017.1,374)">tiktoken_go / o200k_base / w</text>
+<rect x="20063.6" y="359.3" width="50.2" height="0.7" fill="#9333ea"/>
+<text x="20088.7" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">185</text>
+<text x="20088.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20088.7,374)">tiktoken_go / o200k_base / w</text>
+<rect x="20135.3" y="359.4" width="50.2" height="0.6" fill="#ea580c"/>
+<text x="20160.4" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">143</text>
+<text x="20160.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20160.4,374)">omnitoken / o200k_base / spe</text>
+<rect x="20207.0" y="359.2" width="50.2" height="0.8" fill="#0891b2"/>
+<text x="20232.0" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">207</text>
+<text x="20232.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20232.0,374)">omnitoken / o200k_base / spe</text>
+<rect x="20278.6" y="359.5" width="50.2" height="0.5" fill="#2563eb"/>
+<text x="20303.7" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">140</text>
+<text x="20303.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20303.7,374)">omnitoken / o200k_base / spe</text>
+<rect x="20350.3" y="359.5" width="50.2" height="0.5" fill="#dc2626"/>
+<text x="20375.4" y="355.5" text-anchor="middle" font-family="sans-serif" font-size="10">140</text>
+<text x="20375.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20375.4,374)">omnitoken / o200k_base / spe</text>
+<rect x="20421.9" y="359.4" width="50.2" height="0.6" fill="#16a34a"/>
+<text x="20447.0" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">154</text>
+<text x="20447.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20447.0,374)">omnitoken / o200k_base / spe</text>
+<rect x="20493.6" y="359.4" width="50.2" height="0.6" fill="#9333ea"/>
+<text x="20518.7" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">165</text>
+<text x="20518.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20518.7,374)">omnitoken / o200k_base / spe</text>
+<rect x="20565.2" y="359.3" width="50.2" height="0.7" fill="#ea580c"/>
+<text x="20590.3" y="355.3" text-anchor="middle" font-family="sans-serif" font-size="10">169</text>
+<text x="20590.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20590.3,374)">omnitoken / o200k_base / spe</text>
+<rect x="20636.9" y="359.2" width="50.2" height="0.8" fill="#0891b2"/>
+<text x="20662.0" y="355.2" text-anchor="middle" font-family="sans-serif" font-size="10">199</text>
+<text x="20662.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20662.0,374)">omnitoken / o200k_base / spe</text>
+<rect x="20708.6" y="359.4" width="50.2" height="0.6" fill="#2563eb"/>
+<text x="20733.6" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">147</text>
+<text x="20733.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20733.6,374)">omnitoken / o200k_base / spe</text>
+<rect x="20780.2" y="359.4" width="50.2" height="0.6" fill="#dc2626"/>
+<text x="20805.3" y="355.4" text-anchor="middle" font-family="sans-serif" font-size="10">148</text>
+<text x="20805.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20805.3,374)">omnitoken / o200k_base / spe</text>
+<rect x="20851.9" y="358.9" width="50.2" height="1.1" fill="#16a34a"/>
+<text x="20877.0" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">294</text>
+<text x="20877.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20877.0,374)">tiktoken_go / o200k_base / s</text>
+<rect x="20923.5" y="358.9" width="50.2" height="1.1" fill="#9333ea"/>
+<text x="20948.6" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">294</text>
+<text x="20948.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 20948.6,374)">tiktoken_go / o200k_base / s</text>
+<rect x="20995.2" y="358.9" width="50.2" height="1.1" fill="#ea580c"/>
+<text x="21020.3" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">292</text>
+<text x="21020.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21020.3,374)">tiktoken_go / o200k_base / s</text>
+<rect x="21066.9" y="358.8" width="50.2" height="1.2" fill="#0891b2"/>
+<text x="21091.9" y="354.8" text-anchor="middle" font-family="sans-serif" font-size="10">302</text>
+<text x="21091.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21091.9,374)">tiktoken_go / o200k_base / s</text>
+<rect x="21138.5" y="358.9" width="50.2" height="1.1" fill="#2563eb"/>
+<text x="21163.6" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">292</text>
+<text x="21163.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21163.6,374)">tiktoken_go / o200k_base / s</text>
+<rect x="21210.2" y="358.9" width="50.2" height="1.1" fill="#dc2626"/>
+<text x="21235.3" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">296</text>
+<text x="21235.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21235.3,374)">tiktoken_go / o200k_base / s</text>
+<rect x="21281.8" y="358.9" width="50.2" height="1.1" fill="#16a34a"/>
+<text x="21306.9" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">293</text>
+<text x="21306.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21306.9,374)">tiktoken_go / o200k_base / s</text>
+<rect x="21353.5" y="358.8" width="50.2" height="1.2" fill="#9333ea"/>
+<text x="21378.6" y="354.8" text-anchor="middle" font-family="sans-serif" font-size="10">299</text>
+<text x="21378.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21378.6,374)">tiktoken_go / o200k_base / s</text>
+<rect x="21425.2" y="358.9" width="50.2" height="1.1" fill="#ea580c"/>
+<text x="21450.2" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">295</text>
+<text x="21450.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21450.2,374)">tiktoken_go / o200k_base / s</text>
+<rect x="21496.8" y="358.8" width="50.2" height="1.2" fill="#0891b2"/>
+<text x="21521.9" y="354.8" text-anchor="middle" font-family="sans-serif" font-size="10">309</text>
+<text x="21521.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21521.9,374)">tiktoken_go / o200k_base / s</text>
+<rect x="21568.5" y="334.8" width="50.2" height="25.2" fill="#2563eb"/>
+<text x="21593.6" y="330.8" text-anchor="middle" font-family="sans-serif" font-size="10">6532</text>
+<text x="21593.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21593.6,374)">omnitoken / o200k_base / lon</text>
+<rect x="21640.1" y="335.4" width="50.2" height="24.6" fill="#dc2626"/>
+<text x="21665.2" y="331.4" text-anchor="middle" font-family="sans-serif" font-size="10">6373</text>
+<text x="21665.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21665.2,374)">omnitoken / o200k_base / lon</text>
+<rect x="21711.8" y="335.5" width="50.2" height="24.5" fill="#16a34a"/>
+<text x="21736.9" y="331.5" text-anchor="middle" font-family="sans-serif" font-size="10">6336</text>
+<text x="21736.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21736.9,374)">omnitoken / o200k_base / lon</text>
+<rect x="21783.5" y="335.7" width="50.2" height="24.3" fill="#9333ea"/>
+<text x="21808.5" y="331.7" text-anchor="middle" font-family="sans-serif" font-size="10">6303</text>
+<text x="21808.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21808.5,374)">omnitoken / o200k_base / lon</text>
+<rect x="21855.1" y="333.9" width="50.2" height="26.1" fill="#ea580c"/>
+<text x="21880.2" y="329.9" text-anchor="middle" font-family="sans-serif" font-size="10">6760</text>
+<text x="21880.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21880.2,374)">omnitoken / o200k_base / lon</text>
+<rect x="21926.8" y="335.2" width="50.2" height="24.8" fill="#0891b2"/>
+<text x="21951.9" y="331.2" text-anchor="middle" font-family="sans-serif" font-size="10">6432</text>
+<text x="21951.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 21951.9,374)">omnitoken / o200k_base / lon</text>
+<rect x="21998.4" y="335.3" width="50.2" height="24.7" fill="#2563eb"/>
+<text x="22023.5" y="331.3" text-anchor="middle" font-family="sans-serif" font-size="10">6406</text>
+<text x="22023.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22023.5,374)">omnitoken / o200k_base / lon</text>
+<rect x="22070.1" y="335.7" width="50.2" height="24.3" fill="#dc2626"/>
+<text x="22095.2" y="331.7" text-anchor="middle" font-family="sans-serif" font-size="10">6299</text>
+<text x="22095.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22095.2,374)">omnitoken / o200k_base / lon</text>
+<rect x="22141.7" y="332.4" width="50.2" height="27.6" fill="#16a34a"/>
+<text x="22166.8" y="328.4" text-anchor="middle" font-family="sans-serif" font-size="10">7150</text>
+<text x="22166.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22166.8,374)">omnitoken / o200k_base / lon</text>
+<rect x="22213.4" y="335.5" width="50.2" height="24.5" fill="#9333ea"/>
+<text x="22238.5" y="331.5" text-anchor="middle" font-family="sans-serif" font-size="10">6348</text>
+<text x="22238.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22238.5,374)">omnitoken / o200k_base / lon</text>
+<rect x="22285.1" y="304.9" width="50.2" height="55.1" fill="#ea580c"/>
+<text x="22310.1" y="300.9" text-anchor="middle" font-family="sans-serif" font-size="10">14263</text>
+<text x="22310.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22310.1,374)">tiktoken_go / o200k_base / l</text>
+<rect x="22356.7" y="307.0" width="50.2" height="53.0" fill="#0891b2"/>
+<text x="22381.8" y="303.0" text-anchor="middle" font-family="sans-serif" font-size="10">13730</text>
+<text x="22381.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22381.8,374)">tiktoken_go / o200k_base / l</text>
+<rect x="22428.4" y="305.5" width="50.2" height="54.5" fill="#2563eb"/>
+<text x="22453.5" y="301.5" text-anchor="middle" font-family="sans-serif" font-size="10">14114</text>
+<text x="22453.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22453.5,374)">tiktoken_go / o200k_base / l</text>
+<rect x="22500.0" y="306.2" width="50.2" height="53.8" fill="#dc2626"/>
+<text x="22525.1" y="302.2" text-anchor="middle" font-family="sans-serif" font-size="10">13936</text>
+<text x="22525.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22525.1,374)">tiktoken_go / o200k_base / l</text>
+<rect x="22571.7" y="306.8" width="50.2" height="53.2" fill="#16a34a"/>
+<text x="22596.8" y="302.8" text-anchor="middle" font-family="sans-serif" font-size="10">13789</text>
+<text x="22596.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22596.8,374)">tiktoken_go / o200k_base / l</text>
+<rect x="22643.4" y="306.7" width="50.2" height="53.3" fill="#9333ea"/>
+<text x="22668.4" y="302.7" text-anchor="middle" font-family="sans-serif" font-size="10">13796</text>
+<text x="22668.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22668.4,374)">tiktoken_go / o200k_base / l</text>
+<rect x="22715.0" y="305.2" width="50.2" height="54.8" fill="#ea580c"/>
+<text x="22740.1" y="301.2" text-anchor="middle" font-family="sans-serif" font-size="10">14204</text>
+<text x="22740.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22740.1,374)">tiktoken_go / o200k_base / l</text>
+<rect x="22786.7" y="305.1" width="50.2" height="54.9" fill="#0891b2"/>
+<text x="22811.8" y="301.1" text-anchor="middle" font-family="sans-serif" font-size="10">14232</text>
+<text x="22811.8" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22811.8,374)">tiktoken_go / o200k_base / l</text>
+<rect x="22858.3" y="305.3" width="50.2" height="54.7" fill="#2563eb"/>
+<text x="22883.4" y="301.3" text-anchor="middle" font-family="sans-serif" font-size="10">14169</text>
+<text x="22883.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22883.4,374)">tiktoken_go / o200k_base / l</text>
+<rect x="22930.0" y="297.3" width="50.2" height="62.7" fill="#dc2626"/>
+<text x="22955.1" y="293.3" text-anchor="middle" font-family="sans-serif" font-size="10">16244</text>
+<text x="22955.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 22955.1,374)">tiktoken_go / o200k_base / l</text>
+<rect x="23001.7" y="357.3" width="50.2" height="2.7" fill="#16a34a"/>
+<text x="23026.7" y="353.3" text-anchor="middle" font-family="sans-serif" font-size="10">709</text>
+<text x="23026.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23026.7,374)">omnitoken_docker / cl100k_ba</text>
+<rect x="23073.3" y="358.8" width="50.2" height="1.2" fill="#9333ea"/>
+<text x="23098.4" y="354.8" text-anchor="middle" font-family="sans-serif" font-size="10">321</text>
+<text x="23098.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23098.4,374)">tiktoken_go_docker / cl100k_</text>
+<rect x="23145.0" y="355.6" width="50.2" height="4.4" fill="#ea580c"/>
+<text x="23170.1" y="351.6" text-anchor="middle" font-family="sans-serif" font-size="10">1132</text>
+<text x="23170.1" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23170.1,374)">omnitoken_docker / cl100k_ba</text>
+<rect x="23216.6" y="350.7" width="50.2" height="9.3" fill="#0891b2"/>
+<text x="23241.7" y="346.7" text-anchor="middle" font-family="sans-serif" font-size="10">2420</text>
+<text x="23241.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23241.7,374)">tiktoken_go_docker / cl100k_</text>
+<rect x="23288.3" y="357.5" width="50.2" height="2.5" fill="#2563eb"/>
+<text x="23313.4" y="353.5" text-anchor="middle" font-family="sans-serif" font-size="10">655</text>
+<text x="23313.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23313.4,374)">omnitoken_docker / cl100k_ba</text>
+<rect x="23360.0" y="354.3" width="50.2" height="5.7" fill="#dc2626"/>
+<text x="23385.0" y="350.3" text-anchor="middle" font-family="sans-serif" font-size="10">1488</text>
+<text x="23385.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23385.0,374)">tiktoken_go_docker / cl100k_</text>
+<rect x="23431.6" y="357.3" width="50.2" height="2.7" fill="#16a34a"/>
+<text x="23456.7" y="353.3" text-anchor="middle" font-family="sans-serif" font-size="10">704</text>
+<text x="23456.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23456.7,374)">omnitoken_docker / cl100k_ba</text>
+<rect x="23503.3" y="353.3" width="50.2" height="6.7" fill="#9333ea"/>
+<text x="23528.4" y="349.3" text-anchor="middle" font-family="sans-serif" font-size="10">1743</text>
+<text x="23528.4" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23528.4,374)">tiktoken_go_docker / cl100k_</text>
+<rect x="23574.9" y="358.5" width="50.2" height="1.5" fill="#ea580c"/>
+<text x="23600.0" y="354.5" text-anchor="middle" font-family="sans-serif" font-size="10">380</text>
+<text x="23600.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23600.0,374)">omnitoken_docker / cl100k_ba</text>
+<rect x="23646.6" y="353.4" width="50.2" height="6.6" fill="#0891b2"/>
+<text x="23671.7" y="349.4" text-anchor="middle" font-family="sans-serif" font-size="10">1715</text>
+<text x="23671.7" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23671.7,374)">tiktoken_go_docker / cl100k_</text>
+<rect x="23718.2" y="359.0" width="50.2" height="1.0" fill="#2563eb"/>
+<text x="23743.3" y="355.0" text-anchor="middle" font-family="sans-serif" font-size="10">263</text>
+<text x="23743.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23743.3,374)">omnitoken_docker / cl100k_ba</text>
+<rect x="23789.9" y="354.6" width="50.2" height="5.4" fill="#dc2626"/>
+<text x="23815.0" y="350.6" text-anchor="middle" font-family="sans-serif" font-size="10">1403</text>
+<text x="23815.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23815.0,374)">tiktoken_go_docker / cl100k_</text>
+<rect x="23861.6" y="357.9" width="50.2" height="2.1" fill="#16a34a"/>
+<text x="23886.6" y="353.9" text-anchor="middle" font-family="sans-serif" font-size="10">552</text>
+<text x="23886.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23886.6,374)">omnitoken_docker / cl100k_ba</text>
+<rect x="23933.2" y="355.6" width="50.2" height="4.4" fill="#9333ea"/>
+<text x="23958.3" y="351.6" text-anchor="middle" font-family="sans-serif" font-size="10">1139</text>
+<text x="23958.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 23958.3,374)">tiktoken_go_docker / cl100k_</text>
+<rect x="24004.9" y="215.2" width="50.2" height="144.8" fill="#ea580c"/>
+<text x="24030.0" y="211.2" text-anchor="middle" font-family="sans-serif" font-size="10">37501</text>
+<text x="24030.0" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24030.0,374)">omnitoken_docker / cl100k_ba</text>
+<rect x="24076.5" y="100.0" width="50.2" height="260.0" fill="#0891b2"/>
+<text x="24101.6" y="96.0" text-anchor="middle" font-family="sans-serif" font-size="10">67352</text>
+<text x="24101.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24101.6,374)">tiktoken_go_docker / cl100k_</text>
+<rect x="24148.2" y="358.9" width="50.2" height="1.1" fill="#2563eb"/>
+<text x="24173.3" y="354.9" text-anchor="middle" font-family="sans-serif" font-size="10">281</text>
+<text x="24173.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24173.3,374)">omnitoken_docker / o200k_bas</text>
+<rect x="24219.9" y="358.4" width="50.2" height="1.6" fill="#dc2626"/>
+<text x="24244.9" y="354.4" text-anchor="middle" font-family="sans-serif" font-size="10">408</text>
+<text x="24244.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24244.9,374)">tiktoken_go_docker / o200k_b</text>
+<rect x="24291.5" y="357.0" width="50.2" height="3.0" fill="#16a34a"/>
+<text x="24316.6" y="353.0" text-anchor="middle" font-family="sans-serif" font-size="10">765</text>
+<text x="24316.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24316.6,374)">omnitoken_docker / o200k_bas</text>
+<rect x="24363.2" y="350.7" width="50.2" height="9.3" fill="#9333ea"/>
+<text x="24388.3" y="346.7" text-anchor="middle" font-family="sans-serif" font-size="10">2413</text>
+<text x="24388.3" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24388.3,374)">tiktoken_go_docker / o200k_b</text>
+<rect x="24434.8" y="355.8" width="50.2" height="4.2" fill="#ea580c"/>
+<text x="24459.9" y="351.8" text-anchor="middle" font-family="sans-serif" font-size="10">1099</text>
+<text x="24459.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24459.9,374)">omnitoken_docker / o200k_bas</text>
+<rect x="24506.5" y="353.1" width="50.2" height="6.9" fill="#0891b2"/>
+<text x="24531.6" y="349.1" text-anchor="middle" font-family="sans-serif" font-size="10">1791</text>
+<text x="24531.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24531.6,374)">tiktoken_go_docker / o200k_b</text>
+<rect x="24578.2" y="358.6" width="50.2" height="1.4" fill="#2563eb"/>
+<text x="24603.2" y="354.6" text-anchor="middle" font-family="sans-serif" font-size="10">369</text>
+<text x="24603.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24603.2,374)">omnitoken_docker / o200k_bas</text>
+<rect x="24649.8" y="351.2" width="50.2" height="8.8" fill="#dc2626"/>
+<text x="24674.9" y="347.2" text-anchor="middle" font-family="sans-serif" font-size="10">2284</text>
+<text x="24674.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24674.9,374)">tiktoken_go_docker / o200k_b</text>
+<rect x="24721.5" y="358.1" width="50.2" height="1.9" fill="#16a34a"/>
+<text x="24746.6" y="354.1" text-anchor="middle" font-family="sans-serif" font-size="10">502</text>
+<text x="24746.6" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24746.6,374)">omnitoken_docker / o200k_bas</text>
+<rect x="24793.1" y="351.5" width="50.2" height="8.5" fill="#9333ea"/>
+<text x="24818.2" y="347.5" text-anchor="middle" font-family="sans-serif" font-size="10">2190</text>
+<text x="24818.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24818.2,374)">tiktoken_go_docker / o200k_b</text>
+<rect x="24864.8" y="357.6" width="50.2" height="2.4" fill="#ea580c"/>
+<text x="24889.9" y="353.6" text-anchor="middle" font-family="sans-serif" font-size="10">632</text>
+<text x="24889.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24889.9,374)">omnitoken_docker / o200k_bas</text>
+<rect x="24936.5" y="354.5" width="50.2" height="5.5" fill="#0891b2"/>
+<text x="24961.5" y="350.5" text-anchor="middle" font-family="sans-serif" font-size="10">1435</text>
+<text x="24961.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 24961.5,374)">tiktoken_go_docker / o200k_b</text>
+<rect x="25008.1" y="357.5" width="50.2" height="2.5" fill="#2563eb"/>
+<text x="25033.2" y="353.5" text-anchor="middle" font-family="sans-serif" font-size="10">650</text>
+<text x="25033.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 25033.2,374)">omnitoken_docker / o200k_bas</text>
+<rect x="25079.8" y="352.4" width="50.2" height="7.6" fill="#dc2626"/>
+<text x="25104.9" y="348.4" text-anchor="middle" font-family="sans-serif" font-size="10">1981</text>
+<text x="25104.9" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 25104.9,374)">tiktoken_go_docker / o200k_b</text>
+<rect x="25151.4" y="144.5" width="50.2" height="215.5" fill="#16a34a"/>
+<text x="25176.5" y="140.5" text-anchor="middle" font-family="sans-serif" font-size="10">55836</text>
+<text x="25176.5" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 25176.5,374)">omnitoken_docker / o200k_bas</text>
+<rect x="25223.1" y="200.8" width="50.2" height="159.2" fill="#9333ea"/>
+<text x="25248.2" y="196.8" text-anchor="middle" font-family="sans-serif" font-size="10">41242</text>
+<text x="25248.2" y="374" text-anchor="middle" font-family="sans-serif" font-size="9" transform="rotate(45 25248.2,374)">tiktoken_go_docker / o200k_b</text>
+</svg>

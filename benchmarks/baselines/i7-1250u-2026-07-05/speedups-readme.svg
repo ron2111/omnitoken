@@ -7,20 +7,20 @@
 <text x="840.0" y="105" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">15.84x</text>
 <text x="892" y="105" text-anchor="end" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#94a3b8">n=16</text>
 <text x="30" y="151" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" fill="#e5e7eb">vs tiktoken-go / Encode</text>
-<rect x="210" y="132" width="512.4" height="26" fill="#22c55e" rx="6"/>
-<text x="732.4" y="151" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">13.09x</text>
+<rect x="210" y="132" width="512.3" height="26" fill="#22c55e" rx="6"/>
+<text x="732.3" y="151" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">13.09x</text>
 <text x="892" y="151" text-anchor="end" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#94a3b8">n=16</text>
 <text x="30" y="197" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" fill="#e5e7eb">vs tiktoken-go / Decode</text>
 <rect x="210" y="178" width="89.6" height="26" fill="#22c55e" rx="6"/>
 <text x="309.6" y="197" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">2.29x</text>
 <text x="892" y="197" text-anchor="end" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#94a3b8">n=16</text>
 <text x="30" y="243" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" fill="#e5e7eb">vs OpenAI Rust / Count</text>
-<rect x="210" y="224" width="37.6" height="26" fill="#38bdf8" rx="6"/>
-<text x="257.6" y="243" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">0.96x</text>
+<rect x="210" y="224" width="37.5" height="26" fill="#38bdf8" rx="6"/>
+<text x="257.5" y="243" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">0.96x</text>
 <text x="892" y="243" text-anchor="end" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#94a3b8">n=16</text>
 <text x="30" y="289" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" fill="#e5e7eb">vs OpenAI Rust / Encode</text>
-<rect x="210" y="270" width="29.4" height="26" fill="#38bdf8" rx="6"/>
-<text x="249.4" y="289" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">0.75x</text>
+<rect x="210" y="270" width="29.2" height="26" fill="#38bdf8" rx="6"/>
+<text x="249.2" y="289" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">0.75x</text>
 <text x="892" y="289" text-anchor="end" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#94a3b8">n=16</text>
-<text x="30" y="335" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#64748b">Pure-Go root module. Full methodology and raw data are in benchmarks/baselines.</text>
+<text x="30" y="335" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#64748b">Run benchmarks locally with benchmarks/scripts/run.ps1 for machine-specific results.</text>
 </svg>
