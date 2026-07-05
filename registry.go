@@ -84,13 +84,6 @@ var (
 var engineCache sync.Map
 
 var engineBuildMu sync.Mutex
-var engineBuilds = map[string]*engineBuildCall{}
-
-type engineBuildCall struct {
-	ready  chan struct{}
-	engine ModelEngine
-	err    error
-}
 
 // EncodingFactory constructs a tokenizer engine for an encoding name.
 type EncodingFactory func() (ModelEngine, error)
@@ -214,30 +207,18 @@ func ForEncoding(encoding string) (ModelEngine, error) {
 
 func buildEncodingOnce(encoding string) (ModelEngine, error) {
 	engineBuildMu.Lock()
-	if call := engineBuilds[encoding]; call != nil {
-		engineBuildMu.Unlock()
-		<-call.ready
-		return call.engine, call.err
-	}
-	call := &engineBuildCall{ready: make(chan struct{})}
-	engineBuilds[encoding] = call
-	engineBuildMu.Unlock()
+	defer engineBuildMu.Unlock()
 
-	defer func() {
-		engineBuildMu.Lock()
-		delete(engineBuilds, encoding)
-		engineBuildMu.Unlock()
-		close(call.ready)
-	}()
+	if cached, ok := engineCache.Load(encoding); ok {
+		return cached.(ModelEngine), nil
+	}
 
 	engine, err := buildEncoding(encoding)
 	if err != nil {
-		call.err = err
 		return nil, err
 	}
 	actual, _ := engineCache.LoadOrStore(encoding, engine)
-	call.engine = actual.(ModelEngine)
-	return call.engine, nil
+	return actual.(ModelEngine), nil
 }
 
 func buildEncoding(name string) (ModelEngine, error) {

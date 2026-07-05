@@ -128,6 +128,7 @@ err = omnitoken.RegisterModelPrefix("my-model-", "my_wordpiece")
 - [Architecture](./docs/architecture.md)
 - [Benchmarks and correctness](./docs/benchmarks.md)
 - [Cache alignment](./docs/cache.md)
+- [CLI](./docs/cli.md)
 - [Adapters](./adapters/README.md)
 
 ## Future Scope

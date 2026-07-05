@@ -10,6 +10,8 @@ OmniToken benchmarks compare count, encode, and decode behavior across comparabl
 | `tiktoken-go` | Go OpenAI tokenizer baseline. |
 | `openai-rust` | Dockerized OpenAI `tiktoken` Rust core. |
 
+The general `omni` CLI also includes a `bench` subcommand for external benchmark harnesses such as `Systemcluster/tokenizer-bench`.
+
 ## Run
 
 ```powershell
