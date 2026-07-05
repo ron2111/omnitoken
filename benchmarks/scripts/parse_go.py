@@ -26,6 +26,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
+    parser.add_argument("--runner-suffix", default="")
     args = parser.parse_args()
 
     rows = []
@@ -37,7 +38,7 @@ def main() -> None:
             meta = parse_name(m.group(1))
             rows.append(
                 {
-                    "runner": meta.get("runner", "unknown"),
+                    "runner": meta.get("runner", "unknown") + args.runner_suffix,
                     "operation": meta.get("op", "unknown"),
                     "encoding": meta.get("enc", "unknown"),
                     "case": meta.get("case", "unknown"),

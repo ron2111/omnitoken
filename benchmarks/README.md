@@ -22,12 +22,20 @@ Run Rust comparison too:
 .\benchmarks\scripts\run.ps1 -Count 3 -Benchtime 1s -Rust
 ```
 
+Run Go and Rust both in Docker for a closer Linux-container comparison:
+
+```powershell
+.\benchmarks\scripts\run.ps1 -Count 3 -Benchtime 1s -DockerGo -Rust
+```
+
 ## Output
 
 ```text
 benchmarks/results/metadata.json
 benchmarks/results/go.raw.txt
 benchmarks/results/go.jsonl
+benchmarks/results/go-docker.raw.txt
+benchmarks/results/go-docker.jsonl
 benchmarks/results/rust.csv
 benchmarks/results/combined.csv
 benchmarks/reports/summary.md

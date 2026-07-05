@@ -1,6 +1,7 @@
 param(
   [int]$Count = 3,
   [string]$Benchtime = "1s",
+  [switch]$DockerGo,
   [switch]$Rust
 )
 
@@ -57,6 +58,10 @@ $metadataObject | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $Metadata -
 & (Join-Path $Root "benchmarks\scripts\run-go.ps1") -Count $Count -Benchtime $Benchtime
 
 $inputs = @((Join-Path $Results "go.jsonl"))
+if ($DockerGo) {
+  & (Join-Path $Root "benchmarks\scripts\run-docker-go.ps1") -Count $Count -Benchtime $Benchtime
+  $inputs += (Join-Path $Results "go-docker.jsonl")
+}
 if ($Rust) {
   & (Join-Path $Root "benchmarks\scripts\run-rust.ps1")
   $inputs += (Join-Path $Results "rust.csv")
