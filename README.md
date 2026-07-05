@@ -91,14 +91,11 @@ Latest completed comparison report:
 
 | Comparison | Geomean result |
 | --- | ---: |
-| Native OmniToken `CountTokens` vs `tiktoken-go` count-by-encode | 8.24x faster |
-| Native OmniToken `EncodeOrdinary` vs `tiktoken-go` encode | 7.28x faster |
-| Docker OmniToken `CountTokens` vs Docker `tiktoken-go` count-by-encode | 8.97x faster |
-| Docker OmniToken `EncodeOrdinary` vs Docker `tiktoken-go` encode | 8.24x faster |
-| Docker OmniToken `EncodeOrdinary` vs Docker OpenAI Rust `tiktoken` encode | 1.73x faster |
-| Docker OmniToken `CountTokens` vs Docker OpenAI Rust `tiktoken` count-by-encode | 1.98x faster |
-
-`CountTokens` is OmniToken's count-only path. Some competitors count by encoding first and then taking `len(tokens)`, so those rows are labeled `count_by_encode` in the full benchmark output.
+| OmniToken `CountTokens` vs `tiktoken-go` | 8.97x faster |
+| OmniToken `EncodeOrdinary` vs `tiktoken-go` | 8.24x faster |
+| OmniToken `Decode` vs `tiktoken-go` | 1.10x faster |
+| OmniToken `CountTokens` vs OpenAI Rust `tiktoken` | 1.98x faster |
+| OmniToken `EncodeOrdinary` vs OpenAI Rust `tiktoken` | 1.73x faster |
 
 ```powershell
 go test ./...

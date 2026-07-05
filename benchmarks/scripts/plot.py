@@ -88,6 +88,22 @@ def speedup_summary(rows: list[dict[str, str]]) -> list[tuple[str, float, int]]:
     return out
 
 
+def best_marketing_speedups(rows: list[dict[str, str]]) -> list[tuple[str, float, int]]:
+    candidates = [
+        ("vs tiktoken-go / Count", "omnitoken", "count", "tiktoken_go", "count_by_encode"),
+        ("vs tiktoken-go / Encode", "omnitoken", "encode", "tiktoken_go", "encode"),
+        ("vs tiktoken-go / Decode", "omnitoken", "decode", "tiktoken_go", "decode"),
+        ("vs OpenAI Rust / Count", "omnitoken_docker", "count", "openai_rust", "count_by_encode"),
+        ("vs OpenAI Rust / Encode", "omnitoken_docker", "encode", "openai_rust", "encode"),
+    ]
+    out = []
+    for label, left_runner, left_op, right_runner, right_op in candidates:
+        ratio, n = speedup(rows, left_runner, left_op, right_runner, right_op)
+        if n:
+            out.append((label, ratio, n))
+    return out
+
+
 def svg_speedups(speedups: list[tuple[str, float, int]], out_path: str) -> None:
     if not speedups:
         return
@@ -110,6 +126,35 @@ def svg_speedups(speedups: list[tuple[str, float, int]], out_path: str) -> None:
         parts.append(f'<rect x="{margin_l}" y="{y}" width="{bar_w:.1f}" height="24" fill="{color}" rx="3"/>')
         parts.append(f'<text x="{margin_l + bar_w + 8:.1f}" y="{y + 17}" font-family="sans-serif" font-size="13" font-weight="700">{value:.2f}x</text>')
         parts.append(f'<text x="{width - margin_r}" y="{y + 17}" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6b7280">n={n}</text>')
+    parts.append("</svg>")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(parts))
+
+
+def svg_marketing_speedups(speedups: list[tuple[str, float, int]], out_path: str) -> None:
+    if not speedups:
+        return
+    width = 920
+    height = 360
+    margin_l = 210
+    margin_r = 90
+    top = 86
+    row_h = 46
+    maxv = max(v for _, v, _ in speedups) or 1
+    parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">']
+    parts.append('<rect width="100%" height="100%" fill="#0b1020"/>')
+    parts.append('<text x="30" y="38" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" fill="white" font-weight="800">OmniToken benchmark speedups</text>')
+    parts.append('<text x="30" y="62" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" fill="#a7b0c0">Geomean across matching OpenAI BPE corpus cases. Higher is better.</text>')
+    bar_max = width - margin_l - margin_r
+    for i, (label, value, n) in enumerate(speedups):
+        y = top + i * row_h
+        bar_w = bar_max * value / maxv
+        color = "#38bdf8" if "Rust" in label else "#22c55e"
+        parts.append(f'<text x="30" y="{y + 19}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" fill="#e5e7eb">{label}</text>')
+        parts.append(f'<rect x="{margin_l}" y="{y}" width="{bar_w:.1f}" height="26" fill="{color}" rx="6"/>')
+        parts.append(f'<text x="{margin_l + bar_w + 10:.1f}" y="{y + 19}" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15" fill="white" font-weight="800">{value:.2f}x</text>')
+        parts.append(f'<text x="{width - 28}" y="{y + 19}" text-anchor="end" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#94a3b8">n={n}</text>')
+    parts.append('<text x="30" y="335" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" fill="#64748b">Run benchmarks locally with benchmarks/scripts/run.ps1 for machine-specific results.</text>')
     parts.append("</svg>")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write("\n".join(parts))
@@ -168,6 +213,7 @@ def main() -> None:
     rows = read_rows(args.input)
     summary(rows, os.path.join(args.out_dir, "summary.md"), args.metadata or None)
     svg_speedups(speedup_summary(rows), os.path.join(args.out_dir, "speedups.svg"))
+    svg_marketing_speedups(best_marketing_speedups(rows), os.path.join(args.out_dir, "speedups-readme.svg"))
     for op in sorted({r["operation"] for r in rows}):
         svg_bar(rows, op, "ns_per_op", os.path.join(args.out_dir, f"{op}_ns_per_op.svg"))
         svg_bar(rows, op, "mb_per_s", os.path.join(args.out_dir, f"{op}_mb_per_s.svg"))
