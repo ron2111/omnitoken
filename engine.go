@@ -18,7 +18,7 @@ type Engine struct {
 	name      string
 	segmenter Segmenter
 	ranks     map[string]int
-	decoder   map[int][]byte
+	decoder   [][]byte
 	specials  map[string]int
 }
 
@@ -71,7 +71,8 @@ func (e *Engine) Decode(tokens []int) string {
 
 	out := make([]byte, 0, len(tokens)*4)
 	for _, token := range tokens {
-		if raw, ok := e.decoder[token]; ok {
+		if token >= 0 && token < len(e.decoder) {
+			raw := e.decoder[token]
 			out = append(out, raw...)
 		}
 	}
@@ -156,17 +157,24 @@ func newEngine(name string, data []byte, segmenter Segmenter, specials map[strin
 	if err != nil {
 		return nil, err
 	}
+	usedSpecialIDs := make(map[int]string, len(specials))
 	for token, id := range specials {
-		if _, exists := decoder[id]; !exists {
-			decoder[id] = []byte(token)
+		if previous, exists := usedSpecialIDs[id]; exists {
+			return nil, fmt.Errorf("duplicate special token id %d for %q and %q", id, previous, token)
 		}
+		usedSpecialIDs[id] = token
+		if id >= 0 && id < len(decoder) && decoder[id] != nil {
+			return nil, fmt.Errorf("special token id %d collides with mergeable rank", id)
+		}
+		decoder = setDecoderToken(decoder, id, []byte(token))
 	}
 	return &Engine{name: name, segmenter: segmenter, ranks: ranks, decoder: decoder, specials: specials}, nil
 }
 
-func parseTiktoken(data []byte) (map[string]int, map[int][]byte, error) {
-	ranks := make(map[string]int)
-	decoder := make(map[int][]byte)
+func parseTiktoken(data []byte) (map[string]int, [][]byte, error) {
+	rows := bytes.Count(data, []byte{'\n'}) + 1
+	ranks := make(map[string]int, rows)
+	decoder := make([][]byte, rows)
 	scanner := bufio.NewScanner(bytes.NewReader(data))
 	scanner.Buffer(make([]byte, 1024), 1024*1024)
 	for lineNo := 1; scanner.Scan(); lineNo++ {
@@ -186,14 +194,37 @@ func parseTiktoken(data []byte) (map[string]int, map[int][]byte, error) {
 		if err != nil {
 			return nil, nil, fmt.Errorf("parse rank row %d: %w", lineNo, err)
 		}
+		if rank < 0 {
+			return nil, nil, fmt.Errorf("negative rank row %d", lineNo)
+		}
 		stable := append([]byte(nil), raw...)
-		ranks[string(stable)] = rank
-		decoder[rank] = stable
+		key := string(stable)
+		if _, exists := ranks[key]; exists {
+			return nil, nil, fmt.Errorf("duplicate token row %d", lineNo)
+		}
+		if rank < len(decoder) && decoder[rank] != nil {
+			return nil, nil, fmt.Errorf("duplicate rank row %d", lineNo)
+		}
+		ranks[key] = rank
+		decoder = setDecoderToken(decoder, rank, stable)
 	}
 	if err := scanner.Err(); err != nil {
 		return nil, nil, err
 	}
 	return ranks, decoder, nil
+}
+
+func setDecoderToken(decoder [][]byte, id int, raw []byte) [][]byte {
+	if id < 0 {
+		return decoder
+	}
+	if id >= len(decoder) {
+		grown := make([][]byte, id+1)
+		copy(grown, decoder)
+		decoder = grown
+	}
+	decoder[id] = raw
+	return decoder
 }
 
 func cl100kSpecialTokens() map[string]int {
@@ -244,8 +275,8 @@ func (e *Engine) MergeableRanks() []int {
 	if e == nil {
 		return nil
 	}
-	ranks := make([]int, 0, len(e.decoder))
-	for rank := range e.decoder {
+	ranks := make([]int, 0, len(e.ranks))
+	for _, rank := range e.ranks {
 		ranks = append(ranks, rank)
 	}
 	sort.Ints(ranks)

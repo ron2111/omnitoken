@@ -142,6 +142,13 @@ func hasFoldedASCIIPrefix(src []byte, suffix string) bool {
 
 func consumeLetters(src []byte, start int) int {
 	for i := start; i < len(src); {
+		if src[i] < utf8.RuneSelf {
+			if !isASCIILetter(src[i]) {
+				return i
+			}
+			i++
+			continue
+		}
 		r, size := decodeRune(src, i)
 		if !isLetter(r) {
 			return i
@@ -154,6 +161,17 @@ func consumeLetters(src []byte, start int) int {
 func consumeNumbers(src []byte, start int, maxRunes int) int {
 	count := 0
 	for i := start; i < len(src) && count < maxRunes; {
+		if src[i] < utf8.RuneSelf {
+			if !isASCIIDigit(src[i]) {
+				return i
+			}
+			i++
+			count++
+			if count == maxRunes {
+				return i
+			}
+			continue
+		}
 		r, size := decodeRune(src, i)
 		if !isNumber(r) {
 			return i
@@ -173,6 +191,13 @@ func consumeNumbers(src []byte, start int, maxRunes int) int {
 
 func consumePunctuationRun(src []byte, start int) int {
 	for i := start; i < len(src); {
+		if src[i] < utf8.RuneSelf {
+			if !isASCIIPunctuationForToken(src[i]) {
+				return i
+			}
+			i++
+			continue
+		}
 		r, size := decodeRune(src, i)
 		if !isPunctuationForToken(r) {
 			return i
@@ -237,6 +262,18 @@ func consumeO200KWhitespace(src []byte, start int) int {
 func whitespaceRunInfo(src []byte, start int) (runEnd int, lastStart int, hasNewline bool, lastNewlineEnd int) {
 	lastStart = start
 	for i := start; i < len(src); {
+		if src[i] < utf8.RuneSelf {
+			if !isASCIIWhitespace(src[i]) {
+				return i, lastStart, hasNewline, lastNewlineEnd
+			}
+			lastStart = i
+			if src[i] == '\r' || src[i] == '\n' {
+				hasNewline = true
+				lastNewlineEnd = i + 1
+			}
+			i++
+			continue
+		}
 		r, size := decodeRune(src, i)
 		if !isWhitespace(r) {
 			return i, lastStart, hasNewline, lastNewlineEnd
@@ -258,6 +295,13 @@ func consumeO200KWord(src []byte, start int) (int, bool) {
 
 	i := start
 	for i < len(src) {
+		if src[i] < utf8.RuneSelf {
+			if !isASCIIO200KUpperGroup(src[i]) || isASCIIO200KLowerGroup(src[i]) {
+				break
+			}
+			i++
+			continue
+		}
 		r, size := decodeRune(src, i)
 		if !isO200KUpperGroup(r) {
 			break
@@ -270,6 +314,13 @@ func consumeO200KWord(src []byte, start int) (int, bool) {
 
 	lowerStart := i
 	for i < len(src) {
+		if src[i] < utf8.RuneSelf {
+			if !isASCIIO200KLowerGroup(src[i]) {
+				break
+			}
+			i++
+			continue
+		}
 		r, size := decodeRune(src, i)
 		if !isO200KLowerGroup(r) {
 			break
@@ -282,6 +333,13 @@ func consumeO200KWord(src []byte, start int) (int, bool) {
 
 	i = start
 	for i < len(src) {
+		if src[i] < utf8.RuneSelf {
+			if !isASCIIO200KUpperGroup(src[i]) {
+				break
+			}
+			i++
+			continue
+		}
 		r, size := decodeRune(src, i)
 		if !isO200KUpperGroup(r) {
 			break
@@ -292,6 +350,13 @@ func consumeO200KWord(src []byte, start int) (int, bool) {
 		return start, false
 	}
 	for i < len(src) {
+		if src[i] < utf8.RuneSelf {
+			if !isASCIIO200KLowerGroup(src[i]) {
+				break
+			}
+			i++
+			continue
+		}
 		r, size := decodeRune(src, i)
 		if !isO200KLowerGroup(r) {
 			break
@@ -333,6 +398,22 @@ func isLetter(r rune) bool { return unicode.IsLetter(r) }
 func isNumber(r rune) bool { return unicode.IsNumber(r) }
 
 func isWhitespace(r rune) bool { return unicode.IsSpace(r) }
+
+func isASCIILetter(b byte) bool { return ('a' <= b && b <= 'z') || ('A' <= b && b <= 'Z') }
+
+func isASCIIDigit(b byte) bool { return '0' <= b && b <= '9' }
+
+func isASCIIWhitespace(b byte) bool {
+	return b == ' ' || b == '\t' || b == '\n' || b == '\v' || b == '\f' || b == '\r'
+}
+
+func isASCIIPunctuationForToken(b byte) bool {
+	return !isASCIIWhitespace(b) && !isASCIILetter(b) && !isASCIIDigit(b)
+}
+
+func isASCIIO200KUpperGroup(b byte) bool { return 'A' <= b && b <= 'Z' }
+
+func isASCIIO200KLowerGroup(b byte) bool { return 'a' <= b && b <= 'z' }
 
 func isO200KWordChar(r rune) bool {
 	return unicode.IsLetter(r) || unicode.IsMark(r)
