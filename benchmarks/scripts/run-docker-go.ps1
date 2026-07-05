@@ -11,12 +11,18 @@ $Root = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 $Results = Join-Path $Root "benchmarks\results"
 New-Item -ItemType Directory -Force -Path $Results | Out-Null
 
-docker build -f (Join-Path $Root "benchmarks\docker\Dockerfile.go-bench") -t $Image $Root
+$previousErrorActionPreference = $ErrorActionPreference
+try {
+  $ErrorActionPreference = "Continue"
+  docker build -f (Join-Path $Root "benchmarks\docker\Dockerfile.go-bench") -t $Image $Root 2>&1 | ForEach-Object { $_.ToString() }
+}
+finally {
+  $ErrorActionPreference = $previousErrorActionPreference
+}
 if ($LASTEXITCODE -ne 0) { throw "go benchmark image build failed" }
 
 $raw = Join-Path $Results "$OutputPrefix.raw.txt"
 $lines = New-Object System.Collections.Generic.List[string]
-$previousErrorActionPreference = $ErrorActionPreference
 try {
   $ErrorActionPreference = "Continue"
   docker run --rm -e "BENCH_COUNT=$Count" -e "BENCH_TIME=$Benchtime" -e "BENCH_TIMEOUT=$Timeout" $Image 2>&1 | ForEach-Object {
