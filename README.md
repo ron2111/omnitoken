@@ -36,6 +36,7 @@ text := engine.Decode(tokens)
 | OpenAI `o200k_harmony` | Supported |
 | WordPiece local vocabularies | Supported |
 | SentencePiece-style local vocabularies | Supported |
+| Gemini local text adapter | Optional module |
 
 ## Custom Models
 
@@ -68,6 +69,7 @@ go test -run "^$" -bench "Benchmark" -benchmem -count=1
 
 - [Architecture](./docs/architecture.md)
 - [Benchmarks and correctness](./docs/benchmarks.md)
+- [Gemini adapter](./adapters/gemini/README.md)
 
 ## Future Scope
 
