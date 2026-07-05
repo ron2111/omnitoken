@@ -94,6 +94,7 @@ go test -run "^$" -bench "Benchmark" -benchmem -count=1
 
 - [Architecture](./docs/architecture.md)
 - [Benchmarks and correctness](./docs/benchmarks.md)
+- [Cache alignment](./docs/cache.md)
 - [Adapters](./adapters/README.md)
 
 ## Future Scope
