@@ -1,0 +1,8 @@
+{"id":"short","text":"hello world"}
+{"id":"json","text":"You are a helpful assistant. Summarize this JSON payload, preserve markdown, and explain edge cases: {\"hello\": \"world\", \"n\": 123456}."}
+{"id":"unicode","text":"こんにちは世界 😀 test 中文测试 مرحبا بالعالم snake_case/path-to/file.go"}
+{"id":"code","text":"func main() {\n\tif err := run(context.Background()); err != nil {\n\t\treturn err\n\t}\n\treturn nil\n}"}
+{"id":"markdown","text":"# Title\n\n- item one\n- item two\n\n```go\nfmt.Println(\"hello\")\n```"}
+{"id":"whitespace","text":"   leading\n\n\tmiddle   gap\r\ntrailing   "}
+{"id":"special_literal","text":"<|endoftext|> is ordinary text here <|start|><|channel|><|end|>"}
+{"id":"long","repeat":64,"text":"System instruction: preserve JSON, markdown, code, Unicode, and exact whitespace. "}

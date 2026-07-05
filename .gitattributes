@@ -1,11 +1,18 @@
 .gitattributes text eol=lf
 .gitignore text eol=lf
+.dockerignore text eol=lf
 *.go text eol=lf
 *.md text eol=lf
 *.mod text eol=lf
 *.work text eol=lf
 *.sum text eol=lf
+*.lock text eol=lf
+*.rs text eol=lf
+Dockerfile* text eol=lf
 *.py text eol=lf
+*.ps1 text eol=crlf
+*.jsonl text eol=lf
+*.toml text eol=lf
 *.yml text eol=lf
 *.tiktoken binary
 LICENSE text eol=lf

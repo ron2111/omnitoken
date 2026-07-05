@@ -1,0 +1,6 @@
+.git
+PRD.md
+benchmarks/results
+benchmarks/reports
+**/.DS_Store
+**/Thumbs.db

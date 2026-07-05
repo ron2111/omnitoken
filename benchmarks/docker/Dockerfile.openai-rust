@@ -1,0 +1,13 @@
+FROM rust:1.90-bookworm
+
+WORKDIR /bench
+
+COPY internal/openai/data/cl100k_base.tiktoken data/cl100k_base.tiktoken
+COPY internal/openai/data/o200k_base.tiktoken data/o200k_base.tiktoken
+COPY benchmarks/openai_rust/Cargo.toml Cargo.toml
+COPY benchmarks/openai_rust/Cargo.lock Cargo.lock
+COPY benchmarks/openai_rust/src/main.rs src/main.rs
+
+RUN cargo build --release --locked
+
+CMD ["./target/release/omnitoken-openai-rust-bench"]

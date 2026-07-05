@@ -14,6 +14,8 @@ For supported OpenAI encodings, correctness means identical token ID sequences f
 
 ## Benchmark Commands
 
+For the full comparison harness with `tiktoken-go` and Dockerized OpenAI Rust `tiktoken`, see [`benchmarks/README.md`](../benchmarks/README.md).
+
 ```powershell
 go test ./...
 go vet ./...

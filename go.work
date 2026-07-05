@@ -9,6 +9,7 @@ use (
 	./adapters/llama3
 	./adapters/mistral
 	./adapters/oss
+	./tools/benchmark_harness
 	./tools/compare_go_port
 )
 
@@ -25,3 +26,5 @@ replace github.com/ron2111/omnitoken/adapters/llama3 v0.1.0 => ./adapters/llama3
 replace github.com/ron2111/omnitoken/adapters/mistral v0.1.0 => ./adapters/mistral
 
 replace github.com/ron2111/omnitoken/adapters/oss v0.1.0 => ./adapters/oss
+
+replace github.com/ron2111/omnitoken v0.1.2 => .
