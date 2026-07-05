@@ -37,6 +37,9 @@ text := engine.Decode(tokens)
 | WordPiece local vocabularies | Supported |
 | SentencePiece-style local vocabularies | Supported |
 | Gemini local text adapter | Optional module |
+| OSS SentencePiece adapter | Optional module |
+| Hugging Face WordPiece adapter | Optional module |
+| Anthropic message counter | Optional module |
 
 ## Custom Models
 
@@ -69,6 +72,7 @@ go test -run "^$" -bench "Benchmark" -benchmem -count=1
 
 - [Architecture](./docs/architecture.md)
 - [Benchmarks and correctness](./docs/benchmarks.md)
+- [Adapters](./adapters/README.md)
 - [Gemini adapter](./adapters/gemini/README.md)
 
 ## Future Scope

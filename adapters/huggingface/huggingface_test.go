@@ -1,0 +1,98 @@
+package huggingface
+
+import (
+	"fmt"
+	"reflect"
+	"sync/atomic"
+	"testing"
+
+	omnitoken "github.com/ron2111/omnitoken"
+)
+
+var testCounter uint64
+
+const bertTokenizerJSON = `{
+  "version": "1.0",
+  "truncation": null,
+  "padding": null,
+  "added_tokens": [{"id": 10, "content": "[MASK]", "special": true}],
+  "normalizer": {"type": "BertNormalizer", "lowercase": true, "strip_accents": true, "handle_chinese_chars": true},
+  "pre_tokenizer": {"type": "BertPreTokenizer"},
+  "decoder": {"type": "WordPiece"},
+  "model": {
+    "type": "WordPiece",
+    "unk_token": "[UNK]",
+    "continuing_subword_prefix": "##",
+    "max_input_chars_per_word": 16,
+    "vocab": {
+      "[UNK]": 0,
+      "hello": 1,
+      ",": 2,
+      "world": 3,
+      "!": 4,
+      "un": 5,
+      "##aff": 6,
+      "##able": 7,
+      "中": 8,
+      "文": 9,
+      "[MASK]": 10
+    }
+  }
+}`
+
+func TestWordPieceTokenizerJSON(t *testing.T) {
+	engine, err := NewTokenizerJSON([]byte(bertTokenizerJSON), Options{Name: "bert_test"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	tests := []struct {
+		text string
+		want []int
+	}{
+		{"Hello, world!", []int{1, 2, 3, 4}},
+		{"unaffable", []int{5, 6, 7}},
+		{"中文", []int{8, 9}},
+		{"[MASK]", []int{10}},
+		{"toolongword", []int{0}},
+	}
+	for _, tt := range tests {
+		got := engine.EncodeOrdinary(tt.text)
+		if !reflect.DeepEqual(got, tt.want) {
+			t.Fatalf("EncodeOrdinary(%q) = %v, want %v", tt.text, got, tt.want)
+		}
+		if count := engine.CountTokens(tt.text); count != len(tt.want) {
+			t.Fatalf("CountTokens(%q) = %d, want %d", tt.text, count, len(tt.want))
+		}
+	}
+	if got := engine.Decode([]int{1, 2, 3, 4}); got != "hello, world!" {
+		t.Fatalf("Decode = %q", got)
+	}
+}
+
+func TestRegisterTokenizerJSON(t *testing.T) {
+	suffix := atomic.AddUint64(&testCounter, 1)
+	encoding := fmt.Sprintf("hf_wordpiece_test_%d", suffix)
+	model := fmt.Sprintf("hf-test-model-%d", suffix)
+	if err := RegisterTokenizerJSON(encoding, []byte(bertTokenizerJSON), Options{}); err != nil {
+		t.Fatal(err)
+	}
+	if err := omnitoken.RegisterModel(model, encoding); err != nil {
+		t.Fatal(err)
+	}
+	engine, err := omnitoken.ForModel(model)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := engine.CountTokens("Hello world"); got != 2 {
+		t.Fatalf("CountTokens = %d, want 2", got)
+	}
+}
+
+func TestTokenizerJSONRejectsUnsupported(t *testing.T) {
+	if _, err := NewTokenizerJSON([]byte(`{"model":{"type":"BPE","vocab":{}}}`), Options{}); err == nil {
+		t.Fatal("accepted unsupported BPE model")
+	}
+	if _, err := NewTokenizerJSON([]byte(`{"truncation":{"max_length":4},"model":{"type":"WordPiece","unk_token":"[UNK]","vocab":{"[UNK]":0}}}`), Options{}); err == nil {
+		t.Fatal("accepted truncation in strict mode")
+	}
+}
