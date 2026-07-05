@@ -78,12 +78,27 @@ err = omnitoken.RegisterModelPrefix("my-model-", "my_wordpiece")
 
 ## Benchmarks
 
-Recent local sample: Windows amd64, Intel i7-1250U.
+Measured on Windows 11 amd64, Intel i7-1250U, Go 1.24.2. Full checkpointed benchmark reports can be regenerated with [`benchmarks/`](./benchmarks/README.md).
 
 | Operation | Encoding | Input | ns/op | B/op | allocs/op |
 | --- | --- | --- | ---: | ---: | ---: |
-| `CountTokens` | `o200k_base` | JSON | 4,350 | 0 | 0 |
-| `EncodeOrdinary` | `o200k_base` | JSON | 6,723 | 448 | 2 |
+| `CountTokens` | `cl100k_base` | JSON | ~1,600 | 0 | 0 |
+| `EncodeOrdinary` | `cl100k_base` | JSON | ~1,900 | 288 | 1 |
+| `CountTokens` | `o200k_base` | JSON | ~1,900 | 0 | 0 |
+| `EncodeOrdinary` | `o200k_base` | JSON | ~2,100 | 288 | 1 |
+
+Latest completed comparison report:
+
+| Comparison | Geomean result |
+| --- | ---: |
+| Native OmniToken `CountTokens` vs `tiktoken-go` count-by-encode | 8.24x faster |
+| Native OmniToken `EncodeOrdinary` vs `tiktoken-go` encode | 7.28x faster |
+| Docker OmniToken `CountTokens` vs Docker `tiktoken-go` count-by-encode | 8.97x faster |
+| Docker OmniToken `EncodeOrdinary` vs Docker `tiktoken-go` encode | 8.24x faster |
+| Docker OmniToken `EncodeOrdinary` vs Docker OpenAI Rust `tiktoken` encode | 1.73x faster |
+| Docker OmniToken `CountTokens` vs Docker OpenAI Rust `tiktoken` count-by-encode | 1.98x faster |
+
+`CountTokens` is OmniToken's count-only path. Some competitors count by encoding first and then taking `len(tokens)`, so those rows are labeled `count_by_encode` in the full benchmark output.
 
 ```powershell
 go test ./...

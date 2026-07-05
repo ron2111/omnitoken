@@ -12,6 +12,32 @@ OpenAI-compatible outputs are checked with layered tests.
 
 For supported OpenAI encodings, correctness means identical token ID sequences for the same input text.
 
+## Measured Results
+
+Measured after scanner/decode optimizations on Windows 11 amd64, Intel i7-1250U, Go 1.24.2.
+
+| Operation | Encoding | Input | Typical ns/op | B/op | allocs/op |
+| --- | --- | --- | ---: | ---: | ---: |
+| `CountTokens` | `cl100k_base` | JSON | ~1,600 | 0 | 0 |
+| `EncodeOrdinary` | `cl100k_base` | JSON | ~1,900 | 288 | 1 |
+| `CountTokens` | `o200k_base` | JSON | ~1,900 | 0 | 0 |
+| `EncodeOrdinary` | `o200k_base` | JSON | ~2,100 | 288 | 1 |
+
+Latest completed comparison report:
+
+| Comparison | Geomean speedup |
+| --- | ---: |
+| Native OmniToken `CountTokens` vs `tiktoken-go` count-by-encode | 8.24x |
+| Native OmniToken `EncodeOrdinary` vs `tiktoken-go` encode | 7.28x |
+| Native OmniToken `Decode` vs `tiktoken-go` decode | 1.05x |
+| Docker OmniToken `CountTokens` vs Docker `tiktoken-go` count-by-encode | 8.97x |
+| Docker OmniToken `EncodeOrdinary` vs Docker `tiktoken-go` encode | 8.24x |
+| Docker OmniToken `Decode` vs Docker `tiktoken-go` decode | 1.10x |
+| Docker OmniToken `EncodeOrdinary` vs Docker OpenAI Rust `tiktoken` encode | 1.73x |
+| Docker OmniToken `CountTokens` vs Docker OpenAI Rust `tiktoken` count-by-encode | 1.98x |
+
+These numbers are workload- and machine-specific. The checkpointed benchmark harness records machine metadata and should be rerun on target hardware for formal claims.
+
 ## Benchmark Commands
 
 For the full comparison harness with `tiktoken-go` and Dockerized OpenAI Rust `tiktoken`, see [`benchmarks/README.md`](../benchmarks/README.md).

@@ -6,6 +6,7 @@ import csv
 import json
 import os
 from collections import defaultdict
+from math import exp, log
 
 
 COLORS = ["#2563eb", "#dc2626", "#16a34a", "#9333ea", "#ea580c", "#0891b2"]
@@ -46,6 +47,74 @@ def svg_bar(rows: list[dict[str, str]], operation: str, metric: str, out_path: s
         f.write("\n".join(parts))
 
 
+def geometric_mean(values: list[float]) -> float:
+    values = [v for v in values if v > 0]
+    if not values:
+        return 0
+    return exp(sum(log(v) for v in values) / len(values))
+
+
+def speedup(rows: list[dict[str, str]], left_runner: str, left_op: str, right_runner: str, right_op: str) -> tuple[float, int]:
+    left = {
+        (r["encoding"], r["case"]): float(r["ns_per_op"])
+        for r in rows
+        if r["runner"] == left_runner and r["operation"] == left_op and r.get("ns_per_op")
+    }
+    right = {
+        (r["encoding"], r["case"]): float(r["ns_per_op"])
+        for r in rows
+        if r["runner"] == right_runner and r["operation"] == right_op and r.get("ns_per_op")
+    }
+    ratios = [right[key] / left_value for key, left_value in left.items() if key in right and left_value > 0]
+    return geometric_mean(ratios), len(ratios)
+
+
+def speedup_summary(rows: list[dict[str, str]]) -> list[tuple[str, float, int]]:
+    comparisons = [
+        ("Native count vs tiktoken-go", "omnitoken", "count", "tiktoken_go", "count_by_encode"),
+        ("Native encode vs tiktoken-go", "omnitoken", "encode", "tiktoken_go", "encode"),
+        ("Native decode vs tiktoken-go", "omnitoken", "decode", "tiktoken_go", "decode"),
+        ("Docker count vs Docker tiktoken-go", "omnitoken_docker", "count", "tiktoken_go_docker", "count_by_encode"),
+        ("Docker encode vs Docker tiktoken-go", "omnitoken_docker", "encode", "tiktoken_go_docker", "encode"),
+        ("Docker decode vs Docker tiktoken-go", "omnitoken_docker", "decode", "tiktoken_go_docker", "decode"),
+        ("Docker encode vs OpenAI Rust", "omnitoken_docker", "encode", "openai_rust", "encode"),
+        ("Docker count vs OpenAI Rust count-by-encode", "omnitoken_docker", "count", "openai_rust", "count_by_encode"),
+    ]
+    out = []
+    for label, left_runner, left_op, right_runner, right_op in comparisons:
+        ratio, n = speedup(rows, left_runner, left_op, right_runner, right_op)
+        if n:
+            out.append((label, ratio, n))
+    return out
+
+
+def svg_speedups(speedups: list[tuple[str, float, int]], out_path: str) -> None:
+    if not speedups:
+        return
+    width = 1000
+    row_h = 44
+    margin_l = 300
+    margin_r = 60
+    height = 70 + row_h * len(speedups)
+    maxv = max(v for _, v, _ in speedups) or 1
+    parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">']
+    parts.append('<rect width="100%" height="100%" fill="white"/>')
+    parts.append('<text x="24" y="34" font-family="sans-serif" font-size="22" font-weight="700">OmniToken geomean speedups</text>')
+    parts.append('<text x="24" y="56" font-family="sans-serif" font-size="12" fill="#4b5563">Higher is better. Ratios compare ns/op across matching encoding/corpus cases.</text>')
+    bar_max = width - margin_l - margin_r
+    for i, (label, value, n) in enumerate(speedups):
+        y = 88 + i * row_h
+        bar_w = bar_max * value / maxv
+        color = COLORS[i % len(COLORS)]
+        parts.append(f'<text x="24" y="{y + 17}" font-family="sans-serif" font-size="13">{label}</text>')
+        parts.append(f'<rect x="{margin_l}" y="{y}" width="{bar_w:.1f}" height="24" fill="{color}" rx="3"/>')
+        parts.append(f'<text x="{margin_l + bar_w + 8:.1f}" y="{y + 17}" font-family="sans-serif" font-size="13" font-weight="700">{value:.2f}x</text>')
+        parts.append(f'<text x="{width - margin_r}" y="{y + 17}" text-anchor="end" font-family="sans-serif" font-size="11" fill="#6b7280">n={n}</text>')
+    parts.append("</svg>")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(parts))
+
+
 def summary(rows: list[dict[str, str]], out_path: str, metadata_path: str | None = None) -> None:
     by_op: dict[str, list[dict[str, str]]] = defaultdict(list)
     for row in rows:
@@ -74,6 +143,12 @@ def summary(rows: list[dict[str, str]], out_path: str, metadata_path: str | None
             f"> {meta.get('benchmark', {}).get('note', '')}",
             "",
         ])
+    speedups = speedup_summary(rows)
+    if speedups:
+        lines.extend(["## Speedup Highlights", "", "| Comparison | Geomean speedup | Matched cases |", "| --- | ---: | ---: |"])
+        for label, ratio, n in speedups:
+            lines.append(f"| {label} | {ratio:.2f}x | {n} |")
+        lines.append("")
     for op, op_rows in sorted(by_op.items()):
         lines.extend([f"## {op}", "", "| Runner | Encoding | Case | ns/op | MB/s | B/op | allocs/op |", "| --- | --- | --- | ---: | ---: | ---: | ---: |"])
         for r in sorted(op_rows, key=lambda x: (x["encoding"], x["case"], x["runner"])):
@@ -92,6 +167,7 @@ def main() -> None:
     os.makedirs(args.out_dir, exist_ok=True)
     rows = read_rows(args.input)
     summary(rows, os.path.join(args.out_dir, "summary.md"), args.metadata or None)
+    svg_speedups(speedup_summary(rows), os.path.join(args.out_dir, "speedups.svg"))
     for op in sorted({r["operation"] for r in rows}):
         svg_bar(rows, op, "ns_per_op", os.path.join(args.out_dir, f"{op}_ns_per_op.svg"))
         svg_bar(rows, op, "mb_per_s", os.path.join(args.out_dir, f"{op}_mb_per_s.svg"))
