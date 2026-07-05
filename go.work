@@ -1,0 +1,27 @@
+go 1.24
+
+use (
+	.
+	./adapters/anthropic
+	./adapters/gemini
+	./adapters/gemini/compare_google
+	./adapters/huggingface
+	./adapters/llama3
+	./adapters/mistral
+	./adapters/oss
+	./tools/compare_go_port
+)
+
+replace github.com/ron2111/omnitoken v0.1.0 => .
+
+replace github.com/ron2111/omnitoken/adapters/gemini v0.1.0 => ./adapters/gemini
+
+replace github.com/ron2111/omnitoken/adapters/anthropic v0.1.0 => ./adapters/anthropic
+
+replace github.com/ron2111/omnitoken/adapters/huggingface v0.1.0 => ./adapters/huggingface
+
+replace github.com/ron2111/omnitoken/adapters/llama3 v0.1.0 => ./adapters/llama3
+
+replace github.com/ron2111/omnitoken/adapters/mistral v0.1.0 => ./adapters/mistral
+
+replace github.com/ron2111/omnitoken/adapters/oss v0.1.0 => ./adapters/oss

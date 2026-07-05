@@ -12,6 +12,14 @@ go vet ./...
 go test -run "^$" -bench "Benchmark" -benchmem -count=1
 ```
 
+Adapter modules have their own `go.mod` files. Run relevant adapter tests from the adapter directory, for example:
+
+```powershell
+Push-Location adapters/gemini
+go test ./...
+Pop-Location
+```
+
 ## Guidelines
 
 - Keep tokenizer hot paths allocation-conscious.

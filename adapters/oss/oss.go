@@ -17,8 +17,6 @@ import (
 	omnitoken "github.com/ron2111/omnitoken"
 )
 
-const ProviderMistral omnitoken.Provider = "mistral"
-
 // ModelSource points to a local or remote SentencePiece model.
 type ModelSource struct {
 	Data   []byte

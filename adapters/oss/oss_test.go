@@ -71,7 +71,7 @@ func TestRegisterModelsRequiresEncoding(t *testing.T) {
 	if err := RegisterModels(omnitoken.ProviderMeta, "missing", "llama-test"); err == nil {
 		t.Fatal("RegisterModels accepted missing encoding")
 	}
-	if err := RegisterModelPrefixes(ProviderMistral, "missing", "mistral-test-"); err == nil {
+	if err := RegisterModelPrefixes(omnitoken.ProviderCustom, "missing", "mistral-test-"); err == nil {
 		t.Fatal("RegisterModelPrefixes accepted missing encoding")
 	}
 }

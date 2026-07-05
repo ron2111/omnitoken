@@ -20,6 +20,15 @@ go vet ./...
 go test -run "^$" -bench "Benchmark" -benchmem -count=1
 ```
 
+Adapter modules are tested from their own directories:
+
+```powershell
+Push-Location adapters/huggingface
+go test ./...
+go test -run "^$" -bench "BenchmarkHuggingFace" -benchmem -count=1
+Pop-Location
+```
+
 Comparison against `tiktoken-go` lives in a separate tool module so normal users do not inherit benchmark dependencies.
 
 ```powershell

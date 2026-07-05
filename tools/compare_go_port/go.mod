@@ -1,10 +1,10 @@
 module github.com/ron2111/omnitoken/tools/compare-go-port
 
-go 1.24.2
+go 1.24
 
 require (
 	github.com/pkoukk/tiktoken-go v0.1.8
-	github.com/ron2111/omnitoken v0.0.0
+	github.com/ron2111/omnitoken v0.1.0
 )
 
 require (
@@ -12,4 +12,3 @@ require (
 	github.com/google/uuid v1.3.0 // indirect
 )
 
-replace github.com/ron2111/omnitoken => ../..

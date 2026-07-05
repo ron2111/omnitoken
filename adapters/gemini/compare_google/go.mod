@@ -1,10 +1,10 @@
 module github.com/ron2111/omnitoken/adapters/gemini/compare-google
 
-go 1.24.2
+go 1.24
 
 require (
-	github.com/ron2111/omnitoken v0.0.0
-	github.com/ron2111/omnitoken/adapters/gemini v0.0.0
+	github.com/ron2111/omnitoken v0.1.0
+	github.com/ron2111/omnitoken/adapters/gemini v0.1.0
 	google.golang.org/genai v1.62.0
 )
 
@@ -28,6 +28,3 @@ require (
 	google.golang.org/protobuf v1.36.3 // indirect
 )
 
-replace github.com/ron2111/omnitoken => ../../..
-
-replace github.com/ron2111/omnitoken/adapters/gemini => ..

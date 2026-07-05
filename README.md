@@ -1,12 +1,20 @@
 # OmniToken
 
-Pure-Go token counting, encoding, and decoding for OpenAI-compatible and custom tokenizer families.
+Pure-Go LLM tokenizer library for local token counting, encoding, and decoding with OpenAI-compatible BPE (`cl100k_base`, `o200k_base`, `o200k_harmony`) and custom WordPiece and SentencePiece-style vocabularies.
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/ron2111/omnitoken.svg)](https://pkg.go.dev/github.com/ron2111/omnitoken)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 ![Go Version](https://img.shields.io/badge/go-1.24%2B-00ADD8)
 
-OmniToken ships a fast OpenAI BPE tokenizer, a zero-allocation count hot path, prompt cache helpers, and an extensible registry for WordPiece and SentencePiece-style vocabularies.
+OmniToken is useful for prompt sizing, token counting, tokenizer experiments, and cache-boundary planning without CGO, Rust, or Python runtime dependencies.
+
+## Features
+
+- Pure Go tokenizer library for LLM applications.
+- OpenAI-compatible BPE token counting for `cl100k_base`, `o200k_base`, and `o200k_harmony`.
+- Local `EncodeOrdinary`, `Decode`, and `CountTokens` APIs.
+- Custom WordPiece and SentencePiece-style vocabularies.
+- Optional adapter modules for Gemini, Llama 3, Mistral, Hugging Face `tokenizer.json`, OSS SentencePiece models, and Anthropic message token counting.
 
 ## Install
 
@@ -17,14 +25,26 @@ go get github.com/ron2111/omnitoken
 ## Quick Start
 
 ```go
-engine, err := omnitoken.ForModel("gpt-4o")
-if err != nil {
-	panic(err)
-}
+package main
 
-tokens := engine.EncodeOrdinary("hello world")
-count := engine.CountTokens("hello world")
-text := engine.Decode(tokens)
+import (
+	"fmt"
+
+	"github.com/ron2111/omnitoken"
+)
+
+func main() {
+	engine, err := omnitoken.ForModel("gpt-4o")
+	if err != nil {
+		panic(err)
+	}
+
+	tokens := engine.EncodeOrdinary("hello world")
+	count := engine.CountTokens("hello world")
+	text := engine.Decode(tokens)
+
+	fmt.Println(count, text)
+}
 ```
 
 ## Support
