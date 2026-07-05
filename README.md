@@ -38,6 +38,8 @@ text := engine.Decode(tokens)
 | SentencePiece-style local vocabularies | Supported |
 | Gemini local text adapter | Optional module |
 | OSS SentencePiece adapter | Optional module |
+| Llama 3 tiktoken-BPE adapter | Optional module |
+| Mistral Tekken adapter | Optional module |
 | Hugging Face WordPiece adapter | Optional module |
 | Anthropic message counter | Optional module |
 
