@@ -3,15 +3,7 @@ package omnitoken
 import (
 	"unicode"
 	"unicode/utf8"
-	"unsafe"
 )
-
-func unsafeStringBytes(s string) []byte {
-	if len(s) == 0 {
-		return nil
-	}
-	return unsafe.Slice(unsafe.StringData(s), len(s))
-}
 
 func nextCL100K(src []byte, start int) int {
 	if end, ok := contractionEnd(src, start, false); ok {
