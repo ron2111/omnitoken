@@ -1,0 +1,50 @@
+name: Feature Request
+description: Propose a new capability or API.
+title: "Feature: "
+labels:
+  - "type: feature"
+  - "status: needs-design"
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user pain should this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Solution
+      description: Describe the API, CLI, or behavior you want.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example Usage
+      render: go
+      description: Optional code or CLI example.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - cache
+        - cost
+        - budget
+        - cli
+        - tokenizer
+        - adapters
+        - benchmarks
+        - docs
+        - unsure
+  - type: textarea
+    id: non-goals
+    attributes:
+      label: Non-goals / Constraints
+      description: What should this avoid doing?
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered

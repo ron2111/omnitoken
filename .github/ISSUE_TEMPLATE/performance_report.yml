@@ -1,0 +1,31 @@
+name: Performance Report
+description: Report a benchmark regression or optimization opportunity.
+title: "Performance: "
+labels:
+  - "type: performance"
+  - "area: benchmarks"
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is slow or regressed?
+    validations:
+      required: true
+  - type: textarea
+    id: benchmark
+    attributes:
+      label: Benchmark Command And Results
+      description: Include command, hardware, Go version, and before/after numbers if available.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Input Shape
+      description: Describe the workload, e.g. JSON, code, long unbroken text, CJK, special tokens.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Context

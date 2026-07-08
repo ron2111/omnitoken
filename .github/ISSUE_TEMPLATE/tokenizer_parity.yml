@@ -1,0 +1,41 @@
+name: Tokenizer Parity Report
+description: Report a mismatch against a reference tokenizer.
+title: "Parity: "
+labels:
+  - "type: bug"
+  - "area: tokenizer"
+body:
+  - type: input
+    id: encoding
+    attributes:
+      label: Encoding / Model
+      placeholder: cl100k_base, o200k_base, gpt-4o, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Input Text
+      description: Minimal text that produces a mismatch.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Tokens / Reference Output
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: OmniToken Output
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: Reference Tool
+      description: Which tokenizer/library/version produced the expected output?

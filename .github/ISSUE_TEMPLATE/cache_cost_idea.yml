@@ -1,0 +1,43 @@
+name: Cache / Cost Idea
+description: Discuss prompt caching, cost estimation, or budget planning ideas.
+title: "Cache/Cost: "
+labels:
+  - "type: discussion"
+  - "status: needs-design"
+body:
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: What workflow or product would benefit?
+    validations:
+      required: true
+  - type: textarea
+    id: current-pain
+    attributes:
+      label: Current Pain
+      description: What is hard to estimate, debug, or optimize today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-output
+    attributes:
+      label: Desired Output
+      description: What should OmniToken report or recommend?
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Provider Focus
+      options:
+        - OpenAI
+        - Anthropic
+        - Gemini / Vertex
+        - Generic
+        - Multiple providers
+        - Unsure
+  - type: textarea
+    id: sample
+    attributes:
+      label: Sample Prompt Shape Or Trace Format
+      description: Redact sensitive data before posting.
+      render: json
