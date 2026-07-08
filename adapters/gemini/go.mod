@@ -1,6 +1,6 @@
 module github.com/ron2111/omnitoken/adapters/gemini
 
-go 1.24
+go 1.23
 
 require (
 	github.com/eliben/go-sentencepiece v0.7.0
@@ -8,4 +8,3 @@ require (
 )
 
 require google.golang.org/protobuf v1.36.3 // indirect
-

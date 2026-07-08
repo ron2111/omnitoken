@@ -10,7 +10,7 @@ OpenAI-compatible outputs are checked with layered tests.
 | Edge cases | Emoji, CJK, punctuation, repeated spaces, and special-token text. |
 | Reference corpus | 50,000 deterministic cases checked against expected OpenAI tokenizer outputs. |
 
-For supported OpenAI encodings, correctness means identical token ID sequences for the same input text.
+For supported OpenAI encodings, ordinary-text correctness means identical token ID sequences for the same input text. Built-in OpenAI BPE special-token markers are handled through the explicit `Encode` options path, while `EncodeOrdinary` treats marker strings as literal text.
 
 ## Measured Results
 

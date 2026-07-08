@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 type segmenterFunc func(src []byte, start int) int
@@ -15,11 +16,12 @@ func (f segmenterFunc) Next(src []byte, start int) int { return f(src, start) }
 
 // Engine is a loaded tokenizer encoding with mergeable ranks and decode tables.
 type Engine struct {
-	name      string
-	segmenter Segmenter
-	ranks     map[string]int
-	decoder   [][]byte
-	specials  map[string]int
+	name               string
+	segmenter          Segmenter
+	ranks              map[string]int
+	decoder            [][]byte
+	specials           map[string]int
+	specialMarkersOnly bool
 }
 
 // Encoding returns the OpenAI-compatible encoding name used by this engine.
@@ -30,9 +32,86 @@ func (e *Engine) EncodeOrdinary(text string) []int {
 	if e == nil || text == "" {
 		return nil
 	}
+	tokens := make([]int, 0, len(text)/4+1)
+	return e.appendOrdinaryText(tokens, text)
+}
+
+// Encode encodes text, interpreting explicitly allowed special-token marker
+// strings as special token IDs.
+func (e *Engine) Encode(text string, opts EncodeOptions) ([]int, error) {
+	if e == nil || text == "" {
+		return nil, nil
+	}
+
+	tokens := make([]int, 0, len(text)/4+1)
+	for text != "" {
+		start, end, token, id, ok := e.nextSpecial(text)
+		if !ok {
+			return e.appendOrdinaryText(tokens, text), nil
+		}
+		if !opts.allowsSpecial(token) {
+			return nil, fmt.Errorf("%w: %s", ErrDisallowedSpecial, token)
+		}
+		if start > 0 {
+			tokens = e.appendOrdinaryText(tokens, text[:start])
+		}
+		tokens = append(tokens, id)
+		text = text[end:]
+	}
+	return tokens, nil
+}
+
+// CountTokensWithOptions counts tokens using the same special-token policy as Encode.
+func (e *Engine) CountTokensWithOptions(text string, opts EncodeOptions) (int, error) {
+	if e == nil || text == "" {
+		return 0, nil
+	}
+
+	count := 0
+	for text != "" {
+		start, end, token, _, ok := e.nextSpecial(text)
+		if !ok {
+			return count + e.countOrdinaryText(text), nil
+		}
+		if !opts.allowsSpecial(token) {
+			return 0, fmt.Errorf("%w: %s", ErrDisallowedSpecial, token)
+		}
+		if start > 0 {
+			count += e.countOrdinaryText(text[:start])
+		}
+		count++
+		text = text[end:]
+	}
+	return count, nil
+}
+
+// SpecialTokenID returns the ID for a configured special-token marker.
+func (e *Engine) SpecialTokenID(token string) (int, bool) {
+	if e == nil {
+		return 0, false
+	}
+	id, ok := e.specials[token]
+	return id, ok
+}
+
+// SpecialTokens returns a copy of the configured special-token table.
+func (e *Engine) SpecialTokens() map[string]int {
+	if e == nil {
+		return nil
+	}
+	out := make(map[string]int, len(e.specials))
+	for token, id := range e.specials {
+		out[token] = id
+	}
+	return out
+}
+
+func (e *Engine) appendOrdinaryText(tokens []int, text string) []int {
+	if text == "" {
+		return tokens
+	}
 
 	src := unsafeStringBytes(text)
-	tokens := make([]int, 0, len(src)/4+1)
 	for start := 0; start < len(src); {
 		end := e.segmenter.Next(src, start)
 		if end <= start || end > len(src) {
@@ -49,6 +128,13 @@ func (e *Engine) CountTokens(text string) int {
 	if e == nil || text == "" {
 		return 0
 	}
+	return e.countOrdinaryText(text)
+}
+
+func (e *Engine) countOrdinaryText(text string) int {
+	if text == "" {
+		return 0
+	}
 
 	src := unsafeStringBytes(text)
 	count := 0
@@ -61,6 +147,55 @@ func (e *Engine) CountTokens(text string) int {
 		start = end
 	}
 	return count
+}
+
+func (opts EncodeOptions) allowsSpecial(token string) bool {
+	return opts.AllowAllSpecial || opts.AllowedSpecial[token]
+}
+
+func (e *Engine) nextSpecial(text string) (start int, end int, token string, id int, ok bool) {
+	if len(e.specials) == 0 {
+		return 0, 0, "", 0, false
+	}
+	if e.specialMarkersOnly {
+		for offset := 0; offset < len(text); {
+			idx := strings.Index(text[offset:], "<|")
+			if idx < 0 {
+				return 0, 0, "", 0, false
+			}
+			start := offset + idx
+			close := strings.Index(text[start+2:], "|>")
+			if close < 0 {
+				return 0, 0, "", 0, false
+			}
+			end := start + 2 + close + 2
+			candidate := text[start:end]
+			if id, ok := e.specials[candidate]; ok {
+				return start, end, candidate, id, true
+			}
+			offset = start + 2
+		}
+		return 0, 0, "", 0, false
+	}
+
+	bestStart := len(text)
+	bestToken := ""
+	bestID := 0
+	for token, tokenID := range e.specials {
+		idx := strings.Index(text, token)
+		if idx < 0 {
+			continue
+		}
+		if idx < bestStart || idx == bestStart && len(token) > len(bestToken) {
+			bestStart = idx
+			bestToken = token
+			bestID = tokenID
+		}
+	}
+	if bestToken == "" {
+		return 0, 0, "", 0, false
+	}
+	return bestStart, bestStart + len(bestToken), bestToken, bestID, true
 }
 
 // Decode decodes token IDs back to UTF-8 text. Unknown IDs are skipped.
@@ -157,18 +292,43 @@ func newEngine(name string, data []byte, segmenter Segmenter, specials map[strin
 	if err != nil {
 		return nil, err
 	}
-	usedSpecialIDs := make(map[int]string, len(specials))
-	for token, id := range specials {
-		if previous, exists := usedSpecialIDs[id]; exists {
-			return nil, fmt.Errorf("duplicate special token id %d for %q and %q", id, previous, token)
+	specialNames := make([]string, 0, len(specials))
+	specialMarkersOnly := true
+	for token := range specials {
+		specialNames = append(specialNames, token)
+		if !strings.HasPrefix(token, "<|") || !strings.HasSuffix(token, "|>") {
+			specialMarkersOnly = false
 		}
-		usedSpecialIDs[id] = token
-		if id >= 0 && id < len(decoder) && decoder[id] != nil {
+	}
+	sort.Strings(specialNames)
+	decodedSpecials := make(map[int]string, len(specials))
+	for _, token := range specialNames {
+		id := specials[token]
+		previous, exists := decodedSpecials[id]
+		if !exists && id >= 0 && id < len(decoder) && decoder[id] != nil {
 			return nil, fmt.Errorf("special token id %d collides with mergeable rank", id)
 		}
-		decoder = setDecoderToken(decoder, id, []byte(token))
+		if !exists || preferSpecialDecode(previous, token) == token {
+			decodedSpecials[id] = token
+			decoder = setDecoderToken(decoder, id, []byte(token))
+		}
 	}
-	return &Engine{name: name, segmenter: segmenter, ranks: ranks, decoder: decoder, specials: specials}, nil
+	return &Engine{name: name, segmenter: segmenter, ranks: ranks, decoder: decoder, specials: specials, specialMarkersOnly: specialMarkersOnly}, nil
+}
+
+func preferSpecialDecode(a, b string) string {
+	aReserved := strings.HasPrefix(a, "<|reserved_")
+	bReserved := strings.HasPrefix(b, "<|reserved_")
+	if aReserved != bReserved {
+		if aReserved {
+			return b
+		}
+		return a
+	}
+	if b < a {
+		return b
+	}
+	return a
 }
 
 func parseTiktoken(data []byte) (map[string]int, [][]byte, error) {
@@ -257,14 +417,14 @@ func o200kHarmonySpecialTokens() map[string]int {
 		"<|call|>":        200012,
 		"<|endofprompt|>": 200018,
 	}
-	usedIDs := make(map[int]struct{}, len(specials))
-	for _, id := range specials {
-		usedIDs[id] = struct{}{}
+	for i := 200000; i <= 200001; i++ {
+		specials[fmt.Sprintf("<|reserved_%d|>", i)] = i
 	}
-	for i := 200000; i <= 201087; i++ {
-		if _, used := usedIDs[i]; used {
-			continue
-		}
+	specials["<|reserved_200004|>"] = 200004
+	for i := 200009; i <= 200011; i++ {
+		specials[fmt.Sprintf("<|reserved_%d|>", i)] = i
+	}
+	for i := 200013; i <= 201087; i++ {
 		specials[fmt.Sprintf("<|reserved_%d|>", i)] = i
 	}
 	return specials

@@ -9,18 +9,20 @@
 <p align="center">
   <a href="https://pkg.go.dev/github.com/ron2111/omnitoken"><img src="https://pkg.go.dev/badge/github.com/ron2111/omnitoken.svg" alt="Go Reference"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
-  <img src="https://img.shields.io/badge/go-1.24%2B-00ADD8" alt="Go 1.24+">
+  <img src="https://img.shields.io/badge/go-1.23%2B-00ADD8" alt="Go 1.23+">
   <img src="https://img.shields.io/badge/root%20deps-zero-22c55e" alt="zero root dependencies">
   <img src="https://img.shields.io/badge/CGO-not%20required-0ea5e9" alt="no CGO required">
 </p>
 
 OmniToken is built for Go services that need fast local token accounting for prompt sizing, context-window planning, tokenizer experiments, and cache-boundary analysis without CGO, Rust, or Python runtime dependencies in the root module.
 
+The root module supports Go 1.23+. Some optional comparison tooling in this repository uses dependencies that require newer Go versions.
+
 ## Features
 
 - Pure Go tokenizer library for LLM applications.
 - OpenAI-compatible BPE token counting for `cl100k_base`, `o200k_base`, and `o200k_harmony`.
-- Local `CountTokens`, `EncodeOrdinary`, and `Decode` APIs.
+- Local `Encode`, `EncodeOrdinary`, `CountTokens`, and `Decode` APIs.
 - Zero-allocation `CountTokens` hot path for supported OpenAI BPE workloads.
 - Custom WordPiece and SentencePiece-style vocabularies.
 - Prompt-cache alignment planner for token block-boundary analysis.
@@ -78,13 +80,27 @@ func main() {
 }
 ```
 
+## Special Tokens
+
+`EncodeOrdinary` always treats marker strings such as `<|start|>` as normal text. For built-in OpenAI BPE engines, `Encode` follows `tiktoken`-style special-token handling: known special markers are rejected by default unless explicitly allowed.
+
+```go
+tokens, err := omnitoken.Encode(engine, "<|start|>assistant", omnitoken.EncodeOptions{
+	AllowAllSpecial: true,
+})
+```
+
+Exact Harmony prompt accounting requires special-token-aware encoding or manually inserted special token IDs. Plain string concatenation with `EncodeOrdinary` is ordinary text encoding only.
+
+Use `SpecialTokenID` or `SpecialTokens` on `*omnitoken.Engine` when constructing token sequences directly.
+
 ## Support
 
 | Family | Status |
 | --- | --- |
 | OpenAI `cl100k_base` | Supported |
 | OpenAI `o200k_base` | Supported |
-| OpenAI `o200k_harmony` | Supported |
+| OpenAI `o200k_harmony` | Supported, including Harmony special-token IDs |
 | WordPiece local vocabularies | Supported |
 | SentencePiece-style local vocabularies | Supported |
 | Gemini local text adapter | Optional module |
@@ -133,7 +149,7 @@ err = omnitoken.RegisterModelPrefix("my-model-", "my_wordpiece")
 
 ## Future Scope
 
-- Streaming token counting through the public API.
+- Stateful streaming token accounting with boundary buffering.
 - More provider adapters with verified local vocab sources.
 - Release CI for benchmark regression tracking.
 

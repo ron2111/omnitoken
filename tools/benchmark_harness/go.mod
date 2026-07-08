@@ -1,6 +1,6 @@
 module github.com/ron2111/omnitoken/tools/benchmark-harness
 
-go 1.24
+go 1.23
 
 require (
 	github.com/pkoukk/tiktoken-go v0.1.8

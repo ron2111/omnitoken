@@ -11,7 +11,7 @@ flowchart TD
     C --> F[SentencePiece-Style]
     B --> I[Optional Adapter Modules]
     I --> J[Gemini / Llama 3 / Mistral / Hugging Face / Anthropic]
-    C --> G[Encode / Decode / CountTokens]
+    C --> G[Encode / EncodeOrdinary / Decode / CountTokens]
     G --> H[CacheAligner]
 ```
 
@@ -32,5 +32,7 @@ flowchart TD
 | SentencePiece-style | Newline metaspace vocabulary | Greedy longest-match tokenization with configurable metaspace marker. |
 
 Optional adapters cover provider-specific or heavier formats without adding dependencies to the root module.
+
+`EncodeOrdinary` is the literal text path. Built-in OpenAI BPE engines also support `Encode` with explicit special-token policy, matching `tiktoken`'s separation between ordinary text and allowed special tokens.
 
 The main module does not pull in external runtime dependencies.
