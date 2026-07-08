@@ -7,14 +7,19 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/ron2111/omnitoken/actions/workflows/ci.yml"><img src="https://github.com/ron2111/omnitoken/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://pkg.go.dev/github.com/ron2111/omnitoken"><img src="https://pkg.go.dev/badge/github.com/ron2111/omnitoken.svg" alt="Go Reference"></a>
+  <a href="https://goreportcard.com/report/github.com/ron2111/omnitoken"><img src="https://goreportcard.com/badge/github.com/ron2111/omnitoken" alt="Go Report Card"></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
+  <a href="https://github.com/ron2111/omnitoken/stargazers"><img src="https://img.shields.io/github/stars/ron2111/omnitoken?style=social" alt="GitHub stars"></a>
   <img src="https://img.shields.io/badge/go-1.23%2B-00ADD8" alt="Go 1.23+">
   <img src="https://img.shields.io/badge/root%20deps-zero-22c55e" alt="zero root dependencies">
   <img src="https://img.shields.io/badge/CGO-not%20required-0ea5e9" alt="no CGO required">
 </p>
 
 OmniToken is built for Go services that need fast local token accounting for prompt sizing, context-window planning, tokenizer experiments, and cache-boundary analysis without CGO, Rust, or Python runtime dependencies in the root module.
+
+If OmniToken helps your Go project, please consider giving it a star so others can find it.
 
 The root module supports Go 1.23+. Some optional comparison tooling in this repository uses dependencies that require newer Go versions.
 
