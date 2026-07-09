@@ -15,6 +15,8 @@
   <img src="https://img.shields.io/badge/CGO-not%20required-0ea5e9" alt="no CGO required">
 </p>
 
+<img width="1376" height="768" alt="omnitoken-llm-tokenizer" src="https://github.com/user-attachments/assets/d8e57717-55e7-4568-9054-2c534bea0098" />
+
 <p align="center"><sub>If OmniToken is useful in your Go project, a star helps others discover it.</sub></p>
 
 OmniToken is built for Go services that need fast local token accounting for prompt sizing, context-window planning, tokenizer experiments, and cache-boundary analysis without CGO, Rust, or Python runtime dependencies in the root module.
