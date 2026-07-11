@@ -12,3 +12,5 @@ Adapters live outside the root module so OmniToken stays dependency-light for us
 | [Anthropic](./anthropic/README.md) | `github.com/ron2111/omnitoken/adapters/anthropic` | API-backed Anthropic Messages token counting and usage parsing. |
 
 Each adapter has its own README with setup, scope, and benchmark notes.
+
+For reference-tokenizer validation, see [adapter parity fixtures](./parity.md).
