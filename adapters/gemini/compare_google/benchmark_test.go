@@ -19,6 +19,33 @@ var texts = map[string]string{
 	"long":    "System instruction: preserve JSON, markdown, code, Unicode, and exact whitespace. System instruction: preserve JSON, markdown, code, Unicode, and exact whitespace.",
 }
 
+func TestOmniTokenMatchesGoogleLocalTokenizer(t *testing.T) {
+	model := compareModel(t)
+	if err := gemini.Register(); err != nil {
+		t.Fatal(err)
+	}
+	engine, err := omnitoken.ForModel(model)
+	if err != nil {
+		t.Fatal(err)
+	}
+	tok, err := tokenizer.NewLocalTokenizer(model)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for name, text := range texts {
+		t.Run(model+"/"+name, func(t *testing.T) {
+			content := []*genai.Content{{Parts: []*genai.Part{{Text: text}}}}
+			result, err := tok.CountTokens(content, nil)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if got, want := engine.CountTokens(text), int(result.TotalTokens); got != want {
+				t.Fatalf("CountTokens(%q) = %d, want Google local tokenizer %d", text, got, want)
+			}
+		})
+	}
+}
+
 func BenchmarkOmniTokenGemini(b *testing.B) {
 	model := compareModel(b)
 	if err := gemini.Register(); err != nil {
@@ -61,10 +88,10 @@ func BenchmarkGoogleLocalTokenizer(b *testing.B) {
 	}
 }
 
-func compareModel(b *testing.B) string {
-	b.Helper()
+func compareModel(tb testing.TB) string {
+	tb.Helper()
 	if os.Getenv("OMNITOKEN_GEMINI_COMPARE") == "" {
-		b.Skip("set OMNITOKEN_GEMINI_COMPARE=1")
+		tb.Skip("set OMNITOKEN_GEMINI_COMPARE=1")
 	}
 	model := os.Getenv("OMNITOKEN_GEMINI_COMPARE_MODEL")
 	if model == "" {
