@@ -9,7 +9,6 @@ Root files implement `github.com/ron2111/omnitoken`:
 - `engine.go`, `bpe.go`, `bpe_runtime.go`, `bpe_ranks.go`, `scanner.go`: OpenAI-compatible BPE runtime.
 - `registry.go`: model and encoding registry.
 - `options.go`, `special_tokens.go`: special-token-aware APIs.
-- `cache.go`: cache-boundary planning.
 - `wordpiece.go`, `sentencepiece.go`: lightweight custom tokenizer engines.
 - `doc.go`, `example_test.go`: package documentation and examples.
 
@@ -22,6 +21,10 @@ Embedded OpenAI-compatible vocab files live under `internal/openai/data`, with t
 ## Optional Adapters
 
 Adapters are separate modules under `adapters/` so root users do not pull provider-specific dependencies.
+
+## Cacheflow
+
+Prompt-cache boundary planning and trace simulation live under `cacheflow/`. It is a subpackage so the root tokenizer API stays focused while cache simulation can grow independently without adding dependencies.
 
 ## CLI, Docs, Tools, Benchmarks
 

@@ -1,18 +1,19 @@
-package omnitoken_test
+package cacheflow_test
 
 import (
 	"fmt"
 
 	"github.com/ron2111/omnitoken"
+	"github.com/ron2111/omnitoken/cacheflow"
 )
 
-func ExampleCacheAligner_AlignPromptToProfile() {
+func ExampleAligner_AlignPromptToProfile() {
 	engine, err := omnitoken.ForModel("gpt-4o")
 	if err != nil {
 		panic(err)
 	}
 
-	report := omnitoken.NewCacheAligner(engine).AlignPromptToProfile("hello world", omnitoken.CacheProfileOpenAI)
+	report := cacheflow.NewAligner(engine).AlignPromptToProfile("hello world", cacheflow.ProfileOpenAI)
 
 	fmt.Println(report.CurrentTokens)
 	fmt.Println(report.PaddingNeeded)

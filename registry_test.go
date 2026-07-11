@@ -9,6 +9,12 @@ import (
 
 var registryTestCounter uint64
 
+type fixedCountEngine int
+
+func (e fixedCountEngine) EncodeOrdinary(string) []int { return nil }
+func (e fixedCountEngine) Decode([]int) string         { return "" }
+func (e fixedCountEngine) CountTokens(string) int      { return int(e) }
+
 func TestForEncodingBuildsCustomEncodingOnce(t *testing.T) {
 	encoding := fmt.Sprintf("test_singleflight_%d", atomic.AddUint64(&registryTestCounter, 1))
 	started := make(chan struct{})
