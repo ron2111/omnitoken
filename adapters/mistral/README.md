@@ -10,8 +10,7 @@ go get github.com/ron2111/omnitoken/adapters/mistral
 
 ```go
 err := mistral.Register(mistral.Options{
-	Source:                  mistral.ModelSource{Path: "./tekken.json"},
-	AllowUnsupportedPattern: true, // experimental: uses OmniToken CL100K-style segmentation
+	Source: mistral.ModelSource{Path: "./tekken.json"},
 })
 if err != nil {
 	panic(err)
@@ -30,7 +29,8 @@ engine, err := omnitoken.ForModel("mistral-local")
 - Supports Mistral Tekken JSON tokenizers supplied by the user.
 - Does not bundle Mistral tokenizer files.
 - Provides ordinary local text encode/count/decode.
-- Tekken files with a custom `config.pattern` are rejected by default because that regex is not yet implemented locally; set `AllowUnsupportedPattern` only for experimental CL100K-style segmentation.
+- Uses Tekken `config.pattern` when it is compatible with Go's regexp engine.
+- Tekken patterns that use unsupported regexp syntax are rejected by default; set `AllowUnsupportedPattern` only for experimental CL100K-style segmentation fallback.
 - Does not claim full Mistral API, tool, multimodal, or billing parity.
 
 ## Benchmarks

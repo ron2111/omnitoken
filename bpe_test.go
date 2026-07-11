@@ -39,3 +39,28 @@ func TestNewByteBPEValidation(t *testing.T) {
 		t.Fatal("NewByteBPE accepted unsupported segmenter")
 	}
 }
+
+func TestNewByteBPECustomSegmenter(t *testing.T) {
+	engine, err := NewByteBPE(ByteBPEOptions{
+		Name:            "custom_segmenter",
+		Data:            []byte("YQ== 0\nYg== 1\nYWI= 2\n"),
+		CustomSegmenter: fixedSegmenter{end: 2},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := engine.EncodeOrdinary("ab"); !reflect.DeepEqual(got, []int{2}) {
+		t.Fatalf("EncodeOrdinary = %v, want [2]", got)
+	}
+}
+
+type fixedSegmenter struct {
+	end int
+}
+
+func (s fixedSegmenter) Next(src []byte, start int) int {
+	if s.end > start && s.end <= len(src) {
+		return s.end
+	}
+	return len(src)
+}

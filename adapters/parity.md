@@ -69,7 +69,7 @@ $env:OMNITOKEN_MISTRAL_PARITY_JSONL="C:\path\to\mistral-parity.jsonl"
 go test ./adapters/mistral
 ```
 
-Tekken files with `config.pattern` are rejected by default because arbitrary Tekken regex pre-tokenization is not implemented locally yet. Set `OMNITOKEN_MISTRAL_ALLOW_UNSUPPORTED_PATTERN=1` only to test the current experimental CL100K-style segmentation path.
+Tekken files with `config.pattern` use that pattern when it is compatible with Go's regexp engine. Set `OMNITOKEN_MISTRAL_ALLOW_UNSUPPORTED_PATTERN=1` only to test the experimental CL100K-style fallback for unsupported patterns.
 
 ### OSS SentencePiece
 
@@ -86,6 +86,6 @@ go test ./adapters/oss
 | Gemini | Local text tokenizer implemented; fixture parity and Google local-tokenizer comparison are env-gated. Multimodal/accounting uses provider APIs. |
 | Hugging Face | WordPiece and simple BPE supported. Full `AutoTokenizer`, ByteLevel GPT-2/RoBERTa, Unigram, offsets, post-processors, truncation, padding, and pair encoding are not complete. |
 | Llama 3 | Local tiktoken-BPE path implemented with known special-token layout. Needs official fixture runs for each variant. |
-| Mistral | Tekken JSON loading implemented, but custom `config.pattern` is guarded until Tekken pre-tokenization is implemented. |
+| Mistral | Tekken JSON loading implemented. `config.pattern` is used when Go-compatible; unsupported regex syntax is guarded unless explicitly allowed as an experimental fallback. |
 | OSS | Generic SentencePiece wrapper with fixture parity support. It delegates to `go-sentencepiece`; OmniToken does not own the full optimized SentencePiece runtime here. |
 | Anthropic | No local Claude tokenizer parity. Current Claude tokenizer specs/artifacts are not public; use provider-side counting and final usage parsing. |

@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"time"
 
@@ -71,19 +72,50 @@ func New(opts Options) (*Engine, error) {
 	if err != nil {
 		return nil, err
 	}
-	if pattern != "" && !opts.AllowUnsupportedPattern {
-		return nil, fmt.Errorf("omnitoken mistral: tekken pattern is not supported by the local segmenter; set AllowUnsupportedPattern to use CL100K segmentation experimentally")
+	segmenter := omnitoken.Segmenter(nil)
+	if pattern != "" {
+		segmenter, err = newRegexpSegmenter(pattern)
+		if err != nil {
+			if !opts.AllowUnsupportedPattern {
+				return nil, fmt.Errorf("omnitoken mistral: unsupported tekken pattern: %w", err)
+			}
+			segmenter = nil
+		}
 	}
 	inner, err := omnitoken.NewByteBPE(omnitoken.ByteBPEOptions{
-		Name:      EncodingTekken,
-		Data:      bpeData,
-		Segmenter: omnitoken.SegmenterCL100K,
-		Specials:  specials,
+		Name:            EncodingTekken,
+		Data:            bpeData,
+		Segmenter:       omnitoken.SegmenterCL100K,
+		CustomSegmenter: segmenter,
+		Specials:        specials,
 	})
 	if err != nil {
 		return nil, err
 	}
 	return &Engine{inner: inner, specials: specials}, nil
+}
+
+type regexpSegmenter struct {
+	re *regexp.Regexp
+}
+
+func newRegexpSegmenter(pattern string) (omnitoken.Segmenter, error) {
+	re, err := regexp.Compile("^(?:" + pattern + ")")
+	if err != nil {
+		return nil, err
+	}
+	return regexpSegmenter{re: re}, nil
+}
+
+func (s regexpSegmenter) Next(src []byte, start int) int {
+	if start >= len(src) {
+		return len(src)
+	}
+	loc := s.re.FindIndex(src[start:])
+	if len(loc) == 2 && loc[0] == 0 && loc[1] > 0 {
+		return start + loc[1]
+	}
+	return start + 1
 }
 
 // Register registers the Tekken encoding factory.

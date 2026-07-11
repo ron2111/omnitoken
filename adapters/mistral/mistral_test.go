@@ -39,7 +39,7 @@ func TestNewRequiresSource(t *testing.T) {
 
 func TestNewRejectsUnsupportedPatternByDefault(t *testing.T) {
 	data := []byte(`{
-  "config": {"pattern": "custom"},
+  "config": {"pattern": "(?=a)"},
   "default_num_special_tokens": 1000,
   "vocab": [{"rank": 0, "token_bytes": "YQ=="}]
 }`)
@@ -48,5 +48,24 @@ func TestNewRejectsUnsupportedPatternByDefault(t *testing.T) {
 	}
 	if _, err := New(Options{Source: ModelSource{Data: data}, AllowUnsupportedPattern: true}); err != nil {
 		t.Fatalf("New with AllowUnsupportedPattern: %v", err)
+	}
+}
+
+func TestNewUsesSupportedTekkenPattern(t *testing.T) {
+	data := []byte(`{
+  "config": {"pattern": "ab|a|b"},
+  "default_num_special_tokens": 1000,
+  "vocab": [
+    {"rank": 0, "token_bytes": "YQ=="},
+    {"rank": 1, "token_bytes": "Yg=="},
+    {"rank": 2, "token_bytes": "YWI="}
+  ]
+}`)
+	engine, err := New(Options{Source: ModelSource{Data: data}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := engine.EncodeOrdinary("ab"); len(got) != 1 || got[0] != 1002 {
+		t.Fatalf("EncodeOrdinary = %v, want [1002]", got)
 	}
 }

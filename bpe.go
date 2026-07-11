@@ -9,10 +9,11 @@ const (
 
 // ByteBPEOptions configures a byte-level BPE engine from tiktoken-style ranks.
 type ByteBPEOptions struct {
-	Name      string
-	Data      []byte
-	Segmenter string
-	Specials  map[string]int
+	Name            string
+	Data            []byte
+	Segmenter       string
+	CustomSegmenter Segmenter
+	Specials        map[string]int
 }
 
 // NewByteBPE builds a pure-Go byte-level BPE engine from tiktoken-style data.
@@ -23,9 +24,13 @@ func NewByteBPE(opts ByteBPEOptions) (*Engine, error) {
 	if len(opts.Data) == 0 {
 		return nil, fmt.Errorf("omnitoken: BPE data is required")
 	}
-	segmenter, err := segmenterByName(opts.Segmenter)
-	if err != nil {
-		return nil, err
+	segmenter := opts.CustomSegmenter
+	if segmenter == nil {
+		var err error
+		segmenter, err = segmenterByName(opts.Segmenter)
+		if err != nil {
+			return nil, err
+		}
 	}
 	return newEngine(opts.Name, opts.Data, segmenter, opts.Specials)
 }
