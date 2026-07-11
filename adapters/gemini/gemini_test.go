@@ -142,3 +142,40 @@ func TestModelBytesRedownloadsCorruptCache(t *testing.T) {
 		t.Fatalf("modelBytes = %q", got)
 	}
 }
+
+func TestOptimizedCountMatchesEncodeWithLocalModels(t *testing.T) {
+	tests := []struct {
+		name     string
+		encoding string
+		env      string
+	}{
+		{"gemma2", EncodingGemma2, "OMNITOKEN_GEMINI_GEMMA2_MODEL"},
+		{"gemma3", EncodingGemma3, "OMNITOKEN_GEMINI_GEMMA3_MODEL"},
+	}
+	texts := []string{
+		"hello world",
+		"Summarize this JSON payload: {\"hello\":\"world\",\"n\":123456}",
+		"こんにちは世界 😀 test 中文测试 مرحبا بالعالم",
+		"System instruction: preserve JSON, markdown, code, Unicode, and exact whitespace.",
+	}
+	checked := false
+	for _, tt := range tests {
+		path := os.Getenv(tt.env)
+		if path == "" {
+			continue
+		}
+		checked = true
+		engine, err := newEngine(tt.encoding, Options{}, ModelSource{Path: path})
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, text := range texts {
+			if got, want := engine.CountTokens(text), len(engine.EncodeOrdinary(text)); got != want {
+				t.Fatalf("%s CountTokens(%q) = %d, want len EncodeOrdinary %d", tt.name, text, got, want)
+			}
+		}
+	}
+	if !checked {
+		t.Skip("set OMNITOKEN_GEMINI_GEMMA2_MODEL or OMNITOKEN_GEMINI_GEMMA3_MODEL")
+	}
+}

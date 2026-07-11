@@ -1,0 +1,7 @@
+This package includes code adapted from github.com/eliben/go-sentencepiece.
+
+Original project: https://github.com/eliben/go-sentencepiece
+Original license: Apache License 2.0
+
+OmniToken changes include package relocation plus optimized ID-only and
+count-only tokenization paths for the Gemini adapter.

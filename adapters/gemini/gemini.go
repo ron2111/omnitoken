@@ -18,8 +18,8 @@ import (
 	"sync"
 	"time"
 
-	sentencepiece "github.com/eliben/go-sentencepiece"
 	omnitoken "github.com/ron2111/omnitoken"
+	"github.com/ron2111/omnitoken/adapters/gemini/internal/gemmabpe"
 )
 
 const (
@@ -52,7 +52,7 @@ type Options struct {
 // Engine wraps a local SentencePiece processor as an OmniToken engine.
 type Engine struct {
 	name string
-	proc *sentencepiece.Processor
+	proc *gemmabpe.Processor
 }
 
 var registration struct {
@@ -154,12 +154,12 @@ func newEngine(name string, opts Options, source ModelSource) (*Engine, error) {
 	return &Engine{name: name, proc: proc}, nil
 }
 
-func newProcessor(opts Options, source ModelSource) (*sentencepiece.Processor, error) {
+func newProcessor(opts Options, source ModelSource) (*gemmabpe.Processor, error) {
 	data, err := modelBytes(opts, source)
 	if err != nil {
 		return nil, err
 	}
-	return sentencepiece.NewProcessor(bytes.NewReader(data))
+	return gemmabpe.NewProcessor(bytes.NewReader(data))
 }
 
 func modelBytes(opts Options, source ModelSource) ([]byte, error) {
@@ -280,12 +280,7 @@ func (e *Engine) EncodeOrdinary(text string) []int {
 	if e == nil || e.proc == nil || text == "" {
 		return nil
 	}
-	tokens := e.proc.Encode(text)
-	ids := make([]int, len(tokens))
-	for i, token := range tokens {
-		ids[i] = token.ID
-	}
-	return ids
+	return e.proc.EncodeIDs(text)
 }
 
 // CountTokens returns the number of local SentencePiece tokens in text.
@@ -293,7 +288,7 @@ func (e *Engine) CountTokens(text string) int {
 	if e == nil || e.proc == nil || text == "" {
 		return 0
 	}
-	return len(e.proc.Encode(text))
+	return e.proc.CountTokens(text)
 }
 
 // Decode decodes token IDs with the configured local SentencePiece model.
