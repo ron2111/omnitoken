@@ -6,6 +6,8 @@ import (
 	"sort"
 	"strings"
 	"sync"
+
+	openaiassets "github.com/ron2111/omnitoken/internal/openai"
 )
 
 const (
@@ -100,13 +102,13 @@ var (
 	encodingFactoriesMu sync.RWMutex
 	encodingFactories   = map[string]EncodingFactory{
 		EncodingCL100KBase: func() (ModelEngine, error) {
-			return newEngine(EncodingCL100KBase, cl100kBaseData, segmenterFunc(nextCL100K), cl100kSpecialTokens())
+			return newEngine(EncodingCL100KBase, openaiassets.CL100KBaseData, segmenterFunc(nextCL100K), cl100kSpecialTokens())
 		},
 		EncodingO200KBase: func() (ModelEngine, error) {
-			return newEngine(EncodingO200KBase, o200kBaseData, segmenterFunc(nextO200K), o200kBaseSpecialTokens())
+			return newEngine(EncodingO200KBase, openaiassets.O200KBaseData, segmenterFunc(nextO200K), o200kBaseSpecialTokens())
 		},
 		EncodingO200KHarmony: func() (ModelEngine, error) {
-			return newEngine(EncodingO200KHarmony, o200kBaseData, segmenterFunc(nextO200K), o200kHarmonySpecialTokens())
+			return newEngine(EncodingO200KHarmony, openaiassets.O200KBaseData, segmenterFunc(nextO200K), o200kHarmonySpecialTokens())
 		},
 	}
 )

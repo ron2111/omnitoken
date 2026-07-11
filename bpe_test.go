@@ -3,13 +3,15 @@ package omnitoken
 import (
 	"reflect"
 	"testing"
+
+	openaiassets "github.com/ron2111/omnitoken/internal/openai"
 )
 
 func TestNewByteBPE(t *testing.T) {
 	specials := map[string]int{"<|test|>": 100300}
 	engine, err := NewByteBPE(ByteBPEOptions{
 		Name:      "test_bpe",
-		Data:      cl100kBaseData,
+		Data:      openaiassets.CL100KBaseData,
 		Segmenter: SegmenterCL100K,
 		Specials:  specials,
 	})
