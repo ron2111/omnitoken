@@ -3,6 +3,7 @@ package omnitoken
 import (
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 	"sync"
 )
@@ -27,6 +28,13 @@ const (
 // ModelInfo describes how a model name resolves inside the registry.
 type ModelInfo struct {
 	Model    string
+	Provider Provider
+	Encoding string
+}
+
+// ModelPrefixInfo describes a registered model-name prefix mapping.
+type ModelPrefixInfo struct {
+	Prefix   string
 	Provider Provider
 	Encoding string
 }
@@ -203,6 +211,52 @@ func ForEncoding(encoding string) (ModelEngine, error) {
 		return cached.(ModelEngine), nil
 	}
 	return buildEncodingOnce(encoding)
+}
+
+// RegisteredEncodings returns all encoding names currently registered in this process.
+func RegisteredEncodings() []string {
+	encodingFactoriesMu.RLock()
+	defer encodingFactoriesMu.RUnlock()
+	encodings := make([]string, 0, len(encodingFactories))
+	for encoding := range encodingFactories {
+		encodings = append(encodings, encoding)
+	}
+	sort.Strings(encodings)
+	return encodings
+}
+
+// RegisteredModels returns exact model-name mappings currently registered in this process.
+func RegisteredModels() []ModelInfo {
+	modelEncodingsMu.RLock()
+	defer modelEncodingsMu.RUnlock()
+	models := make([]ModelInfo, 0, len(exactModelEncodings))
+	for model, mapping := range exactModelEncodings {
+		models = append(models, ModelInfo{Model: model, Provider: mapping.provider, Encoding: mapping.encoding})
+	}
+	sort.Slice(models, func(i, j int) bool {
+		if models[i].Provider != models[j].Provider {
+			return models[i].Provider < models[j].Provider
+		}
+		return models[i].Model < models[j].Model
+	})
+	return models
+}
+
+// RegisteredModelPrefixes returns model-name prefix mappings currently registered in this process.
+func RegisteredModelPrefixes() []ModelPrefixInfo {
+	modelEncodingsMu.RLock()
+	defer modelEncodingsMu.RUnlock()
+	prefixes := make([]ModelPrefixInfo, 0, len(prefixModelEncodings))
+	for _, mapping := range prefixModelEncodings {
+		prefixes = append(prefixes, ModelPrefixInfo{Prefix: mapping.prefix, Provider: mapping.provider, Encoding: mapping.encoding})
+	}
+	sort.Slice(prefixes, func(i, j int) bool {
+		if prefixes[i].Provider != prefixes[j].Provider {
+			return prefixes[i].Provider < prefixes[j].Provider
+		}
+		return prefixes[i].Prefix < prefixes[j].Prefix
+	})
+	return prefixes
 }
 
 func buildEncodingOnce(encoding string) (ModelEngine, error) {

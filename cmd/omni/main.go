@@ -34,6 +34,10 @@ func main() {
 		err = runCache(os.Args[2:])
 	case "bench":
 		err = runBench(os.Args[2:])
+	case "encodings":
+		err = runEncodings(os.Args[2:])
+	case "models":
+		err = runModels(os.Args[2:])
 	case "help", "-h", "--help":
 		usage()
 		return
@@ -55,12 +59,16 @@ Usage:
   omni decode [-model gpt-4o|-encoding o200k_base] [token ids]
   omni cache  [-model gpt-4o|-encoding o200k_base] [-profile openai|generic] [-file path] [text]
   omni bench  -input path -timings dir -name name [-model cl100k_base] [-iters 100] [-warmup 10]
+  omni encodings [-json]
+  omni models [-json] [-prefixes]
 
 Examples:
   omni count -model gpt-4o "hello world"
   omni encode -encoding o200k_base "hello world"
   omni decode -encoding o200k_base "24912 2375"
   omni cache -model gpt-4o -profile openai system-prompt.txt
+  omni encodings
+  omni models -prefixes
 `)
 }
 
@@ -247,6 +255,73 @@ func runBench(args []string) error {
 		return fmt.Errorf("empty token output for non-empty input")
 	}
 	return nil
+}
+
+func runEncodings(args []string) error {
+	fs := flag.NewFlagSet("encodings", flag.ExitOnError)
+	jsonOutput := false
+	fs.BoolVar(&jsonOutput, "json", jsonOutput, "emit JSON")
+	if err := fs.Parse(args); err != nil {
+		return err
+	}
+	encodings := omnitoken.RegisteredEncodings()
+	if jsonOutput {
+		encoded, err := json.MarshalIndent(encodings, "", "  ")
+		if err != nil {
+			return err
+		}
+		fmt.Println(string(encoded))
+		return nil
+	}
+	for _, encoding := range encodings {
+		fmt.Println(encoding)
+	}
+	return nil
+}
+
+func runModels(args []string) error {
+	fs := flag.NewFlagSet("models", flag.ExitOnError)
+	jsonOutput := false
+	includePrefixes := false
+	fs.BoolVar(&jsonOutput, "json", jsonOutput, "emit JSON")
+	fs.BoolVar(&includePrefixes, "prefixes", includePrefixes, "include prefix mappings")
+	if err := fs.Parse(args); err != nil {
+		return err
+	}
+	rows := modelRows(includePrefixes)
+	if jsonOutput {
+		encoded, err := json.MarshalIndent(rows, "", "  ")
+		if err != nil {
+			return err
+		}
+		fmt.Println(string(encoded))
+		return nil
+	}
+	for _, row := range rows {
+		fmt.Printf("%s\t%s\t%s\t%s\n", row.Type, row.Provider, row.Name, row.Encoding)
+	}
+	return nil
+}
+
+type modelRow struct {
+	Type     string             `json:"type"`
+	Provider omnitoken.Provider `json:"provider"`
+	Name     string             `json:"name"`
+	Encoding string             `json:"encoding"`
+}
+
+func modelRows(includePrefixes bool) []modelRow {
+	models := omnitoken.RegisteredModels()
+	rows := make([]modelRow, 0, len(models)+len(omnitoken.RegisteredModelPrefixes()))
+	for _, model := range models {
+		rows = append(rows, modelRow{Type: "exact", Provider: model.Provider, Name: model.Model, Encoding: model.Encoding})
+	}
+	if includePrefixes {
+		for _, prefix := range omnitoken.RegisteredModelPrefixes() {
+			rows = append(rows, modelRow{Type: "prefix", Provider: prefix.Provider, Name: prefix.Prefix, Encoding: prefix.Encoding})
+		}
+	}
+	return rows
 }
 
 func inputText(path string, args []string) (string, error) {

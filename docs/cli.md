@@ -39,6 +39,28 @@ omni decode -encoding o200k_base "24912 2375"
 omni cache -model gpt-4o -profile openai "hello world"
 ```
 
+## Registry Discovery
+
+List encodings registered in the current CLI build:
+
+```powershell
+omni encodings
+omni encodings -json
+```
+
+List exact model mappings:
+
+```powershell
+omni models
+omni models -json
+```
+
+Include prefix mappings such as `gpt-4o-` and fine-tuned model prefixes:
+
+```powershell
+omni models -prefixes
+```
+
 ## Benchmark Integration
 
 The `bench` subcommand runs timing loops inside the Go process and writes Systemcluster-style timing files.

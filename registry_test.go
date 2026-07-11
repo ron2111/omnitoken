@@ -59,3 +59,55 @@ func TestForEncodingBuildsCustomEncodingOnce(t *testing.T) {
 		t.Fatalf("factory builds = %d, want 1", got)
 	}
 }
+
+func TestRegisteredRegistryListings(t *testing.T) {
+	encoding := fmt.Sprintf("test_listing_%d", atomic.AddUint64(&registryTestCounter, 1))
+	model := fmt.Sprintf("test-listing-model-%d", atomic.AddUint64(&registryTestCounter, 1))
+	prefix := fmt.Sprintf("test-listing-prefix-%d-", atomic.AddUint64(&registryTestCounter, 1))
+	if err := RegisterEncoding(encoding, func() (ModelEngine, error) { return fixedCountEngine(1), nil }); err != nil {
+		t.Fatal(err)
+	}
+	if err := RegisterProviderModel(ProviderCustom, model, encoding); err != nil {
+		t.Fatal(err)
+	}
+	if err := RegisterProviderModelPrefix(ProviderCustom, prefix, encoding); err != nil {
+		t.Fatal(err)
+	}
+
+	if !containsString(RegisteredEncodings(), encoding) {
+		t.Fatalf("RegisteredEncodings missing %q", encoding)
+	}
+	if !containsModel(RegisteredModels(), model, ProviderCustom, encoding) {
+		t.Fatalf("RegisteredModels missing %q", model)
+	}
+	if !containsPrefix(RegisteredModelPrefixes(), prefix, ProviderCustom, encoding) {
+		t.Fatalf("RegisteredModelPrefixes missing %q", prefix)
+	}
+}
+
+func containsString(values []string, want string) bool {
+	for _, value := range values {
+		if value == want {
+			return true
+		}
+	}
+	return false
+}
+
+func containsModel(models []ModelInfo, model string, provider Provider, encoding string) bool {
+	for _, info := range models {
+		if info.Model == model && info.Provider == provider && info.Encoding == encoding {
+			return true
+		}
+	}
+	return false
+}
+
+func containsPrefix(prefixes []ModelPrefixInfo, prefix string, provider Provider, encoding string) bool {
+	for _, info := range prefixes {
+		if info.Prefix == prefix && info.Provider == provider && info.Encoding == encoding {
+			return true
+		}
+	}
+	return false
+}
