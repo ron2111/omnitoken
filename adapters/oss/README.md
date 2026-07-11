@@ -28,7 +28,7 @@ engine, err := omnitoken.ForModel("llama-2-local")
 
 - Supports local SentencePiece `.model` files supplied by the user.
 - Provides ordinary encode/count/decode through OmniToken's `ModelEngine` API.
-- Supports explicit BOS/EOS accounting through `Encode` and `Count`.
+- Supports explicit BOS/EOS accounting through `Encode` and `Count`, including empty prompts when the model defines BOS/EOS IDs.
 - Does not claim Llama 3 tiktoken-BPE, Mistral Tekken, chat-template, or billing parity.
 
 ## Benchmarks

@@ -32,10 +32,11 @@ type ModelSource struct {
 
 // Options configures Tekken loading.
 type Options struct {
-	Source     ModelSource
-	CacheDir   string
-	Offline    bool
-	HTTPClient *http.Client
+	Source                  ModelSource
+	CacheDir                string
+	Offline                 bool
+	HTTPClient              *http.Client
+	AllowUnsupportedPattern bool
 }
 
 // Engine wraps OmniToken's byte-BPE engine with Tekken metadata.
@@ -66,9 +67,12 @@ func New(opts Options) (*Engine, error) {
 	if err != nil {
 		return nil, err
 	}
-	bpeData, specials, err := parseTekken(data)
+	bpeData, specials, pattern, err := parseTekken(data)
 	if err != nil {
 		return nil, err
+	}
+	if pattern != "" && !opts.AllowUnsupportedPattern {
+		return nil, fmt.Errorf("omnitoken mistral: tekken pattern is not supported by the local segmenter; set AllowUnsupportedPattern to use CL100K segmentation experimentally")
 	}
 	inner, err := omnitoken.NewByteBPE(omnitoken.ByteBPEOptions{
 		Name:      EncodingTekken,
@@ -137,30 +141,30 @@ func (e *Engine) SpecialTokens() map[string]int {
 	return out
 }
 
-func parseTekken(data []byte) ([]byte, map[string]int, error) {
+func parseTekken(data []byte) ([]byte, map[string]int, string, error) {
 	var file tekkenFile
 	if err := json.Unmarshal(data, &file); err != nil {
-		return nil, nil, err
+		return nil, nil, "", err
 	}
 	if len(file.Vocab) == 0 {
-		return nil, nil, errors.New("omnitoken mistral: tekken vocab is required")
+		return nil, nil, "", errors.New("omnitoken mistral: tekken vocab is required")
 	}
 	specialOffset := file.DefaultNumSpecialTokens
 	if specialOffset < 0 {
-		return nil, nil, errors.New("omnitoken mistral: negative special token offset")
+		return nil, nil, "", errors.New("omnitoken mistral: negative special token offset")
 	}
 	sort.Slice(file.Vocab, func(i, j int) bool { return file.Vocab[i].Rank < file.Vocab[j].Rank })
 	var out bytes.Buffer
 	for _, token := range file.Vocab {
 		if token.Rank < 0 {
-			return nil, nil, fmt.Errorf("omnitoken mistral: negative rank %d", token.Rank)
+			return nil, nil, "", fmt.Errorf("omnitoken mistral: negative rank %d", token.Rank)
 		}
 		if token.TokenBytes == "" {
-			return nil, nil, errors.New("omnitoken mistral: token_bytes is required")
+			return nil, nil, "", errors.New("omnitoken mistral: token_bytes is required")
 		}
 		raw, err := base64.StdEncoding.DecodeString(token.TokenBytes)
 		if err != nil {
-			return nil, nil, err
+			return nil, nil, "", err
 		}
 		_, _ = fmt.Fprintf(&out, "%s %d\n", base64.StdEncoding.EncodeToString(raw), token.Rank+specialOffset)
 	}
@@ -170,7 +174,7 @@ func parseTekken(data []byte) ([]byte, map[string]int, error) {
 		if name == "" && token.TokenBytes != "" {
 			raw, err := base64.StdEncoding.DecodeString(token.TokenBytes)
 			if err != nil {
-				return nil, nil, err
+				return nil, nil, "", err
 			}
 			name = string(raw)
 		}
@@ -183,7 +187,7 @@ func parseTekken(data []byte) ([]byte, map[string]int, error) {
 		}
 		specials[name] = id
 	}
-	return out.Bytes(), specials, nil
+	return out.Bytes(), specials, file.Config.Pattern, nil
 }
 
 func modelBytes(opts Options, source ModelSource) ([]byte, error) {

@@ -30,6 +30,7 @@ engine, err := omnitoken.ForModel("llama-3-local")
 - Supports Llama 3-family tiktoken-BPE tokenizer files supplied by the user.
 - Does not bundle Meta tokenizer files.
 - Provides ordinary encode/count/decode plus explicit BOS/EOS helpers.
+- Includes known Llama 3/3.1/3.2 special-token names and avoids reserved-token aliases colliding with named special IDs.
 - Does not claim hosted API billing or chat-template parity.
 
 ## Benchmarks

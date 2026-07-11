@@ -1,14 +1,19 @@
 # Gemini Adapter
 
-Optional local Gemini text tokenization for OmniToken.
+Optional Gemini tokenization and accounting for OmniToken.
 
 ```powershell
 go get github.com/ron2111/omnitoken/adapters/gemini
 ```
 
-The adapter mirrors the Gemini-to-Gemma local tokenizer mapping used by Google's Go GenAI local tokenizer and wraps Gemma SentencePiece model files as OmniToken engines.
+The adapter has two layers:
 
-## Usage
+- Local text tokenization using Gemma/Gemini SentencePiece model files.
+- API-backed Gemini/Vertex `countTokens` accounting for structured, multimodal request payloads.
+
+The local tokenizer mirrors the Gemini-to-Gemma local tokenizer mapping used by Google's Go GenAI local tokenizer and wraps Gemma SentencePiece model files as OmniToken engines.
+
+## Local Text Tokenization
 
 ```go
 import (
@@ -43,12 +48,77 @@ err := gemini.RegisterWithOptions(gemini.Options{
 })
 ```
 
+## Provider Token Accounting
+
+Use `Client` when you need request-shaped accounting for Gemini content, system instructions, tools, cached content, or multimodal parts.
+
+Gemini Developer API with an API key:
+
+```go
+client := gemini.Client{APIKey: apiKey}
+
+result, err := client.CountContentTokens(ctx, "gemini-2.5-flash", []gemini.Content{{
+	Role: "user",
+	Parts: []gemini.Part{
+		{Text: "Describe this image."},
+		{InlineData: gemini.InlineDataFromBytes("image/png", imageBytes)},
+	},
+}})
+if err != nil {
+	panic(err)
+}
+
+fmt.Println(result.TotalTokens)
+```
+
+Full generation-shaped request:
+
+```go
+result, err := client.CountGenerateContentRequest(ctx, "gemini-2.5-flash", gemini.GenerateContentRequest{
+	SystemInstruction: &gemini.Content{Parts: []gemini.Part{{Text: "Answer briefly."}}},
+	Contents: []gemini.Content{{
+		Role:  "user",
+		Parts: []gemini.Part{{Text: "Summarize the attached document."}},
+	}},
+	Tools: []map[string]any{
+		{"functionDeclarations": []any{}},
+	},
+})
+```
+
+Vertex AI publisher model endpoint:
+
+```go
+client := gemini.Client{
+	BearerToken: accessToken,
+	Project:     "my-project",
+	Location:    "us-central1",
+}
+
+result, err := client.CountContentTokens(ctx, "gemini-2.5-flash", contents)
+```
+
+After a real generation call, parse final usage metadata from the provider response:
+
+```go
+usage, err := gemini.ParseUsageMetadata(responseJSON)
+if err != nil {
+	panic(err)
+}
+
+fmt.Println(usage.PromptTokenCount, usage.CandidatesTokenCount, usage.TotalTokenCount)
+```
+
 ## Scope
 
 - Local text tokenization estimates for supported Gemini model names.
+- API-backed `countTokens` preflight accounting for Gemini Developer API and Vertex AI publisher model endpoints.
+- Structured request support for contents, system instructions, tools, tool config, safety settings, generation config, cached content, inline data, file data, and common multimodal parts.
+- Final usage parsing through `UsageMetadata` from generation responses.
 - Same Gemma2/Gemma3 SentencePiece artifacts and exact model mappings as Google's Go local tokenizer source at the time of implementation.
-- Not billing-grade multimodal accounting.
-- Not a replacement for provider `countTokens`, `computeTokens`, or response usage metadata.
+- Provider `countTokens` is still preflight input accounting. For multimodal inputs, Google documents it as an estimate that can differ from final consumed tokens.
+- Final generation response `usageMetadata` remains authoritative for post-execution usage and billing reconciliation.
+- The local tokenizer is not billing-grade multimodal accounting and does not replace provider-side accounting.
 
 ## Benchmarks
 

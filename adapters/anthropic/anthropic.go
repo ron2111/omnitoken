@@ -47,6 +47,16 @@ type CountResult struct {
 	InputTokens int `json:"input_tokens"`
 }
 
+// Usage is the token accounting block returned by Anthropic message responses.
+type Usage struct {
+	InputTokens              int             `json:"input_tokens,omitempty"`
+	OutputTokens             int             `json:"output_tokens,omitempty"`
+	CacheCreationInputTokens int             `json:"cache_creation_input_tokens,omitempty"`
+	CacheReadInputTokens     int             `json:"cache_read_input_tokens,omitempty"`
+	ServerToolUse            map[string]int  `json:"server_tool_use,omitempty"`
+	Raw                      json.RawMessage `json:"-"`
+}
+
 // CountMessageTokens calls Anthropic's messages/count_tokens endpoint.
 func (c Client) CountMessageTokens(ctx context.Context, req CountRequest) (CountResult, error) {
 	if c.APIKey == "" {
@@ -103,6 +113,27 @@ func (c Client) CountMessageTokens(ctx context.Context, req CountRequest) (Count
 	return result, nil
 }
 
+// ParseUsage extracts usage from an Anthropic Messages response. If data is
+// already a usage object, it is parsed directly.
+func ParseUsage(data []byte) (Usage, error) {
+	var wrapper struct {
+		Usage *Usage `json:"usage"`
+	}
+	if err := json.Unmarshal(data, &wrapper); err != nil {
+		return Usage{}, err
+	}
+	if wrapper.Usage != nil {
+		wrapper.Usage.Raw = cloneRaw(data)
+		return *wrapper.Usage, nil
+	}
+	var usage Usage
+	if err := json.Unmarshal(data, &usage); err != nil {
+		return Usage{}, err
+	}
+	usage.Raw = cloneRaw(data)
+	return usage, nil
+}
+
 func requestBody(req CountRequest) ([]byte, error) {
 	body := map[string]any{
 		"model":    req.Model,
@@ -127,4 +158,11 @@ func requestBody(req CountRequest) ([]byte, error) {
 		body[key] = value
 	}
 	return json.Marshal(body)
+}
+
+func cloneRaw(data []byte) json.RawMessage {
+	if len(data) == 0 {
+		return nil
+	}
+	return append(json.RawMessage(nil), data...)
 }

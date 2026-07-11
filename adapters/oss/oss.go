@@ -120,10 +120,13 @@ func (e *Engine) EncodeOrdinary(text string) []int {
 
 // Encode encodes text and optionally inserts BOS/EOS IDs when the model defines them.
 func (e *Engine) Encode(text string, opts EncodeOptions) []int {
-	if e == nil || e.proc == nil || text == "" {
+	if e == nil || e.proc == nil {
 		return nil
 	}
-	tokens := e.proc.Encode(text)
+	var tokens []sentencepiece.Token
+	if text != "" {
+		tokens = e.proc.Encode(text)
+	}
 	ids := make([]int, 0, len(tokens)+2)
 	if opts.BOS && e.info.BOSID >= 0 {
 		ids = append(ids, e.info.BOSID)
@@ -144,10 +147,13 @@ func (e *Engine) CountTokens(text string) int {
 
 // Count returns the token count with optional BOS/EOS accounting.
 func (e *Engine) Count(text string, opts EncodeOptions) int {
-	if e == nil || e.proc == nil || text == "" {
+	if e == nil || e.proc == nil {
 		return 0
 	}
-	count := len(e.proc.Encode(text))
+	count := 0
+	if text != "" {
+		count = len(e.proc.Encode(text))
+	}
 	if opts.BOS && e.info.BOSID >= 0 {
 		count++
 	}

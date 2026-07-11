@@ -26,9 +26,21 @@ if err != nil {
 fmt.Println(result.InputTokens)
 ```
 
+Parse final response usage when reconciling actual provider usage:
+
+```go
+usage, err := anthropic.ParseUsage(responseJSON)
+if err != nil {
+	panic(err)
+}
+
+fmt.Println(usage.InputTokens, usage.OutputTokens, usage.CacheReadInputTokens)
+```
+
 ## Scope
 
 - Uses Anthropic's provider-side token counting endpoint.
 - Supports structured message requests, tools, system prompts, and extra request fields.
+- Parses final Messages API usage blocks for post-execution reconciliation.
 - Does not provide local token IDs.
 - Does not claim billing parity; final response usage remains authoritative.

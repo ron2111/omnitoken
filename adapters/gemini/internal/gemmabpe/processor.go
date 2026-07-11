@@ -624,7 +624,9 @@ func (proc *Processor) Decode(ids []int) string {
 		}
 		// Here nextNonByte is the index of an ID that's not a single byte.
 		id := ids[nextNonByte]
-		if proc.isControlID(id) {
+		if !proc.validPieceID(id) {
+			// Ignore invalid IDs rather than panicking on caller-supplied input.
+		} else if proc.isControlID(id) {
 			// Don't emit anything for control IDs
 		} else if id == proc.unknownID {
 			// Special "unk_surface" string for unknown IDs
@@ -651,11 +653,21 @@ func (proc *Processor) DecodeTokens(tokens []Token) string {
 }
 
 func (proc *Processor) isByteID(id int) bool {
+	if !proc.validPieceID(id) {
+		return false
+	}
 	return proc.model.GetPieces()[id].GetType() == model.ModelProto_SentencePiece_BYTE
 }
 
 func (proc *Processor) isControlID(id int) bool {
+	if !proc.validPieceID(id) {
+		return false
+	}
 	return proc.model.GetPieces()[id].GetType() == model.ModelProto_SentencePiece_CONTROL
+}
+
+func (proc *Processor) validPieceID(id int) bool {
+	return proc != nil && proc.model != nil && id >= 0 && id < len(proc.model.GetPieces())
 }
 
 // ModelInfo stores information about the model proto loaded by the processor.

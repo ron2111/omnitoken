@@ -145,19 +145,27 @@ func (e *Engine) SpecialTokens() map[string]int {
 }
 
 func specialTokens(variant Variant, base int) map[string]int {
-	specials := make(map[string]int, 256)
-	for i := 0; i < 256; i++ {
-		specials[fmt.Sprintf("<|reserved_special_token_%d|>", i)] = base + i
+	named := map[int]string{
+		0: "<|begin_of_text|>",
+		1: "<|end_of_text|>",
+		6: "<|start_header_id|>",
+		7: "<|end_header_id|>",
+		9: "<|eot_id|>",
 	}
-	specials["<|begin_of_text|>"] = base
-	specials["<|end_of_text|>"] = base + 1
-	specials["<|start_header_id|>"] = base + 6
-	specials["<|end_header_id|>"] = base + 7
-	specials["<|eot_id|>"] = base + 9
 	if variant == VariantLlama31 || variant == VariantLlama32 {
-		specials["<|finetune_right_pad_id|>"] = base + 4
-		specials["<|eom_id|>"] = base + 8
-		specials["<|python_tag|>"] = base + 10
+		named[4] = "<|finetune_right_pad_id|>"
+		named[8] = "<|eom_id|>"
+		named[10] = "<|python_tag|>"
+	}
+	specials := make(map[string]int, 256)
+	for index, token := range named {
+		specials[token] = base + index
+	}
+	for i := 0; i < 256; i++ {
+		if _, named := named[i]; named {
+			continue
+		}
+		specials[fmt.Sprintf("<|reserved_special_token_%d|>", i)] = base + i
 	}
 	return specials
 }

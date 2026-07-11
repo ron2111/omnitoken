@@ -18,24 +18,27 @@ type Options struct {
 	Permissive bool
 }
 
-// Engine implements a BERT-style WordPiece tokenizer.json subset.
+// Engine implements supported local Hugging Face tokenizer.json subsets.
 type Engine struct {
+	kind         string
 	name         string
 	vocab        map[string]int
 	decoder      map[int]string
 	unknownID    int
 	unknownToken string
+	hasUnknown   bool
 	prefix       string
 	maxChars     int
 	lowercase    bool
 	stripAccents bool
 	handleCJK    bool
 	addedTokens  []string
+	bpeMerges    map[string]int
 }
 
 type tokenizerJSON struct {
 	Version      string          `json:"version"`
-	Model        wordPieceModel  `json:"model"`
+	Model        tokenizerModel  `json:"model"`
 	Normalizer   component       `json:"normalizer"`
 	PreTokenizer component       `json:"pre_tokenizer"`
 	Decoder      component       `json:"decoder"`
@@ -51,12 +54,13 @@ type component struct {
 	HandleChineseChars *bool  `json:"handle_chinese_chars"`
 }
 
-type wordPieceModel struct {
+type tokenizerModel struct {
 	Type                    string         `json:"type"`
 	UnkToken                string         `json:"unk_token"`
 	ContinuingSubwordPrefix string         `json:"continuing_subword_prefix"`
 	MaxInputCharsPerWord    int            `json:"max_input_chars_per_word"`
 	Vocab                   map[string]int `json:"vocab"`
+	Merges                  []any          `json:"merges"`
 }
 
 type addedToken struct {
@@ -75,11 +79,12 @@ func NewTokenizerJSON(data []byte, opts Options) (*Engine, error) {
 	if err := json.Unmarshal(data, &cfg); err != nil {
 		return nil, err
 	}
-	if cfg.Model.Type != "" && cfg.Model.Type != "WordPiece" {
+	modelType := inferModelType(cfg.Model)
+	if modelType != "WordPiece" && modelType != "BPE" {
 		return nil, fmt.Errorf("omnitoken huggingface: unsupported model type %q", cfg.Model.Type)
 	}
 	if len(cfg.Model.Vocab) == 0 {
-		return nil, errors.New("omnitoken huggingface: WordPiece vocab is required")
+		return nil, fmt.Errorf("omnitoken huggingface: %s vocab is required", modelType)
 	}
 	if !opts.Permissive {
 		if len(cfg.Truncation) > 0 && string(cfg.Truncation) != "null" {
@@ -90,13 +95,9 @@ func NewTokenizerJSON(data []byte, opts Options) (*Engine, error) {
 		}
 	}
 
-	unknown := cfg.Model.UnkToken
-	if unknown == "" {
-		unknown = "[UNK]"
-	}
-	unknownID, ok := cfg.Model.Vocab[unknown]
-	if !ok {
-		return nil, fmt.Errorf("omnitoken huggingface: unknown token %q is missing", unknown)
+	unknown, unknownID, hasUnknown, err := unknownTokenInfo(cfg.Model, modelType)
+	if err != nil {
+		return nil, err
 	}
 	prefix := cfg.Model.ContinuingSubwordPrefix
 	if prefix == "" {
@@ -107,7 +108,7 @@ func NewTokenizerJSON(data []byte, opts Options) (*Engine, error) {
 		maxChars = 100
 	}
 
-	if err := validateComponents(cfg, opts.Permissive); err != nil {
+	if err := validateComponents(cfg, modelType, opts.Permissive); err != nil {
 		return nil, err
 	}
 	decoder := make(map[int]string, len(cfg.Model.Vocab))
@@ -132,23 +133,33 @@ func NewTokenizerJSON(data []byte, opts Options) (*Engine, error) {
 		handleCJK = *cfg.Normalizer.HandleChineseChars
 	}
 	added := simpleAddedTokens(cfg.AddedTokens)
+	bpeMerges, err := parseMerges(cfg.Model.Merges)
+	if err != nil {
+		return nil, err
+	}
+	if modelType == "BPE" && len(bpeMerges) == 0 {
+		return nil, errors.New("omnitoken huggingface: BPE merges are required")
+	}
 
 	name := opts.Name
 	if name == "" {
-		name = "huggingface_wordpiece"
+		name = "huggingface_" + strings.ToLower(modelType)
 	}
 	return &Engine{
+		kind:         modelType,
 		name:         name,
 		vocab:        cfg.Model.Vocab,
 		decoder:      decoder,
 		unknownID:    unknownID,
 		unknownToken: unknown,
+		hasUnknown:   hasUnknown,
 		prefix:       prefix,
 		maxChars:     maxChars,
 		lowercase:    cfg.Normalizer.Lowercase,
 		stripAccents: stripAccents,
 		handleCJK:    handleCJK,
 		addedTokens:  added,
+		bpeMerges:    bpeMerges,
 	}, nil
 }
 
@@ -196,7 +207,7 @@ func (e *Engine) CountTokens(text string) int {
 	return count
 }
 
-// Decode decodes WordPiece token IDs into normalized text.
+// Decode decodes token IDs into normalized text.
 func (e *Engine) Decode(tokens []int) string {
 	if e == nil || len(tokens) == 0 {
 		return ""
@@ -207,7 +218,7 @@ func (e *Engine) Decode(tokens []int) string {
 		if !ok {
 			continue
 		}
-		if strings.HasPrefix(piece, e.prefix) {
+		if e.kind == "WordPiece" && strings.HasPrefix(piece, e.prefix) {
 			out.WriteString(strings.TrimPrefix(piece, e.prefix))
 			continue
 		}
@@ -219,15 +230,20 @@ func (e *Engine) Decode(tokens []int) string {
 	return out.String()
 }
 
-func validateComponents(cfg tokenizerJSON, permissive bool) error {
+func validateComponents(cfg tokenizerJSON, modelType string, permissive bool) error {
 	if !permissive {
 		if cfg.Normalizer.Type != "" && cfg.Normalizer.Type != "BertNormalizer" {
 			return fmt.Errorf("omnitoken huggingface: unsupported normalizer %q", cfg.Normalizer.Type)
 		}
-		if cfg.PreTokenizer.Type != "" && cfg.PreTokenizer.Type != "BertPreTokenizer" {
+		supportedPreTokenizer := cfg.PreTokenizer.Type == "" || cfg.PreTokenizer.Type == "BertPreTokenizer"
+		if modelType == "BPE" {
+			supportedPreTokenizer = cfg.PreTokenizer.Type == "" || cfg.PreTokenizer.Type == "Whitespace" || cfg.PreTokenizer.Type == "WhitespaceSplit"
+		}
+		if !supportedPreTokenizer {
 			return fmt.Errorf("omnitoken huggingface: unsupported pre_tokenizer %q", cfg.PreTokenizer.Type)
 		}
-		if cfg.Decoder.Type != "" && cfg.Decoder.Type != "WordPiece" {
+		supportedDecoder := cfg.Decoder.Type == "" || cfg.Decoder.Type == modelType
+		if !supportedDecoder {
 			return fmt.Errorf("omnitoken huggingface: unsupported decoder %q", cfg.Decoder.Type)
 		}
 	}
@@ -336,6 +352,9 @@ func appendCJKParts(parts []string, text string) []string {
 }
 
 func (e *Engine) appendPart(dst []int, part string) []int {
+	if e.kind == "BPE" {
+		return e.appendBPEPart(dst, part)
+	}
 	if id, ok := e.vocab[part]; ok {
 		return append(dst, id)
 	}
@@ -368,6 +387,9 @@ func (e *Engine) appendPart(dst []int, part string) []int {
 }
 
 func (e *Engine) countPart(part string) int {
+	if e.kind == "BPE" {
+		return e.countBPEPart(part)
+	}
 	if _, ok := e.vocab[part]; ok {
 		return 1
 	}
@@ -396,6 +418,137 @@ func (e *Engine) countPart(part string) int {
 		start = bestEnd
 	}
 	return count
+}
+
+func inferModelType(model tokenizerModel) string {
+	if model.Type != "" {
+		return model.Type
+	}
+	if len(model.Merges) > 0 {
+		return "BPE"
+	}
+	return "WordPiece"
+}
+
+func unknownTokenInfo(model tokenizerModel, modelType string) (string, int, bool, error) {
+	unknown := model.UnkToken
+	if unknown == "" && modelType == "WordPiece" {
+		unknown = "[UNK]"
+	}
+	if unknown == "" {
+		return "", 0, false, nil
+	}
+	id, ok := model.Vocab[unknown]
+	if !ok {
+		return "", 0, false, fmt.Errorf("omnitoken huggingface: unknown token %q is missing", unknown)
+	}
+	return unknown, id, true, nil
+}
+
+func parseMerges(raw []any) (map[string]int, error) {
+	if len(raw) == 0 {
+		return nil, nil
+	}
+	merges := make(map[string]int, len(raw))
+	for rank, item := range raw {
+		left, right, err := mergePair(item)
+		if err != nil {
+			return nil, err
+		}
+		merges[left+"\x00"+right] = rank
+	}
+	return merges, nil
+}
+
+func mergePair(item any) (string, string, error) {
+	switch value := item.(type) {
+	case string:
+		fields := strings.Fields(value)
+		if len(fields) != 2 {
+			return "", "", fmt.Errorf("omnitoken huggingface: invalid BPE merge %q", value)
+		}
+		return fields[0], fields[1], nil
+	case []any:
+		if len(value) != 2 {
+			return "", "", fmt.Errorf("omnitoken huggingface: invalid BPE merge pair length %d", len(value))
+		}
+		left, ok := value[0].(string)
+		if !ok {
+			return "", "", errors.New("omnitoken huggingface: BPE merge left side must be a string")
+		}
+		right, ok := value[1].(string)
+		if !ok {
+			return "", "", errors.New("omnitoken huggingface: BPE merge right side must be a string")
+		}
+		return left, right, nil
+	default:
+		return "", "", fmt.Errorf("omnitoken huggingface: invalid BPE merge type %T", item)
+	}
+}
+
+func (e *Engine) appendBPEPart(dst []int, part string) []int {
+	ids, ok := e.bpePartIDs(part)
+	if !ok {
+		if e.hasUnknown {
+			return append(dst, e.unknownID)
+		}
+		return dst
+	}
+	return append(dst, ids...)
+}
+
+func (e *Engine) countBPEPart(part string) int {
+	ids, ok := e.bpePartIDs(part)
+	if !ok {
+		if e.hasUnknown {
+			return 1
+		}
+		return 0
+	}
+	return len(ids)
+}
+
+func (e *Engine) bpePartIDs(part string) ([]int, bool) {
+	if id, ok := e.vocab[part]; ok {
+		return []int{id}, true
+	}
+	symbols := initialBPESymbols(part)
+	if len(symbols) == 0 {
+		return nil, true
+	}
+	for {
+		bestIndex := -1
+		bestRank := int(^uint(0) >> 1)
+		for i := 0; i+1 < len(symbols); i++ {
+			if rank, ok := e.bpeMerges[symbols[i]+"\x00"+symbols[i+1]]; ok && rank < bestRank {
+				bestRank = rank
+				bestIndex = i
+			}
+		}
+		if bestIndex < 0 {
+			break
+		}
+		symbols[bestIndex] += symbols[bestIndex+1]
+		copy(symbols[bestIndex+1:], symbols[bestIndex+2:])
+		symbols = symbols[:len(symbols)-1]
+	}
+	ids := make([]int, 0, len(symbols))
+	for _, symbol := range symbols {
+		id, ok := e.vocab[symbol]
+		if !ok {
+			return nil, false
+		}
+		ids = append(ids, id)
+	}
+	return ids, true
+}
+
+func initialBPESymbols(part string) []string {
+	symbols := make([]string, 0, len(part))
+	for _, r := range part {
+		symbols = append(symbols, string(r))
+	}
+	return symbols
 }
 
 func runeAt(text string, i int) (rune, int) {
