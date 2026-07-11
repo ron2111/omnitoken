@@ -146,6 +146,70 @@ func TestTokenizerJSONInfersBPEFromMerges(t *testing.T) {
 	}
 }
 
+const byteLevelBPETokenizerJSON = `{
+  "version": "1.0",
+  "truncation": null,
+  "padding": null,
+  "pre_tokenizer": {"type": "ByteLevel", "add_prefix_space": true, "use_regex": true},
+  "decoder": {"type": "ByteLevel"},
+  "model": {
+    "type": "BPE",
+    "vocab": {
+      "Ġ": 0,
+      "h": 1,
+      "e": 2,
+      "l": 3,
+      "o": 4,
+      "Ġh": 5,
+      "Ġhe": 6,
+      "Ġhel": 7,
+      "Ġhell": 8,
+      "Ġhello": 9,
+      "w": 10,
+      "r": 11,
+      "d": 12,
+      "Ġw": 13,
+      "Ġwo": 14,
+      "Ġwor": 15,
+      "Ġworl": 16,
+      "Ġworld": 17,
+      "!": 18,
+      "Ċ": 19
+    },
+    "merges": [
+      "Ġ h", "Ġh e", "Ġhe l", "Ġhel l", "Ġhell o",
+      "Ġ w", "Ġw o", "Ġwo r", "Ġwor l", "Ġworl d"
+    ]
+  }
+}`
+
+func TestByteLevelBPETokenizerJSON(t *testing.T) {
+	engine, err := NewTokenizerJSON([]byte(byteLevelBPETokenizerJSON), Options{Name: "bytelevel_bpe_test"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	tests := []struct {
+		text       string
+		want       []int
+		decodeWant string
+	}{
+		{"hello world!", []int{9, 17, 18}, " hello world!"},
+		{"hello\n", []int{9, 19}, " hello\n"},
+	}
+	for _, tt := range tests {
+		got := engine.EncodeOrdinary(tt.text)
+		if !reflect.DeepEqual(got, tt.want) {
+			t.Fatalf("EncodeOrdinary(%q) = %v, want %v", tt.text, got, tt.want)
+		}
+		if got := engine.CountTokens(tt.text); got != len(tt.want) {
+			t.Fatalf("CountTokens(%q) = %d, want %d", tt.text, got, len(tt.want))
+		}
+		if got := engine.Decode(tt.want); got != tt.decodeWant {
+			t.Fatalf("Decode(%v) = %q, want %q", tt.want, got, tt.decodeWant)
+		}
+	}
+}
+
 func TestTokenizerJSONRejectsUnsupported(t *testing.T) {
 	if _, err := NewTokenizerJSON([]byte(`{"model":{"type":"Unigram","vocab":[]}}`), Options{}); err == nil {
 		t.Fatal("accepted unsupported Unigram model")
@@ -153,7 +217,7 @@ func TestTokenizerJSONRejectsUnsupported(t *testing.T) {
 	if _, err := NewTokenizerJSON([]byte(`{"truncation":{"max_length":4},"model":{"type":"WordPiece","unk_token":"[UNK]","vocab":{"[UNK]":0}}}`), Options{}); err == nil {
 		t.Fatal("accepted truncation in strict mode")
 	}
-	if _, err := NewTokenizerJSON([]byte(`{"pre_tokenizer":{"type":"ByteLevel"},"model":{"type":"BPE","unk_token":"[UNK]","vocab":{"a":0,"[UNK]":1},"merges":["a a"]}}`), Options{}); err == nil {
-		t.Fatal("accepted unsupported ByteLevel pre-tokenizer in strict mode")
+	if _, err := NewTokenizerJSON([]byte(`{"pre_tokenizer":{"type":"Sequence"},"model":{"type":"BPE","unk_token":"[UNK]","vocab":{"a":0,"[UNK]":1},"merges":["a a"]}}`), Options{}); err == nil {
+		t.Fatal("accepted unsupported Sequence pre-tokenizer in strict mode")
 	}
 }

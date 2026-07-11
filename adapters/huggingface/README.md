@@ -10,10 +10,11 @@ go get github.com/ron2111/omnitoken/adapters/huggingface
 
 - Supports BERT-style WordPiece `tokenizer.json` files.
 - Supports simple Hugging Face BPE `tokenizer.json` files with `vocab` plus ordered `merges`; model type can be inferred when `model.type` is omitted.
+- Supports ByteLevel BPE pre-tokenization/decoding for GPT-2/RoBERTa-style vocabularies, including `add_prefix_space`.
 - Supports ordinary encode/count/decode without adding special post-processing templates.
 - Handles `BertNormalizer`, `BertPreTokenizer`, `WordPiece` decoder, simple special added tokens, and WordPiece vocab maps.
 - Strict mode rejects unsupported tokenizer components instead of silently claiming parity.
-- Does not claim full `AutoTokenizer` parity, offsets, padding, truncation, pair encoding, ByteLevel GPT-2/RoBERTa pipelines, Unigram tokenizers, post-processing templates, or arbitrary tokenizer pipelines.
+- Does not claim full `AutoTokenizer` parity, offsets, padding, truncation, pair encoding, Unigram tokenizers, post-processing templates, or arbitrary tokenizer pipelines.
 
 ## Usage
 

@@ -34,6 +34,8 @@ type Engine struct {
 	handleCJK    bool
 	addedTokens  []string
 	bpeMerges    map[string]int
+	byteLevel    bool
+	addPrefix    bool
 }
 
 type tokenizerJSON struct {
@@ -52,6 +54,8 @@ type component struct {
 	Lowercase          bool   `json:"lowercase"`
 	StripAccents       *bool  `json:"strip_accents"`
 	HandleChineseChars *bool  `json:"handle_chinese_chars"`
+	AddPrefixSpace     bool   `json:"add_prefix_space"`
+	UseRegex           *bool  `json:"use_regex"`
 }
 
 type tokenizerModel struct {
@@ -140,6 +144,7 @@ func NewTokenizerJSON(data []byte, opts Options) (*Engine, error) {
 	if modelType == "BPE" && len(bpeMerges) == 0 {
 		return nil, errors.New("omnitoken huggingface: BPE merges are required")
 	}
+	byteLevel := modelType == "BPE" && (cfg.PreTokenizer.Type == "ByteLevel" || cfg.Decoder.Type == "ByteLevel")
 
 	name := opts.Name
 	if name == "" {
@@ -160,6 +165,8 @@ func NewTokenizerJSON(data []byte, opts Options) (*Engine, error) {
 		handleCJK:    handleCJK,
 		addedTokens:  added,
 		bpeMerges:    bpeMerges,
+		byteLevel:    byteLevel,
+		addPrefix:    cfg.PreTokenizer.AddPrefixSpace,
 	}, nil
 }
 
@@ -218,6 +225,10 @@ func (e *Engine) Decode(tokens []int) string {
 		if !ok {
 			continue
 		}
+		if e.byteLevel {
+			out.WriteString(piece)
+			continue
+		}
 		if e.kind == "WordPiece" && strings.HasPrefix(piece, e.prefix) {
 			out.WriteString(strings.TrimPrefix(piece, e.prefix))
 			continue
@@ -227,7 +238,11 @@ func (e *Engine) Decode(tokens []int) string {
 		}
 		out.WriteString(piece)
 	}
-	return out.String()
+	text := out.String()
+	if e.byteLevel {
+		return decodeByteLevel(text)
+	}
+	return text
 }
 
 func validateComponents(cfg tokenizerJSON, modelType string, permissive bool) error {
@@ -237,12 +252,12 @@ func validateComponents(cfg tokenizerJSON, modelType string, permissive bool) er
 		}
 		supportedPreTokenizer := cfg.PreTokenizer.Type == "" || cfg.PreTokenizer.Type == "BertPreTokenizer"
 		if modelType == "BPE" {
-			supportedPreTokenizer = cfg.PreTokenizer.Type == "" || cfg.PreTokenizer.Type == "Whitespace" || cfg.PreTokenizer.Type == "WhitespaceSplit"
+			supportedPreTokenizer = cfg.PreTokenizer.Type == "" || cfg.PreTokenizer.Type == "Whitespace" || cfg.PreTokenizer.Type == "WhitespaceSplit" || cfg.PreTokenizer.Type == "ByteLevel"
 		}
 		if !supportedPreTokenizer {
 			return fmt.Errorf("omnitoken huggingface: unsupported pre_tokenizer %q", cfg.PreTokenizer.Type)
 		}
-		supportedDecoder := cfg.Decoder.Type == "" || cfg.Decoder.Type == modelType
+		supportedDecoder := cfg.Decoder.Type == "" || cfg.Decoder.Type == modelType || (modelType == "BPE" && cfg.Decoder.Type == "ByteLevel")
 		if !supportedDecoder {
 			return fmt.Errorf("omnitoken huggingface: unsupported decoder %q", cfg.Decoder.Type)
 		}
@@ -265,6 +280,9 @@ func simpleAddedTokens(tokens []addedToken) []string {
 }
 
 func (e *Engine) parts(text string) []string {
+	if e.byteLevel {
+		return e.byteLevelParts(text)
+	}
 	parts := make([]string, 0, len(text)/4+1)
 	for i := 0; i < len(text); {
 		if token, ok := e.matchAdded(text[i:]); ok {
@@ -302,6 +320,60 @@ func (e *Engine) parts(text string) []string {
 		}
 	}
 	return parts
+}
+
+func (e *Engine) byteLevelParts(text string) []string {
+	if e.addPrefix && text != "" && text[0] != ' ' {
+		text = " " + text
+	}
+	parts := make([]string, 0, len(text)/4+1)
+	for i := 0; i < len(text); {
+		if token, ok := e.matchAdded(text[i:]); ok {
+			parts = append(parts, byteLevelEncode(token))
+			i += len(token)
+			continue
+		}
+		start := i
+		r, size := runeAt(text, i)
+		if r == ' ' && i+size < len(text) {
+			next, _ := runeAt(text, i+size)
+			if !unicode.IsSpace(next) {
+				i += size
+				i = consumeByteLevelGroup(text, i, next)
+				parts = append(parts, byteLevelEncode(text[start:i]))
+				continue
+			}
+		}
+		i = consumeByteLevelGroup(text, i, r)
+		parts = append(parts, byteLevelEncode(text[start:i]))
+	}
+	return parts
+}
+
+func consumeByteLevelGroup(text string, start int, r rune) int {
+	if unicode.IsSpace(r) {
+		return consumeRun(text, start, func(r rune) bool { return unicode.IsSpace(r) })
+	}
+	if unicode.IsLetter(r) {
+		return consumeRun(text, start, unicode.IsLetter)
+	}
+	if unicode.IsNumber(r) {
+		return consumeRun(text, start, unicode.IsNumber)
+	}
+	return consumeRun(text, start, func(r rune) bool {
+		return !unicode.IsSpace(r) && !unicode.IsLetter(r) && !unicode.IsNumber(r)
+	})
+}
+
+func consumeRun(text string, start int, keep func(rune) bool) int {
+	for i := start; i < len(text); {
+		r, size := runeAt(text, i)
+		if !keep(r) {
+			return i
+		}
+		i += size
+	}
+	return len(text)
 }
 
 func (e *Engine) matchAdded(text string) (string, bool) {
@@ -549,6 +621,61 @@ func initialBPESymbols(part string) []string {
 		symbols = append(symbols, string(r))
 	}
 	return symbols
+}
+
+var byteEncoder, byteDecoder = buildByteLevelAlphabet()
+
+func buildByteLevelAlphabet() ([256]rune, map[rune]byte) {
+	bs := make([]int, 0, 256)
+	for b := int('!'); b <= int('~'); b++ {
+		bs = append(bs, b)
+	}
+	for b := int('¡'); b <= int('¬'); b++ {
+		bs = append(bs, b)
+	}
+	for b := int('®'); b <= int('ÿ'); b++ {
+		bs = append(bs, b)
+	}
+	seen := make(map[int]bool, 256)
+	for _, b := range bs {
+		seen[b] = true
+	}
+	cs := append([]int(nil), bs...)
+	n := 0
+	for b := 0; b < 256; b++ {
+		if !seen[b] {
+			bs = append(bs, b)
+			cs = append(cs, 256+n)
+			n++
+		}
+	}
+	var encoder [256]rune
+	decoder := make(map[rune]byte, 256)
+	for i, b := range bs {
+		r := rune(cs[i])
+		encoder[b] = r
+		decoder[r] = byte(b)
+	}
+	return encoder, decoder
+}
+
+func byteLevelEncode(text string) string {
+	var out strings.Builder
+	out.Grow(len(text))
+	for i := 0; i < len(text); i++ {
+		out.WriteRune(byteEncoder[text[i]])
+	}
+	return out.String()
+}
+
+func decodeByteLevel(text string) string {
+	buf := make([]byte, 0, len(text))
+	for _, r := range text {
+		if b, ok := byteDecoder[r]; ok {
+			buf = append(buf, b)
+		}
+	}
+	return string(buf)
 }
 
 func runeAt(text string, i int) (rune, int) {

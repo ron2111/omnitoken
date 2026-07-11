@@ -84,7 +84,7 @@ go test ./adapters/oss
 | Adapter | Local parity status |
 | --- | --- |
 | Gemini | Local text tokenizer implemented; fixture parity and Google local-tokenizer comparison are env-gated. Multimodal/accounting uses provider APIs. |
-| Hugging Face | WordPiece and simple BPE supported. Full `AutoTokenizer`, ByteLevel GPT-2/RoBERTa, Unigram, offsets, post-processors, truncation, padding, and pair encoding are not complete. |
+| Hugging Face | WordPiece, simple BPE, and ByteLevel BPE are supported. Full `AutoTokenizer`, Unigram, offsets, post-processors, truncation, padding, and pair encoding are not complete. |
 | Llama 3 | Local tiktoken-BPE path implemented with known special-token layout. Needs official fixture runs for each variant. |
 | Mistral | Tekken JSON loading implemented. `config.pattern` is used when Go-compatible; unsupported regex syntax is guarded unless explicitly allowed as an experimental fallback. |
 | OSS | Generic SentencePiece wrapper with fixture parity support. It delegates to `go-sentencepiece`; OmniToken does not own the full optimized SentencePiece runtime here. |
