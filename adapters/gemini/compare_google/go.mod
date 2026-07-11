@@ -3,8 +3,8 @@ module github.com/ron2111/omnitoken/adapters/gemini/compare-google
 go 1.24
 
 require (
-	github.com/ron2111/omnitoken v0.1.0
-	github.com/ron2111/omnitoken/adapters/gemini v0.1.0
+	github.com/ron2111/omnitoken v0.1.6
+	github.com/ron2111/omnitoken/adapters/gemini v0.1.2
 	google.golang.org/genai v1.62.0
 )
 

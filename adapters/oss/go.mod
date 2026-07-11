@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/eliben/go-sentencepiece v0.7.0
-	github.com/ron2111/omnitoken v0.1.0
+	github.com/ron2111/omnitoken v0.1.6
 )
 
 require google.golang.org/protobuf v1.36.3 // indirect

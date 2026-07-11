@@ -28,3 +28,17 @@ replace github.com/ron2111/omnitoken/adapters/mistral v0.1.0 => ./adapters/mistr
 replace github.com/ron2111/omnitoken/adapters/oss v0.1.0 => ./adapters/oss
 
 replace github.com/ron2111/omnitoken v0.1.2 => .
+
+replace github.com/ron2111/omnitoken v0.1.6 => .
+
+replace github.com/ron2111/omnitoken/adapters/gemini v0.1.2 => ./adapters/gemini
+
+replace github.com/ron2111/omnitoken/adapters/anthropic v0.1.1 => ./adapters/anthropic
+
+replace github.com/ron2111/omnitoken/adapters/huggingface v0.1.1 => ./adapters/huggingface
+
+replace github.com/ron2111/omnitoken/adapters/llama3 v0.1.2 => ./adapters/llama3
+
+replace github.com/ron2111/omnitoken/adapters/mistral v0.1.2 => ./adapters/mistral
+
+replace github.com/ron2111/omnitoken/adapters/oss v0.1.2 => ./adapters/oss
