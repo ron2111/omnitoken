@@ -19,7 +19,7 @@
 
 <p align="center"><sub>If OmniToken is useful in your Go project, a star helps others discover it.</sub></p>
 
-OmniToken is built for Go services that need fast local token accounting for prompt sizing, context-window planning, tokenizer experiments, and cache-boundary analysis without CGO, Rust, or Python runtime dependencies in the root module.
+OmniToken is built for Go services that need fast local token accounting for prompt sizing, context-window planning, tokenizer experiments, and cacheflow analysis without CGO, Rust, or Python runtime dependencies in the root module.
 
 The root module supports Go 1.23+. Some optional comparison tooling in this repository uses dependencies that require newer Go versions.
 
@@ -30,7 +30,7 @@ The root module supports Go 1.23+. Some optional comparison tooling in this repo
 - Local `Encode`, `EncodeOrdinary`, `CountTokens`, and `Decode` APIs.
 - Zero-allocation `CountTokens` hot path for supported OpenAI BPE workloads.
 - Custom WordPiece and SentencePiece-style vocabularies.
-- Prompt-cache alignment planner for token block-boundary analysis.
+- `cacheflow` package for prompt-cache boundary and trace analysis.
 - Optional adapter modules for Gemini, Llama 3, Mistral, Hugging Face `tokenizer.json`, OSS SentencePiece models, and Anthropic message token counting.
 
 ## Benchmarks
@@ -115,21 +115,23 @@ Use `SpecialTokenID` or `SpecialTokens` on `*omnitoken.Engine` when constructing
 | Hugging Face WordPiece adapter | Optional module |
 | Anthropic message counter | Optional module |
 
-## Cache Alignment
+## Cacheflow
 
 ```go
+import "github.com/ron2111/omnitoken/cacheflow"
+
 engine, err := omnitoken.ForModel("gpt-4o")
 if err != nil {
 	panic(err)
 }
 
-report := omnitoken.NewCacheAligner(engine).AlignPromptToProfile(
+report := cacheflow.NewAligner(engine).AlignPromptToProfile(
 	systemPrompt,
-	omnitoken.CacheProfileOpenAI,
+	cacheflow.ProfileOpenAI,
 )
 ```
 
-Cache alignment is informational: OmniToken does not edit prompts automatically. See [cache alignment](./docs/cache.md).
+Cacheflow is informational: OmniToken does not edit prompts automatically or claim provider billing parity. See [cacheflow](./cacheflow/README.md).
 
 ## Custom Models
 
@@ -148,7 +150,7 @@ err = omnitoken.RegisterModelPrefix("my-model-", "my_wordpiece")
 
 - [Architecture](./docs/architecture.md)
 - [Benchmarks and correctness](./docs/benchmarks.md)
-- [Cache alignment](./docs/cache.md)
+- [Cacheflow](./cacheflow/README.md)
 - [CLI](./docs/cli.md)
 - [Adapters](./adapters/README.md)
 

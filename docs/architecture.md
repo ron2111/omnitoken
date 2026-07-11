@@ -12,7 +12,7 @@ flowchart TD
     B --> I[Optional Adapter Modules]
     I --> J[Gemini / Llama 3 / Mistral / Hugging Face / Anthropic]
     C --> G[Encode / EncodeOrdinary / Decode / CountTokens]
-    G --> H[CacheAligner]
+    G --> H[cacheflow]
 ```
 
 ## Registry

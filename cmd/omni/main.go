@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/ron2111/omnitoken"
+	"github.com/ron2111/omnitoken/cacheflow"
 )
 
 func main() {
@@ -32,6 +33,8 @@ func main() {
 		err = runDecode(os.Args[2:])
 	case "cache":
 		err = runCache(os.Args[2:])
+	case "cache-sim":
+		err = runCacheSim(os.Args[2:])
 	case "bench":
 		err = runBench(os.Args[2:])
 	case "encodings":
@@ -58,6 +61,7 @@ Usage:
   omni encode [-model gpt-4o|-encoding o200k_base] [-file path] [text]
   omni decode [-model gpt-4o|-encoding o200k_base] [token ids]
   omni cache  [-model gpt-4o|-encoding o200k_base] [-profile openai|generic] [-file path] [text]
+  omni cache-sim [-model gpt-4o|-encoding o200k_base] -input prompts.jsonl [-profile openai|generic] [-breakers]
   omni bench  -input path -timings dir -name name [-model cl100k_base] [-iters 100] [-warmup 10]
   omni encodings [-json]
   omni models [-json] [-prefixes]
@@ -67,6 +71,7 @@ Examples:
   omni encode -encoding o200k_base "hello world"
   omni decode -encoding o200k_base "24912 2375"
   omni cache -model gpt-4o -profile openai system-prompt.txt
+  omni cache-sim -model gpt-4o -profile openai -input prompts.jsonl -breakers
   omni encodings
   omni models -prefixes
 `)
@@ -184,12 +189,71 @@ func runCache(args []string) error {
 	if minimumTokens >= 0 {
 		profile.MinimumTokens = minimumTokens
 	}
-	report := omnitoken.NewCacheAligner(engine).AlignPromptToProfile(text, profile)
+	report := cacheflow.NewAligner(engine).AlignPromptToProfile(text, profile)
 	encoded, err := json.MarshalIndent(report, "", "  ")
 	if err != nil {
 		return err
 	}
 	fmt.Println(string(encoded))
+	return nil
+}
+
+func runCacheSim(args []string) error {
+	fs := flag.NewFlagSet("cache-sim", flag.ExitOnError)
+	var flags engineFlags
+	profileName := "openai"
+	input := ""
+	jsonOutput := true
+	detectBreakers := false
+	blockSize := 0
+	minimumTokens := -1
+	addEngineFlags(fs, &flags)
+	fs.StringVar(&input, "input", input, "JSONL prompt trace input")
+	fs.StringVar(&profileName, "profile", profileName, "cache profile: openai, generic, custom")
+	fs.BoolVar(&jsonOutput, "json", jsonOutput, "emit JSON")
+	fs.BoolVar(&detectBreakers, "breakers", detectBreakers, "detect likely cache breakers")
+	fs.IntVar(&blockSize, "block", blockSize, "custom block size")
+	fs.IntVar(&minimumTokens, "min", minimumTokens, "custom minimum tokens")
+	if err := fs.Parse(args); err != nil {
+		return err
+	}
+	if input == "" {
+		return fmt.Errorf("input file is required")
+	}
+	engine, err := engineFromFlags(flags)
+	if err != nil {
+		return err
+	}
+	file, err := os.Open(input)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	items, err := cacheflow.ReadJSONL(file)
+	if err != nil {
+		return err
+	}
+	profile := cacheProfile(profileName)
+	if blockSize > 0 {
+		profile.BlockSize = blockSize
+	}
+	if minimumTokens >= 0 {
+		profile.MinimumTokens = minimumTokens
+	}
+	report := cacheflow.Simulate(engine, items, cacheflow.SimulationOptions{Profile: profile, DetectBreakers: detectBreakers})
+	if jsonOutput {
+		encoded, err := json.MarshalIndent(report, "", "  ")
+		if err != nil {
+			return err
+		}
+		fmt.Println(string(encoded))
+		return nil
+	}
+	fmt.Println(report.Summary)
+	fmt.Printf("items=%d total_tokens=%d common_prefix=%d reusable_prefix=%d\n", len(report.Items), report.TotalTokens, report.CommonPrefixTokens, report.ReusablePrefixTokens)
+	for _, hint := range report.CacheBreakerHints {
+		fmt.Printf("warning %s %s: %s\n", hint.ItemID, hint.Kind, hint.Message)
+	}
 	return nil
 }
 
@@ -372,13 +436,13 @@ func resolveEncoding(model string) string {
 	}
 }
 
-func cacheProfile(name string) omnitoken.CacheProfile {
+func cacheProfile(name string) cacheflow.Profile {
 	switch name {
 	case "generic":
-		return omnitoken.CacheProfileGeneric
+		return cacheflow.ProfileGeneric
 	case "custom":
-		return omnitoken.CacheProfile{Name: "custom", BlockSize: 1024}
+		return cacheflow.Profile{Name: "custom", BlockSize: 1024}
 	default:
-		return omnitoken.CacheProfileOpenAI
+		return cacheflow.ProfileOpenAI
 	}
 }

@@ -39,6 +39,14 @@ omni decode -encoding o200k_base "24912 2375"
 omni cache -model gpt-4o -profile openai "hello world"
 ```
 
+Analyze a JSONL trace for stable token prefixes and cache-breaker hints:
+
+```powershell
+omni cache-sim -model gpt-4o -profile openai -input prompts.jsonl -breakers
+```
+
+See [`cacheflow`](../cacheflow/README.md) for the JSONL format.
+
 ## Registry Discovery
 
 List encodings registered in the current CLI build:
